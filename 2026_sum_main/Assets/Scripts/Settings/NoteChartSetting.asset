@@ -19,3 +19,5 @@ MonoBehaviour:
     laneNo: 1
   - time: 3
     laneNo: 2
+  - time: 3.5
+    laneNo: 2

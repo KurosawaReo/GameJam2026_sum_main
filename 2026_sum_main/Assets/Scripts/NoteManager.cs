@@ -8,6 +8,9 @@ public class NoteManager : MonoBehaviour
     [SerializeField] GameObject         prfbNote;           //ノーツprefab.
     [SerializeField] GameObject         InPrefab;
 
+    [Header("- script -")]
+    [SerializeField] GameObject         objPlayer;          //プレイヤー.
+
     [Header("- レーン -")]
     [SerializeField] float[]            laneAngle;          //レーンごとの角度.
 
@@ -75,9 +78,15 @@ public class NoteManager : MonoBehaviour
         );
         //スタート位置の計算.
         Vector3 startPos = goalPos + vec * dist;
+        //数秒後、プレイヤーと合わさった瞬間の画像が何になるかを取得.
+        Sprite imgPlayer;
+        {
+            float time = Time.time + moveTime;                                  //未来の時間.
+            imgPlayer = objPlayer.GetComponent<Player>().GetAfterImage(time);   //未来の画像を求める.
+        }
 
         //初期設定.
-        scptNote.Init(moveTime, destroyTime, startPos, goalPos);
+        scptNote.Init(imgPlayer, moveTime, destroyTime, startPos, goalPos);
     } 
 
     /// <summary>

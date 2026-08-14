@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d42113b6388ecc64fa9971c49ae60f1c, type: 3}
+  m_Name: PlayerSetting
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerSetting
+  imgPlayer:
+  - {fileID: 8658599788432980269, guid: 1bd4a8d8678d8334dafe341bc5d9217c, type: 3}
+  - {fileID: 6284257540616290834, guid: ca9c40f465db146438cfec750e2e9911, type: 3}
+  - {fileID: 2400304314184171933, guid: f2ae11c2144087248be986250e823034, type: 3}
+  - {fileID: -2295848609328909343, guid: 444a0f111046bfd40af38a550a9139a4, type: 3}
+  - {fileID: -6533831588060834322, guid: ba8734aef739aad4897d6b7998b68300, type: 3}
+  - {fileID: 1965789992116790985, guid: 2daa3b3c8086d82438433c235fa43b4f, type: 3}
+  - {fileID: -6954895842769506295, guid: fcb73aea47760de40920aa894c980efa, type: 3}
+  - {fileID: 8764992619737691424, guid: 772660f039bde8549af319c27a960fc7, type: 3}
+  changeInterval: 0.1

@@ -224,16 +224,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   noteManager: {fileID: 2041709152}
-  imgPlayer:
-  - {fileID: 8658599788432980269, guid: 1bd4a8d8678d8334dafe341bc5d9217c, type: 3}
-  - {fileID: 6284257540616290834, guid: ca9c40f465db146438cfec750e2e9911, type: 3}
-  - {fileID: 2400304314184171933, guid: f2ae11c2144087248be986250e823034, type: 3}
-  - {fileID: -2295848609328909343, guid: 444a0f111046bfd40af38a550a9139a4, type: 3}
-  - {fileID: -6533831588060834322, guid: ba8734aef739aad4897d6b7998b68300, type: 3}
-  - {fileID: 1965789992116790985, guid: 2daa3b3c8086d82438433c235fa43b4f, type: 3}
-  - {fileID: -6954895842769506295, guid: fcb73aea47760de40920aa894c980efa, type: 3}
-  - {fileID: 8764992619737691424, guid: 772660f039bde8549af319c27a960fc7, type: 3}
-  changeInterval: 0.1
+  setting: {fileID: 11400000, guid: ada8b0c7206708e4f97575f9495391b3, type: 2}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -550,6 +541,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NoteManager
   prfbNote: {fileID: 4349878079928790561, guid: b95001261e12c9544aa6b919385fa0a9, type: 3}
   InPrefab: {fileID: 1753634567}
+  objPlayer: {fileID: 113457792}
   laneAngle:
   - 0
   - 80

@@ -13,10 +13,12 @@ public class Note : MonoBehaviour
     Vector3 goalPos;      // ゴール座標.
     Vector3 moveDir;      // 移動方向.
 
+    bool initialized = false; // 初期化済みか.
+
     /// <summary>
     /// 初期化.
     /// </summary>
-    public void Init(float _moveTime, float _destroyTime, Vector3 _startPos, Vector3 _goalPos)
+    public void Init(Sprite _sprite, float _moveTime, float _destroyTime, Vector3 _startPos, Vector3 _goalPos)
     {
         moveTime    = _moveTime;
         destroyTime = _destroyTime;
@@ -24,14 +26,30 @@ public class Note : MonoBehaviour
         startPos    = _startPos;
         goalPos     = _goalPos;
 
-        // スタート地点を設定.
-        transform.position = startPos;
+        // 初期化完了.
+        initialized = true;
 
-        // スタートからゴールへの方向を取得.
+        //スタート地点を設定.
+        transform.position = startPos;
+        //スタートからゴールへの方向を取得.
         moveDir = (goalPos - startPos).normalized;
+        //画像を設定.
+        GetComponent<SpriteRenderer>().sprite = _sprite;
     }
 
     void Update()
+    {
+        //初期化されたら実行.
+        if (initialized)
+        {
+            Move();
+        }
+    }
+
+    /// <summary>
+    /// 移動処理.
+    /// </summary>
+    private void Move()
     {
         // 経過時間を加算.
         elapsed += Time.deltaTime;

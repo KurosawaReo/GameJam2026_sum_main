@@ -8,9 +8,8 @@ public class Player : MonoBehaviour
     [Header("- script -")]
     [SerializeField] NoteManager noteManager;
 
-    [Header("- image -")]
-    [SerializeField] Sprite[] imgPlayer;
-    [SerializeField] float changeInterval = 1.0f; //画像切り替え間隔.
+    [Header("- setting -")]
+    [SerializeField] PlayerSetting setting;
 
     float elapsed;    //経過時間.
     int   imageIndex; //現在の画像番号.
@@ -18,11 +17,17 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
 
     /// <summary>
-    /// 画像切り替え間隔の取得.
+    /// 指定秒数後の画像を取得.
     /// </summary>
-    public float GetChangeInterval()
+    public Sprite GetAfterImage(float _time)
     {
-        return changeInterval;
+        // 指定時間から画像番号を計算.
+        int index = Mathf.FloorToInt(_time / setting.changeInterval);
+
+        // 画像枚数を超えたらループ.
+        index %= setting.imgPlayer.Length;
+
+        return setting.imgPlayer[index];
     }
 
     void Start()
@@ -31,7 +36,7 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         // 最初の画像を設定.
-        spriteRenderer.sprite = imgPlayer[0];
+        spriteRenderer.sprite = setting.imgPlayer[0];
     }
 
     void Update()
@@ -40,21 +45,21 @@ public class Player : MonoBehaviour
         elapsed += Time.deltaTime;
 
         // 指定時間経過したら画像を切り替える.
-        if (elapsed >= changeInterval)
+        if (elapsed >= setting.changeInterval)
         {
-            elapsed -= changeInterval;
+            elapsed -= setting.changeInterval;
 
             // 次の画像へ.
             imageIndex++;
 
             // 最後まで行ったら最初に戻す.
-            if (imageIndex >= imgPlayer.Length)
+            if (imageIndex >= setting.imgPlayer.Length)
             {
                 imageIndex = 0;
             }
 
             // 画像を変更.
-            spriteRenderer.sprite = imgPlayer[imageIndex];
+            spriteRenderer.sprite = setting.imgPlayer[imageIndex];
         }
 
         // 左クリックした瞬間.
