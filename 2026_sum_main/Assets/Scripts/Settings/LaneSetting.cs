@@ -6,7 +6,10 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New File", menuName = "Game/Lane Setting")]
 public class LaneSetting : ScriptableObject
 {
-    [Header("- レーン設定 -")]
+    [Header(
+        "- レーン設定 -\n\n" +
+        "Lane Angle : レーンの流れる角度の設定。Elementの数字がレーン番号。\n"
+    )]
     public float[] laneAngle;          //レーンごとの角度.
     public Vector3 goalPos;            //目標地点.
     public float   dist = 1;           //距離.
