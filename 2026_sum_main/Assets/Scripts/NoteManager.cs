@@ -5,25 +5,25 @@ using Common;
 public class NoteManager : MonoBehaviour
 {
     [Header("- prefab -")]
-    [SerializeField] GameObject prfbNote;           //ノーツprefab.
-    [SerializeField] GameObject InPrefab;
+    [SerializeField] GameObject         prfbNote;           //ノーツprefab.
+    [SerializeField] GameObject         InPrefab;
 
     [Header("- レーン -")]
-    [SerializeField] float[]    laneAngle;          //レーンごとの角度.
+    [SerializeField] float[]            laneAngle;          //レーンごとの角度.
 
     [Header("- ノーツデータ -")]
-    [SerializeField] NoteChart  noteChart;          //ノーツ譜面データ.
+    [SerializeField] NoteChartSetting   noteChart;          //ノーツ譜面データ.
 
     [Header("- 挙動設定 -")]
-    [SerializeField] Vector3    goalPos;            //目標地点.
-    [SerializeField] float      dist = 1;           //距離.
-    [SerializeField] float      moveTime = 1;       //何秒で中心に移動するか.
-    [SerializeField] float      destroyTime = 1;    //中心到達後、何秒で消滅するか.
+    [SerializeField] Vector3            goalPos;            //目標地点.
+    [SerializeField] float              dist = 1;           //距離.
+    [SerializeField] float              moveTime = 1;       //何秒で中心に移動するか.
+    [SerializeField] float              destroyTime = 1;    //中心到達後、何秒で消滅するか.
 
     [Header("- 判定設定 -")]
-    [SerializeField] float      badDist = 1;        //BAD判定になる距離.
-    [SerializeField] float      goodDist = 1;       //GOOD判定になる距離.
-    [SerializeField] float      perfectDist = 1;    //PERFECT判定になる距離.
+    [SerializeField] float              badDist = 1;        //BAD判定になる距離.
+    [SerializeField] float              goodDist = 1;       //GOOD判定になる距離.
+    [SerializeField] float              perfectDist = 1;    //PERFECT判定になる距離.
 
     //ノーツ配列.
     List<GameObject> noteList = new();
