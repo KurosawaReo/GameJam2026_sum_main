@@ -542,19 +542,8 @@ MonoBehaviour:
   prfbNote: {fileID: 4349878079928790561, guid: b95001261e12c9544aa6b919385fa0a9, type: 3}
   InPrefab: {fileID: 1753634567}
   objPlayer: {fileID: 113457792}
-  laneAngle:
-  - 8.69
-  - 167.8
-  - 116.8
-  - 62.1
-  goalPos: {x: 0, y: 0, z: 0}
-  dist: 9.5
-  moveTime: 2
-  destroyTime: 1
-  noteChart: {fileID: 11400000, guid: fdc2c46226528e94aaeb5b4793bf3ae3, type: 2}
-  badDist: 5
-  goodDist: 3
-  perfectDist: 1
+  laneSetting: {fileID: 11400000, guid: d91e5ee08a89c7542bafb63e0c149c7d, type: 2}
+  noteChartSetting: {fileID: 11400000, guid: fdc2c46226528e94aaeb5b4793bf3ae3, type: 2}
 --- !u!4 &2041709153
 Transform:
   m_ObjectHideFlags: 0

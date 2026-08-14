@@ -5,26 +5,15 @@ using Common;
 public class NoteManager : MonoBehaviour
 {
     [Header("- prefab -")]
-    [SerializeField] GameObject         prfbNote;           //ノーツprefab.
+    [SerializeField] GameObject         prfbNote;  //ノーツprefab.
     [SerializeField] GameObject         InPrefab;
 
     [Header("- script -")]
-    [SerializeField] GameObject         objPlayer;          //プレイヤー.
+    [SerializeField] GameObject         objPlayer; //プレイヤー.
 
-    [Header("- レーン -")]
-    [SerializeField] float[]            laneAngle;          //レーンごとの角度.
-    [SerializeField] Vector3            goalPos;            //目標地点.
-    [SerializeField] float              dist = 1;           //距離.
-    [SerializeField] float              moveTime = 1;       //何秒で中心に移動するか.
-    [SerializeField] float              destroyTime = 1;    //中心到達後、何秒で消滅するか.
-
-    [Header("- ノーツデータ -")]
-    [SerializeField] NoteChartSetting   noteChart;          //ノーツ譜面データ.
-
-    [Header("- 判定設定 -")]
-    [SerializeField] float              badDist = 1;        //BAD判定になる距離.
-    [SerializeField] float              goodDist = 1;       //GOOD判定になる距離.
-    [SerializeField] float              perfectDist = 1;    //PERFECT判定になる距離.
+    [Header("- setting -")]
+    [SerializeField] LaneSetting        laneSetting;
+    [SerializeField] NoteChartSetting   noteChartSetting;
 
     //ノーツ配列.
     List<GameObject> noteList = new();
@@ -39,12 +28,12 @@ public class NoteManager : MonoBehaviour
     void Update()
     {
         // まだノーツが残っていれば.
-        if (noteIndex < noteChart.noteDatas.Length)
+        if (noteIndex < noteChartSetting.noteDatas.Length)
         {
-            NoteData noteData = noteChart.noteDatas[noteIndex];
+            NoteData noteData = noteChartSetting.noteDatas[noteIndex];
 
             // 到達時刻から移動時間を引いて出現時刻を計算.
-            float spawnTime = noteData.time - moveTime;
+            float spawnTime = noteData.time - laneSetting.moveTime;
 
             // 出現時刻になったらノーツを生成.
             if (Time.time >= spawnTime)
@@ -71,12 +60,14 @@ public class NoteManager : MonoBehaviour
         //プレイヤーと重なる瞬間の画像が何になるかを計算.
         Sprite imgPlayer;
         {
-            float time = Time.time + moveTime;                                  //未来の時間.
+            float time = Time.time + laneSetting.moveTime;                      //未来の時間.
             imgPlayer = objPlayer.GetComponent<Player>().GetAfterImage(time);   //未来の画像を求める.
         }
 
         //初期設定.
-        scptNote.Init(imgPlayer, moveTime, destroyTime, startPos, goalPos);
+        scptNote.Init(
+            imgPlayer, laneSetting.moveTime, laneSetting.destroyTime, startPos, laneSetting.goalPos
+        );
     } 
 
     /// <summary>
@@ -110,7 +101,7 @@ public class NoteManager : MonoBehaviour
         }
 
         //ノーツをタップしたら(BAD判定になる距離以内なら)
-        if (nearestNote != null && nearestDist < badDist)
+        if (nearestNote != null && nearestDist < laneSetting.badDist)
         {
             //ノーツ判定.
             Result ret = JudgeNote(nearestDist);
@@ -142,11 +133,11 @@ public class NoteManager : MonoBehaviour
     public Result JudgeNote(float dist)
     {
         //距離が近いほど良い判定.
-        if (dist <= perfectDist)
+        if (dist <= laneSetting.perfectDist)
         {
             return Result.Perfect;
         }
-        if (dist <= goodDist)
+        if (dist <= laneSetting.goodDist)
         {
             return Result.Good;
         }
@@ -160,7 +151,7 @@ public class NoteManager : MonoBehaviour
     private Vector3 GetLaneStartPos(int laneNo)
     {
         // レーンの角度を取得.
-        float angle = laneAngle[laneNo] * Mathf.Deg2Rad;
+        float angle = laneSetting.laneAngle[laneNo] * Mathf.Deg2Rad;
 
         // 角度から方向ベクトルを作成.
         Vector3 vec = new Vector3(
@@ -170,7 +161,7 @@ public class NoteManager : MonoBehaviour
         );
 
         // ゴール地点から距離分離れた位置を返す.
-        return goalPos + vec * dist;
+        return laneSetting.goalPos + vec * laneSetting.dist;
     }
 
     /// <summary>
@@ -178,20 +169,23 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     void OnDrawGizmos()
     {
+        //エラー対策.
+        if (!laneSetting) { return; }
+
         //色設定.
         Gizmos.color = new Color(0.1f, 1.0f, 1.0f);
         //目標地点を表示.
-        Gizmos.DrawWireSphere(goalPos, 0.15f);
+        Gizmos.DrawWireSphere(laneSetting.goalPos, 0.15f);
 
         //全レーンを表示.
-        for (int i = 0; i < laneAngle.Length; i++)
+        for (int i = 0; i < laneSetting.laneAngle.Length; i++)
         {
             //レーンのスタート位置を取得.
             Vector3 startPos = GetLaneStartPos(i);
 
             //スタート地点と軌道を表示.
             Gizmos.DrawWireSphere(startPos, 0.1f);
-            Gizmos.DrawLine(startPos, goalPos);
+            Gizmos.DrawLine(startPos, laneSetting.goalPos);
         }
     }
 }
