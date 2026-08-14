@@ -13,15 +13,13 @@ public class NoteManager : MonoBehaviour
 
     [Header("- レーン -")]
     [SerializeField] float[]            laneAngle;          //レーンごとの角度.
-
-    [Header("- ノーツデータ -")]
-    [SerializeField] NoteChartSetting   noteChart;          //ノーツ譜面データ.
-
-    [Header("- 挙動設定 -")]
     [SerializeField] Vector3            goalPos;            //目標地点.
     [SerializeField] float              dist = 1;           //距離.
     [SerializeField] float              moveTime = 1;       //何秒で中心に移動するか.
     [SerializeField] float              destroyTime = 1;    //中心到達後、何秒で消滅するか.
+
+    [Header("- ノーツデータ -")]
+    [SerializeField] NoteChartSetting   noteChart;          //ノーツ譜面データ.
 
     [Header("- 判定設定 -")]
     [SerializeField] float              badDist = 1;        //BAD判定になる距離.
@@ -67,18 +65,10 @@ public class NoteManager : MonoBehaviour
         var scptNote = objNote.GetComponent<Note>();
         //ノーツをリストに登録.
         noteList.Add(objNote);
+        //レーンのスタート位置を取得.
+        Vector3 startPos = GetLaneStartPos(data.laneNo);
 
-        //レーンの角度を取得.
-        float angle = laneAngle[data.laneNo];
-        //角度から方向ベクトルを作成.
-        Vector3 vec = new Vector3(
-            Mathf.Cos(angle),
-            Mathf.Sin(angle),
-            0
-        );
-        //スタート位置の計算.
-        Vector3 startPos = goalPos + vec * dist;
-        //数秒後、プレイヤーと合わさった瞬間の画像が何になるかを取得.
+        //プレイヤーと重なる瞬間の画像が何になるかを計算.
         Sprite imgPlayer;
         {
             float time = Time.time + moveTime;                                  //未来の時間.
@@ -162,5 +152,46 @@ public class NoteManager : MonoBehaviour
         }
         //ミスもBad判定.
         return Result.Bad;
+    }
+
+    /// <summary>
+    /// レーンのスタート座標を取得.
+    /// </summary>
+    private Vector3 GetLaneStartPos(int laneNo)
+    {
+        // レーンの角度を取得.
+        float angle = laneAngle[laneNo] * Mathf.Deg2Rad;
+
+        // 角度から方向ベクトルを作成.
+        Vector3 vec = new Vector3(
+            Mathf.Cos(angle),
+            Mathf.Sin(angle),
+            0
+        );
+
+        // ゴール地点から距離分離れた位置を返す.
+        return goalPos + vec * dist;
+    }
+
+    /// <summary>
+    /// 【デバッグ用】レーンの軌道をGizmoで表示.
+    /// </summary>
+    void OnDrawGizmos()
+    {
+        //色設定.
+        Gizmos.color = new Color(0.1f, 1.0f, 1.0f);
+        //目標地点を表示.
+        Gizmos.DrawWireSphere(goalPos, 0.15f);
+
+        //全レーンを表示.
+        for (int i = 0; i < laneAngle.Length; i++)
+        {
+            //レーンのスタート位置を取得.
+            Vector3 startPos = GetLaneStartPos(i);
+
+            //スタート地点と軌道を表示.
+            Gizmos.DrawWireSphere(startPos, 0.1f);
+            Gizmos.DrawLine(startPos, goalPos);
+        }
     }
 }
