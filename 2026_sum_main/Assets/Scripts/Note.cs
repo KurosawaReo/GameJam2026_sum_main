@@ -1,4 +1,5 @@
 using UnityEngine;
+using Common;
 
 /// <summary>
 /// ノーツ単体クラス.
@@ -25,10 +26,13 @@ public class Note : MonoBehaviour
             goalPos,
             speed * Time.deltaTime
         );
-        //目標地点に到達したら消滅.
-        if (transform.position == goalPos)
-        {
-            Destroy(gameObject);
-        }
+    }
+
+    /// <summary>
+    /// 消滅.
+    /// </summary>
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }
