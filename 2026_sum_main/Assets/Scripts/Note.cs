@@ -6,26 +6,54 @@ using Common;
 /// </summary>
 public class Note : MonoBehaviour
 {
-    float   speed;
-    Vector3 goalPos;
+    float   moveTime;     // 目標位置までの移動時間.
+    float   destroyTime;  // 目標位置到達後、消滅するまでの時間.
+    float   elapsed;      // 経過時間.
+    Vector3 startPos;     // スタート座標.
+    Vector3 goalPos;      // ゴール座標.
+    Vector3 moveDir;      // 移動方向.
 
     /// <summary>
     /// 初期化.
     /// </summary>
-    public void Init(float _speed, Vector3 _goalPos)
+    public void Init(float _moveTime, float _destroyTime, Vector3 _startPos, Vector3 _goalPos)
     {
-        speed   = _speed;
-        goalPos = _goalPos;
+        moveTime    = _moveTime;
+        destroyTime = _destroyTime;
+        elapsed     = 0.0f;
+        startPos    = _startPos;
+        goalPos     = _goalPos;
+
+        // スタート地点を設定.
+        transform.position = startPos;
+
+        // スタートからゴールへの方向を取得.
+        moveDir = (goalPos - startPos).normalized;
     }
 
     void Update()
     {
-        //目標地点へ一定速度で移動.
-        transform.position = Vector3.MoveTowards(
-            transform.position,
-            goalPos,
-            speed * Time.deltaTime
-        );
+        // 経過時間を加算.
+        elapsed += Time.deltaTime;
+
+        // 移動時間内なら、スタートからゴールまで移動.
+        if (elapsed < moveTime)
+        {
+            float rate = elapsed / moveTime;
+            transform.position = Vector3.Lerp(startPos, goalPos, rate);
+            return;
+        }
+
+        // ゴール到達後は、そのまま同じ速度で通過させる.
+        float overTime = elapsed - moveTime;
+        float speed = Vector3.Distance(startPos, goalPos) / moveTime;
+        transform.position = goalPos + moveDir * speed * overTime;
+
+        // 指定時間通過したら消滅.
+        if (overTime >= destroyTime)
+        {
+            Destroy();
+        }
     }
 
     /// <summary>

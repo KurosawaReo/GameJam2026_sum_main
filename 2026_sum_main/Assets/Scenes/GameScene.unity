@@ -455,10 +455,10 @@ MonoBehaviour:
   noteChart: {fileID: 11400000, guid: fdc2c46226528e94aaeb5b4793bf3ae3, type: 2}
   goalPos: {x: 0, y: 0, z: 0}
   dist: 10
-  speed: 2
-  noteJudgeMaxDist: 5
-  perfectDist: 1
+  moveTime: 2
+  badDist: 5
   goodDist: 3
+  perfectDist: 1
 --- !u!4 &2041709153
 Transform:
   m_ObjectHideFlags: 0

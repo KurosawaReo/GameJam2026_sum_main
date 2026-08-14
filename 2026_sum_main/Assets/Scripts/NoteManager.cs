@@ -8,19 +8,22 @@ public class NoteManager : MonoBehaviour
     [SerializeField] GameObject prfbNote;           //ノーツprefab.
     [SerializeField] GameObject InPrefab;
 
-    [Header("- lane -")]
+    [Header("- レーン -")]
     [SerializeField] float[]    laneAngle;          //レーンごとの角度.
 
-    [Header("- note -")]
+    [Header("- ノーツデータ -")]
     [SerializeField] NoteChart  noteChart;          //ノーツ譜面データ.
-    [SerializeField] Vector3    goalPos;            //目標地点.
-    [SerializeField] float      dist;               //距離.
-    [SerializeField] float      speed;              //移動速度.
 
-    [Header("- judge -")]
-    [SerializeField] float      noteJudgeMaxDist;   //ノーツが届く最大範囲.
-    [SerializeField] float      perfectDist;        //PERFECT判定になる距離.
-    [SerializeField] float      goodDist;           //GOOD判定になる距離.
+    [Header("- 挙動設定 -")]
+    [SerializeField] Vector3    goalPos;            //目標地点.
+    [SerializeField] float      dist = 1;           //距離.
+    [SerializeField] float      moveTime = 1;       //何秒で中心に移動するか.
+    [SerializeField] float      destroyTime = 1;    //中心到達後、何秒で消滅するか.
+
+    [Header("- 判定設定 -")]
+    [SerializeField] float      badDist = 1;        //BAD判定になる距離.
+    [SerializeField] float      goodDist = 1;       //GOOD判定になる距離.
+    [SerializeField] float      perfectDist = 1;    //PERFECT判定になる距離.
 
     //ノーツ配列.
     List<GameObject> noteList = new();
@@ -34,13 +37,18 @@ public class NoteManager : MonoBehaviour
 
     void Update()
     {
-        //まだノーツが残っていれば.
+        // まだノーツが残っていれば.
         if (noteIndex < noteChart.noteDatas.Length)
         {
-            //指定時間になったらノーツを生成.
-            if (Time.time >= noteChart.noteDatas[noteIndex].time)
+            NoteData noteData = noteChart.noteDatas[noteIndex];
+
+            // 到達時刻から移動時間を引いて出現時刻を計算.
+            float spawnTime = noteData.time - moveTime;
+
+            // 出現時刻になったらノーツを生成.
+            if (Time.time >= spawnTime)
             {
-                SpawnNote(noteChart.noteDatas[noteIndex]);
+                SpawnNote(noteData);
                 noteIndex++;
             }
         }
@@ -56,8 +64,6 @@ public class NoteManager : MonoBehaviour
         var scptNote = objNote.GetComponent<Note>();
         //ノーツをリストに登録.
         noteList.Add(objNote);
-        //速度と目標地点を設定.
-        scptNote.Init(speed, goalPos);
 
         //レーンの角度を取得.
         float angle = laneAngle[data.laneNo];
@@ -67,9 +73,11 @@ public class NoteManager : MonoBehaviour
             Mathf.Sin(angle),
             0
         );
+        //スタート位置の計算.
+        Vector3 startPos = goalPos + vec * dist;
 
-        //初期位置を設定.
-        objNote.transform.position = goalPos + vec * dist;
+        //初期設定.
+        scptNote.Init(moveTime, destroyTime, startPos, goalPos);
     } 
 
     /// <summary>
@@ -102,17 +110,30 @@ public class NoteManager : MonoBehaviour
             }
         }
 
-        Debug.Log("nearestDist:" + nearestDist);
-
-
-        //一定距離内のノーツをタップしたら.
-        if (nearestNote != null && nearestDist < noteJudgeMaxDist)
+        //ノーツをタップしたら(BAD判定になる距離以内なら)
+        if (nearestNote != null && nearestDist < badDist)
         {
-            var ret = JudgeNote(nearestDist); //ノーツ判定.
-            Debug.Log("ret:" + ret);
+            //ノーツ判定.
+            Result ret = JudgeNote(nearestDist);
 
-            var scptNote = nearestNote.GetComponent<Note>();
-            scptNote.Destroy();     //ノーツ消滅.
+            //リザルト別処理.
+            switch (ret)
+            {
+                case Result.Perfect:
+                    //TODO
+                    break;
+                case Result.Good:
+                    //TODO
+                    break;
+                case Result.Bad:
+                    //TODO
+                    break;
+
+                default: Debug.Log("不正な値です"); break;
+            }
+
+            //ノーツ消滅.
+            nearestNote.GetComponent<Note>().Destroy();
         }
     }
 
