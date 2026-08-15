@@ -94,11 +94,14 @@ public class ResultManager : MonoBehaviour
 
     IEnumerator StartResult()
     {
+        playerResultText.text = "あなたのヤリラスコア";
+
         yield return new WaitForSeconds(0.5f);
         playerResultText.enabled = true;
-        playerResultText.text = "あなたのヤリラスコア";
+
         yield return new WaitForSeconds(1.15f);
         playerResultText.text = "あなたのヤリラスコア\n" + score;
+
         yield return new WaitForSeconds(1.0f);
         yield return new WaitUntil(() => scptTextResultScore.PlayerScoreMove() == true);
 
