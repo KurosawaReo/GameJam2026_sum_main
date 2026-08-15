@@ -12,6 +12,9 @@ public class PlayerSetting : ScriptableObject
     )]
     public ImgPlayerData[] image;
 
-    [Header("- 切り替え間隔(秒) -")]
-    public float changeInterval = 1.0f;
+    [Header("- アニメーション -\n画像1枚あたりの拍数")]
+    public float changeBeat = 1.0f;
+ 
+    [Header("- 遅延 -\nゲーム開始から動き始めるまでの時間(秒)")]
+    public float startDelay = 2.0f;
 }

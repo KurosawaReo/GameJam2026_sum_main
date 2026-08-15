@@ -157,6 +157,21 @@ namespace KR.Unity.Sound
         }
 
         /// <summary>
+        /// BGM‚ÌŒ»İ‚ÌÄ¶ŠÔ‚ğæ“¾.
+        /// </summary>
+        public float GetTimeBGM()
+        {
+            //BGM‚ªİ’è‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î0‚ğ•Ô‚·.
+            if (audioSourceBgm.clip == null)
+            {
+                return 0.0f;
+            }
+
+            //Œ»İ‚ÌÄ¶ˆÊ’u‚ğ•Ô‚·.
+            return audioSourceBgm.time;
+        }
+
+        /// <summary>
         /// BGM‚ªÅŒã‚Ü‚ÅÄ¶‚³‚ê‚½‚©æ“¾.
         /// </summary>
         public bool IsBGMFinished()

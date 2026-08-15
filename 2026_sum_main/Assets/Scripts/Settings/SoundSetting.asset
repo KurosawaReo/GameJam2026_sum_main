@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 555e9375619ad504aba9ae9dede6ab0f, type: 3}
   m_Name: SoundSetting
   m_EditorClassIdentifier: Assembly-CSharp::SoundSetting
-  bgmName: kari
+  bgmName: yarira_rhythm
+  bpm: 160
   bgmStartDelay: 1
   bgmEndDelay: 1

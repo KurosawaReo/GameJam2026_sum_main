@@ -19,6 +19,7 @@ public class NoteManager : MonoBehaviour
     [Header("- setting -")]
     [SerializeField] LaneSetting        laneSetting;
     [SerializeField] NoteChartSetting   noteChartSetting;
+    [SerializeField] SoundSetting       soundSetting;
 
     //ノーツ配列.
     List<GameObject> noteList = new();
@@ -51,16 +52,20 @@ public class NoteManager : MonoBehaviour
 
     void Update()
     {
-        // まだノーツが残っていれば.
+        //まだノーツが残っていれば.
         if (noteIndex < noteChartSetting.noteDatas.Length)
         {
             NoteData noteData = noteChartSetting.noteDatas[noteIndex];
 
-            // 到達時刻から移動時間を引いて出現時刻を計算.
-            float spawnTime = noteData.time - laneSetting.moveTime;
+            //BPMからノーツの到達時間を計算.
+            float noteTime = soundSetting.GetTime(noteData.beatCount);
+            //現在の曲の再生位置を取得.
+            float currentTime = SoundManager.Inst.GetTimeBGM();
+            //到達時間から移動時間を引いて、ノーツの出現時間を計算.
+            float spawnTime = noteTime - laneSetting.moveTime;
 
-            // 出現時刻になったらノーツを生成.
-            if (Time.time >= spawnTime)
+            //曲の再生位置が出現時間に達したらノーツを生成.
+            if (currentTime >= spawnTime)
             {
                 SpawnNote(noteData);
                 noteIndex++;
@@ -74,21 +79,20 @@ public class NoteManager : MonoBehaviour
     private void SpawnNote(NoteData data)
     {
         //ノーツ生成.
-        var objNote  = Instantiate(prfbNote, inPrfbNote.transform);
+        var objNote = Instantiate(prfbNote, inPrfbNote.transform);
         var scptNote = objNote.GetComponent<Note>();
         //ノーツをリストに登録.
         noteList.Add(objNote);
+
         //レーンのスタート位置を取得.
         Vector3 startPos = GetLaneStartPos(data.laneNo);
-
-        //プレイヤーと重なる瞬間の画像が何になるかを計算.
-        Sprite imgPlayer;
-        {
-            //未来の時間.
-            float time = Time.time + laneSetting.moveTime;
-            //ノーツに設定する画像を取得.
-            imgPlayer = objPlayer.GetComponent<Player>().GetAfterImage(data.parts, time);
-        }
+        //ノーツが判定位置に到達するBGM時間を取得.
+        float noteTime = soundSetting.GetTime(data.beatCount);
+        //到達時のプレイヤー画像を取得.
+        Sprite imgPlayer = objPlayer.GetComponent<Player>().GetAfterImage(
+            data.parts,
+            noteTime
+        );
 
         //初期設定.
         scptNote.Init(

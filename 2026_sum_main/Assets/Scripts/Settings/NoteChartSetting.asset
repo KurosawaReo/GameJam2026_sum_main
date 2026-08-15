@@ -13,36 +13,30 @@ MonoBehaviour:
   m_Name: NoteChartSetting
   m_EditorClassIdentifier: Assembly-CSharp::NoteChart
   noteDatas:
-  - time: 4
+  - beatCount: 9
     laneNo: 0
-    parts: 5
-  - time: 4.5
+    parts: 0
+  - beatCount: 10
     laneNo: 1
-    parts: 3
-  - time: 5
+    parts: 0
+  - beatCount: 12
     laneNo: 2
-    parts: 1
-  - time: 5.5
+    parts: 0
+  - beatCount: 14
     laneNo: 3
-    parts: 2
-  - time: 6
+    parts: 0
+  - beatCount: 16
     laneNo: 4
-    parts: 4
-  - time: 6.5
+    parts: 0
+  - beatCount: 18
     laneNo: 0
-    parts: 1
-  - time: 7
+    parts: 0
+  - beatCount: 20
     laneNo: 1
-    parts: 2
-  - time: 7.5
+    parts: 0
+  - beatCount: 22
     laneNo: 2
-    parts: 3
-  - time: 8
+    parts: 0
+  - beatCount: 24
     laneNo: 3
-    parts: 4
-  - time: 8.5
-    laneNo: 4
-    parts: 5
-  - time: 9
-    laneNo: 2
     parts: 0

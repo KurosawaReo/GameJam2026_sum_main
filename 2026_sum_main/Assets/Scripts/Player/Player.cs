@@ -8,46 +8,60 @@ using static Unity.VisualScripting.Member;
 public class Player : MonoBehaviour
 {
     [Header("- script -")]
-    [SerializeField] NoteManager noteManager;
+    [SerializeField] NoteManager   noteManager;
 
     [Header("- setting -")]
-    [SerializeField] PlayerSetting setting;
-
-    float elapsed;    //経過時間.
-    int   imageIndex; //現在の画像番号.
+    [SerializeField] PlayerSetting playerSetting;
+    [SerializeField] SoundSetting  soundSetting;
 
     SpriteRenderer spriteRenderer;
+
+    float elapsed; //開始までの経過時間.
 
     /// <summary>
     /// 指定秒数後の画像を取得.
     /// </summary>
     public Sprite GetAfterImage(BodyParts parts, float time)
     {
-        //指定時間から画像番号を計算.
-        int index = Mathf.FloorToInt(time / setting.changeInterval);
-
+        //画像1枚あたりの拍数から画像番号を計算.
+        int index = GetImageIndex(time);
         //画像枚数を超えたらループ.
-        index %= setting.image.Length;
+        index %= playerSetting.image.Length;
 
         //パーツ別の画像を返す.
         switch (parts)
         {
             case BodyParts.Main:
-                return setting.image[index].main;
+                return playerSetting.image[index].main;
             case BodyParts.Head:
-                return setting.image[index].head;
+                return playerSetting.image[index].head;
             case BodyParts.ArmL:
-                return setting.image[index].armL;
+                return playerSetting.image[index].armL;
             case BodyParts.ArmR:
-                return setting.image[index].armR;
+                return playerSetting.image[index].armR;
             case BodyParts.LegL:
-                return setting.image[index].legL;
+                return playerSetting.image[index].legL;
             case BodyParts.LegR:
-                return setting.image[index].legR;
+                return playerSetting.image[index].legR;
 
             default: Debug.Log("不正な値です"); break;
         }
         return null; //エラー.
+    }
+
+    /// <summary>
+    /// BGM再生時間から現在の画像番号を取得.
+    /// </summary>
+    private int GetImageIndex(float time)
+    {
+        // 現在何拍目かを計算.
+        float beat = time / soundSetting.GetBeatTime();
+
+        // 画像番号を計算.
+        int index = Mathf.FloorToInt(beat / playerSetting.changeBeat);
+
+        // 画像枚数を超えたらループ.
+        return index % playerSetting.image.Length;
     }
 
     void Start()
@@ -56,31 +70,27 @@ public class Player : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
 
         // 最初の画像を設定.
-        spriteRenderer.sprite = setting.image[0].main;
+        spriteRenderer.sprite = playerSetting.image[0].main;
     }
 
     void Update()
     {
-        // 経過時間を加算.
-        elapsed += Time.deltaTime;
-
-        // 指定時間経過したら画像を切り替える.
-        if (elapsed >= setting.changeInterval)
+        // 開始待ち時間を計測.
+        if (elapsed < playerSetting.startDelay)
         {
-            elapsed -= setting.changeInterval;
-
-            // 次の画像へ.
-            imageIndex++;
-
-            // 最後まで行ったら最初に戻す.
-            if (imageIndex >= setting.image.Length)
-            {
-                imageIndex = 0;
-            }
-
-            // 画像を変更.
-            spriteRenderer.sprite = setting.image[imageIndex].main;
+            elapsed += Time.deltaTime;
+            return;
         }
+
+        // BGMの再生時間から現在の画像番号を計算.
+        float time  = SoundManager.Inst.GetTimeBGM();
+        int   index = GetImageIndex(time);
+
+        // 画像枚数を超えたらループ.
+        index %= playerSetting.image.Length;
+
+        // 現在の画像を設定.
+        spriteRenderer.sprite = playerSetting.image[index].main;
 
         // 左クリックした瞬間.
         if (Input.GetMouseButtonDown(0))

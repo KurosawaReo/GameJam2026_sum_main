@@ -12,5 +12,5 @@ public class NoteChartSetting : ScriptableObject
         "Lane No : どのレーンで流すか。LaneSetting の Lane Angle の番号を使う。\n" +
         "Parts : 体のどの部位を流すか。\n"
     )]
-    public NoteData[] noteDatas; //ノーツデータ.
+    public NoteData[] noteDatas; //ノーツデータ.   
 }
