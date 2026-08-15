@@ -33,27 +33,43 @@ public class GaugeManager : MonoBehaviour
 
     void Update()
     {
-        // ゲージが最大まで溜まったらフィーバー開始.
+        //ゲージが最大まで溜まったらフィーバー開始.
         if (!isFever && imageGauge.fillAmount >= 1f)
         {
-            isFever = true;
-            //演出召喚.
-            Instantiate(prfbEffFever, inPrfbEffFever.transform);
+            FeverStart();
         }
 
         if (isFever)
         {
-            // 指定した効果時間でゲージが0になるように減少させる.
+            //指定した効果時間でゲージが0になるように減少させる.
             float downSpeed = 1f / feverDuration;
             imageGauge.fillAmount -= downSpeed * Time.deltaTime;
 
-            // ゲージが0になったらフィーバー終了.
+            //ゲージが0になったらフィーバー終了.
             if (imageGauge.fillAmount <= 0f)
             {
-                imageGauge.fillAmount = 0f;
-                isFever = false;
+                FeverEnd();
             }
         }
+    }
+
+    /// <summary>
+    /// フィーバー開始.
+    /// </summary>
+    void FeverStart()
+    {
+        isFever = true;
+        //演出召喚.
+        Instantiate(prfbEffFever, inPrfbEffFever.transform);
+    }
+
+    /// <summary>
+    /// フィーバー終了.
+    /// </summary>
+    void FeverEnd()
+    {
+        imageGauge.fillAmount = 0f;
+        isFever = false;
     }
 
     /// <summary>

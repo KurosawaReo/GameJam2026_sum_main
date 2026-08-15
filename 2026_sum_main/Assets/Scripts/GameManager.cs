@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     [Header("- Script -")]
     [SerializeField] GaugeManager gaugeMng;
+    [SerializeField] ScoreManager scoreMng;
 
     [Header("- Effect -")]
     [SerializeField] GameObject effectRainbow;  //虹色演出.
@@ -22,7 +23,7 @@ public class GameManager : MonoBehaviour
     bool  isBgmStarted;     //BGMを再生したか.
     bool  isBgmFinished;    //BGM終了を検知したか.
 
-    private void Update()
+    void Update()
     {
         //BGM開始前なら開始処理.
         if (!isBgmStarted)
@@ -42,7 +43,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// BGM開始処理.
     /// </summary>
-    private void StartBGM()
+    void StartBGM()
     {
         // 経過時間を加算.
         elapsed += Time.deltaTime;
@@ -64,7 +65,7 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// BGM終了判定.
     /// </summary>
-    private void JudgeEndBGM()
+    void JudgeEndBGM()
     {
         // まだBGM終了を検知していなければ.
         if (!isBgmFinished)
@@ -85,7 +86,18 @@ public class GameManager : MonoBehaviour
         // 指定時間経過したらシーン遷移.
         if (elapsed >= soundSetting.bgmEndDelay)
         {
-            SceneManager.LoadScene(nextSceneName);
+            GameEnd();
         }
+    }
+
+    /// <summary>
+    /// ゲーム終了処理.
+    /// </summary>
+    void GameEnd()
+    {
+        //現在のスコアをランキングに登録.
+        scoreMng.RegisterRanking();
+        //次のシーンへ.
+        SceneManager.LoadScene(nextSceneName);
     }
 }

@@ -12,10 +12,10 @@ public class TextYariraScore : MonoBehaviour
 
     void Update()
     {
-        if (ScoreManager.instance != null && textScore != null)
+        if (AllSceneData.instance != null && textScore != null)
         {
             // 5桁になるように0埋めして表示.
-            textScore.text = "ヤリラスコア : " + ScoreManager.instance.YariraScore.ToString("D5");
+            textScore.text = "ヤリラスコア : " + AllSceneData.instance.YariraScore.ToString("D5");
         }
     }
 }

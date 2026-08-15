@@ -1,61 +1,23 @@
-using Unity.VisualScripting;
 using UnityEngine;
 using Common;
-using System.Net.Sockets;
-using UnityEngine.SceneManagement;
 
 public class ScoreManager : MonoBehaviour
 {
-    //シングルトン用.
-    public static ScoreManager instance;
-
     [Header("- script -")]
     [SerializeField] GaugeManager gaugeMng;
 
-    public int YariraScore { get; set; }
+    int upScore; // スコア上昇量.
 
-    int upScore; //スコア上昇量.
-    
     int firstScore = 0;
     int secondScore = 0;
     int thirdScore = 0;
 
-    int countPerfect = 0;
-    int countGood = 0;
-    int countBad = 0;
-
-    // スコア初期化処理
-    public void ResetScore()
-    {
-        YariraScore = 0;
-        countPerfect = 0;
-        countGood = 0;
-        countBad = 0;
-    }
-
-    void Awake()
-    {
-        //1度のみ実行.
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(this); //シーン遷移で消滅しないようにする.
-            
-            ResetScore(); //リセット処理.
-        }
-        else
-        {
-            Destroy(this);
-        }
-    }
-
     void Start()
     {
+        //スコアをリセット.
+        ResetScore();
+        //保存されているランキングを取得.
         RegisterTopScore();
-    }
-
-    void Update()
-    {
     }
 
     /// <summary>
@@ -63,7 +25,7 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     public void SendResult(Result result)
     {
-        //スコア加算量.
+        // フィーバー中ならスコア倍率を上げる.
         if (gaugeMng.IsFever())
         {
             upScore = 1000;
@@ -73,47 +35,64 @@ public class ScoreManager : MonoBehaviour
             upScore = 100;
         }
 
-        //Resultの結果でスコアを変動させる.
+        // Resultの結果でデータを更新.
         switch (result)
         {
-           case Result.Perfect:
-                YariraScore += upScore;
-                countPerfect++;
+            case Result.Perfect:
+                AllSceneData.instance.YariraScore += upScore;
+                AllSceneData.instance.CountPerfect++;
                 break;
-           case Result.Good:
-                YariraScore += upScore / 2;
-                countGood++;
+
+            case Result.Good:
+                AllSceneData.instance.YariraScore += upScore / 2;
+                AllSceneData.instance.CountGood++;
                 break;
-           case Result.Bad:
-                countBad++;
+
+            case Result.Bad:
+                AllSceneData.instance.CountBad++;
                 break;
         }
     }
 
     /// <summary>
-    /// ランキング登録.
+    /// スコアをリセット.
+    /// </summary>
+    public void ResetScore()
+    {
+        AllSceneData.instance.ResetData();
+    }
+
+    /// <summary>
+    /// 現在のスコアをランキングに登録.
     /// </summary>
     public void RegisterRanking()
     {
+        // 現在保存されているランキングを取得.
         RegisterTopScore();
 
-        if (YariraScore > firstScore)
+        // 今回のスコアを取得.
+        int score = AllSceneData.instance.YariraScore;
+
+        // 1位に入る場合.
+        if (score > firstScore)
         {
             thirdScore = secondScore;
             secondScore = firstScore;
-            firstScore = YariraScore;
+            firstScore = score;
         }
-        else if (YariraScore > secondScore)
+        // 2位に入る場合.
+        else if (score > secondScore)
         {
             thirdScore = secondScore;
-            secondScore = YariraScore;
+            secondScore = score;
         }
-        else if (YariraScore > thirdScore)
+        // 3位に入る場合.
+        else if (score > thirdScore)
         {
-            thirdScore = YariraScore;
+            thirdScore = score;
         }
-        
-        // 更新された値を保存
+
+        // ランキングを保存.
         PlayerPrefs.SetInt("First", firstScore);
         PlayerPrefs.SetInt("Second", secondScore);
         PlayerPrefs.SetInt("Third", thirdScore);
@@ -121,33 +100,13 @@ public class ScoreManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ハイスコア登録.
+    /// 保存されているランキングを取得.
     /// </summary>
-    void RegisterTopScore()
+    private void RegisterTopScore()
     {
-        //順位TOP3のスコアを変数に代入する.
-        if (PlayerPrefs.HasKey("First"))
-        {
-            firstScore = PlayerPrefs.GetInt("First");
-        }
-        if (PlayerPrefs.HasKey("Second"))
-        {
-            secondScore = PlayerPrefs.GetInt("Second");
-        }
-        if (PlayerPrefs.HasKey("Third"))
-        {
-            thirdScore = PlayerPrefs.GetInt("Third");
-        }
-    }
-
-    /// <summary>
-    /// ランキング取得.
-    /// </summary>
-    public void GetRanking(out int _score, out int _countPerfect, out int _countGood, out int _countBad)
-    {
-        _score = YariraScore;
-        _countPerfect = countPerfect;
-        _countGood = countGood;
-        _countBad = countBad;
+        // 保存されていない場合は0.
+        firstScore = PlayerPrefs.GetInt("First", 0);
+        secondScore = PlayerPrefs.GetInt("Second", 0);
+        thirdScore = PlayerPrefs.GetInt("Third", 0);
     }
 }

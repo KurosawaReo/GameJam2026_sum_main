@@ -66,15 +66,20 @@ public class ResultManager : MonoBehaviour
         buttonBackTitle.SetActive(false);
         buttonReplay.SetActive(false);
 
-        //ランキング取得.
-        if (ScoreManager.instance)
+        //AllSceneDataからゲーム結果を取得.
+        if (AllSceneData.instance != null)
         {
-            ScoreManager.instance.GetRanking(out score,out countPerfect,out countGood,out countBad);
+            score = AllSceneData.instance.YariraScore;
+            countPerfect = AllSceneData.instance.CountPerfect;
+            countGood = AllSceneData.instance.CountGood;
+            countBad = AllSceneData.instance.CountBad;
         }
 
-        firstScore = PlayerPrefs.GetInt("First");
-        secondScore = PlayerPrefs.GetInt("Second");
-        thirdScore = PlayerPrefs.GetInt("Third");
+        // 保存されているランキングを取得.
+        firstScore = PlayerPrefs.GetInt("First", 0);
+        secondScore = PlayerPrefs.GetInt("Second", 0);
+        thirdScore = PlayerPrefs.GetInt("Third", 0);
+
         StartCoroutine(StartResult());
     }
 

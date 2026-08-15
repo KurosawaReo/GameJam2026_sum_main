@@ -16,6 +16,7 @@ public class NoteManager : MonoBehaviour
     [Header("- script -")]
     [SerializeField] GameObject         objPlayer; //プレイヤー.
     [SerializeField] GaugeManager       gaugeMng;
+    [SerializeField] ScoreManager       scoreMng;
 
     [Header("- setting -")]
     [SerializeField] LaneSetting        laneSetting;
@@ -251,9 +252,7 @@ public class NoteManager : MonoBehaviour
             }
 
             // スコアはノーツごとに送信.
-            ScoreManager.instance.SendResult(result);
-
-            Debug.Log("result:" + result);
+            scoreMng.SendResult(result);
 
             // 判定したノーツを消滅.
             note.Destroy();
