@@ -159,11 +159,11 @@ public class ScoreManager : MonoBehaviour
     /// <summary>
     /// ƒ‰ƒ“ƒLƒ“ƒOŽæ“¾.
     /// </summary>
-    public void GetRanking(out int score,out int perfect,out int good, out int bad)
+    public void GetRanking(out int _score, out int _countPerfect, out int _countGood, out int _countBad)
     {
-        score = YariraScore;
-        perfect = countPerfect;
-        good = countGood;
-        bad = countBad;
+        _score = YariraScore;
+        _countPerfect = countPerfect;
+        _countGood = countGood;
+        _countBad = countBad;
     }
 }

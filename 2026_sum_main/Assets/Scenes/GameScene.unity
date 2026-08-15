@@ -1416,7 +1416,7 @@ MonoBehaviour:
   maxGauge: 20
   perfectGauge: 2
   badGauge: 1
-  feverDuration: 5
+  feverDuration: 6
   imageGauge: {fileID: 1704703188}
 --- !u!4 &1106984091
 Transform:

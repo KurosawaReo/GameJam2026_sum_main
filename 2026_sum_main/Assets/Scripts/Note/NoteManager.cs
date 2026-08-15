@@ -97,34 +97,58 @@ public class NoteManager : MonoBehaviour
 
         //初期設定.
         scptNote.Init(
-            imgPlayer, data.laneNo, laneSetting.moveTime, laneSetting.destroyTime, startPos, laneSetting.goalPos
+            imgPlayer, data.laneNo, noteTime, laneSetting.moveTime, laneSetting.destroyTime, startPos, laneSetting.goalPos
         );
     }
 
     /// <summary>
-    /// 指定レーンの最寄りノーツを判定.
+    /// 指定レーンを基準に、同時押しのノーツをまとめて判定.
     /// </summary>
     public void JudgeNearestNote(int laneNo, Vector3 playerPos)
     {
-        // 最寄りのノーツobject.
+        // 指定されたレーンの最寄りノーツを取得.
+        GameObject baseNote = GetNearestNote(laneNo, playerPos, out float baseDist);
+
+        // ノーツがない、または判定範囲外なら終了.
+        if (baseNote == null || baseDist >= laneSetting.badDist)
+        {
+            return;
+        }
+
+        // 基準ノーツの判定時間を取得.
+        Note baseNoteComponent = baseNote.GetComponent<Note>();
+        float baseTime = baseNoteComponent.GetNoteTime();
+
+        // 同時押しとして判定するノーツを取得.
+        List<GameObject> judgeNotes = GetSameTimeNotes(baseTime);
+
+        // 判定結果をまとめて処理.
+        ResultNote(judgeNotes);
+    }
+
+    /// <summary>
+    /// 指定レーンの最寄りノーツを取得.
+    /// </summary>
+    private GameObject GetNearestNote(int laneNo, Vector3 playerPos, out float nearestDist)
+    {
+        // 最寄りノーツを初期化.
         GameObject nearestNote = null;
 
-        // 距離計測用.
-        float nearestDist = float.MaxValue;
+        // 最短距離を最大値で初期化.
+        nearestDist = float.MaxValue;
 
-        // 全てのノーツをループ.
+        // 全ノーツを確認.
         foreach (GameObject objNote in noteList)
         {
-            // nullになったノーツは無視.
+            // 既に削除されたノーツは無視.
             if (objNote == null)
             {
                 continue;
             }
 
-            // ノーツのレーンを取得.
             Note note = objNote.GetComponent<Note>();
 
-            // 指定したレーン以外は無視.
+            // 指定レーン以外は無視.
             if (note.GetLaneNo() != laneNo)
             {
                 continue;
@@ -133,7 +157,7 @@ public class NoteManager : MonoBehaviour
             // プレイヤーとの距離を計算.
             float dist = Vector3.Distance(playerPos, objNote.transform.position);
 
-            // 現在の最短距離より近ければ更新.
+            // より近いノーツなら更新.
             if (dist < nearestDist)
             {
                 nearestDist = dist;
@@ -141,26 +165,90 @@ public class NoteManager : MonoBehaviour
             }
         }
 
-        // 判定範囲内にノーツがあれば判定.
-        if (nearestNote != null && nearestDist < laneSetting.badDist)
-        {
-            ResultNote(nearestDist);
-
-            // 判定したノーツを消滅.
-            nearestNote.GetComponent<Note>().Destroy();
-        }
+        return nearestNote;
     }
 
     /// <summary>
-    /// ノーツの結果処理.
+    /// 指定した時間と同時押し扱いにするノーツを取得.
     /// </summary>
-    private void ResultNote(float nearestDist)
+    private List<GameObject> GetSameTimeNotes(float baseTime)
     {
-        //ノーツ判定.
-        Result ret = JudgeNote(nearestDist);
+        // 同時押し対象のノーツ.
+        List<GameObject> sameTimeNotes = new();
 
-        //リザルト別処理.
-        switch (ret)
+        // 同時押しとみなす時間差.
+        const float sameTimeRange = 0.01f;
+
+        // 全ノーツを確認.
+        foreach (GameObject objNote in noteList)
+        {
+            // 既に削除されたノーツは無視.
+            if (objNote == null)
+            {
+                continue;
+            }
+
+            Note note = objNote.GetComponent<Note>();
+
+            // ノーツの判定時間を取得.
+            float noteTime = note.GetNoteTime();
+
+            // 基準ノーツとの時間差を計算.
+            float timeDiff = Mathf.Abs(noteTime - baseTime);
+
+            // 同じタイミングなら同時押し対象に追加.
+            if (timeDiff <= sameTimeRange)
+            {
+                sameTimeNotes.Add(objNote);
+            }
+        }
+
+        return sameTimeNotes;
+    }
+
+    /// <summary>
+    /// 同時押しノーツの結果処理.
+    /// </summary>
+    private void ResultNote(List<GameObject> judgeNotes)
+    {
+        // グループ内で最も良い判定を保存.
+        Result bestResult = Result.Bad;
+
+        // 判定対象のノーツを1つずつ処理.
+        foreach (GameObject objNote in judgeNotes)
+        {
+            // ノーツが消えていたら無視.
+            if (objNote == null)
+            {
+                continue;
+            }
+
+            Note note = objNote.GetComponent<Note>();
+
+            // プレイヤーとの距離を取得.
+            float dist = Vector3.Distance(
+                objPlayer.transform.position,
+                objNote.transform.position
+            );
+
+            // ノーツ単体の判定を取得.
+            Result result = JudgeNote(dist);
+
+            // より良い判定なら更新.
+            if (result < bestResult)
+            {
+                bestResult = result;
+            }
+
+            // スコアはノーツごとに送信.
+            ScoreManager.instance.SendResult(result);
+
+            // 判定したノーツを消滅.
+            note.Destroy();
+        }
+
+        // グループ内で最も良い判定の演出だけ出す.
+        switch (bestResult)
         {
             case Result.Perfect:
                 Instantiate(prfbEffPerfect, inPrfbEff.transform);
@@ -177,11 +265,10 @@ public class NoteManager : MonoBehaviour
                 gaugeMng.OnBad();
                 break;
 
-            default: Debug.Log("不正な値です"); break;
+            default:
+                Debug.Log("不正な値です");
+                break;
         }
-
-        //リザルトを送信.
-        ScoreManager.instance.SendResult(ret);
     }
 
     /// <summary>
