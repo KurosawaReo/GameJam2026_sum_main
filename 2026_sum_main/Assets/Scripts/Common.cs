@@ -18,6 +18,7 @@ namespace Common
     /// </summary>
     public enum BodyParts
     {
+        Main,   //‘Sg.
         Head,   //“ª.
         ArmL,   //¶˜r.
         ArmR,   //‰E˜r.

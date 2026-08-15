@@ -29,13 +29,11 @@ public class Player : MonoBehaviour
         //画像枚数を超えたらループ.
         index %= setting.image.Length;
 
-#if false
-        //【TODO】時間がなれけばプレイヤーの画像をそのまま返す.      
-        return setting.imgPlayer[index];
-#else
         //パーツ別の画像を返す.
         switch (parts)
         {
+            case BodyParts.Main:
+                return setting.image[index].main;
             case BodyParts.Head:
                 return setting.image[index].head;
             case BodyParts.ArmL:
@@ -49,7 +47,6 @@ public class Player : MonoBehaviour
 
             default: Debug.Log("不正な値です"); break;
         }
-#endif
         return null; //エラー.
     }
 

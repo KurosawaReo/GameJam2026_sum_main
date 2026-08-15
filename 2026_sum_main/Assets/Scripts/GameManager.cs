@@ -46,8 +46,10 @@ public class GameManager : MonoBehaviour
         // BGMを再生.
         SoundManager.Inst.PlayBGM(soundSetting.bgmName, false);
 
-        // デバッグ用に再生位置を変更.
+#if false
+        //【デバッグ用】再生位置を変更.
         SoundManager.Inst.SetTimeBGM(130.0f);
+#endif
 
         // BGM再生済みにする.
         isBgmStarted = true;

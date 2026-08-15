@@ -13,10 +13,52 @@ MonoBehaviour:
   m_Name: PlayerSetting
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSetting
   image:
-  - main: {fileID: -4398183398628465896, guid: 0723029938b2e234f8e871232e975497, type: 3}
-    head: {fileID: 9157000438496025734, guid: 0f7dccf8c9c0b1744831a0708b60c577, type: 3}
-    armL: {fileID: -8504672638265069445, guid: ce973d6de74de7742a6e0f6a721497f6, type: 3}
-    armR: {fileID: -4250172545864899585, guid: 1c10ebe1d062cc94e87a1fdf1100084d, type: 3}
-    legL: {fileID: 4388910519460670134, guid: 13bc7dd7cc4fb8a459ea7bcba80dd208, type: 3}
-    legR: {fileID: 3567320336925725210, guid: a5d491a7c1bb2b343820e69d4228868a, type: 3}
+  - main: {fileID: 21300000, guid: 0723029938b2e234f8e871232e975497, type: 3}
+    head: {fileID: 21300000, guid: 0f7dccf8c9c0b1744831a0708b60c577, type: 3}
+    armL: {fileID: 21300000, guid: ce973d6de74de7742a6e0f6a721497f6, type: 3}
+    armR: {fileID: 21300000, guid: 1c10ebe1d062cc94e87a1fdf1100084d, type: 3}
+    legL: {fileID: 21300000, guid: 13bc7dd7cc4fb8a459ea7bcba80dd208, type: 3}
+    legR: {fileID: 21300000, guid: a5d491a7c1bb2b343820e69d4228868a, type: 3}
+  - main: {fileID: 21300000, guid: 91cc77902b50ca74c885ab36d242b666, type: 3}
+    head: {fileID: 21300000, guid: 8681ef1c2c8d2a641b98954a2e507e87, type: 3}
+    armL: {fileID: 21300000, guid: a2a76d051e4993344bd9412dd437c8e3, type: 3}
+    armR: {fileID: 21300000, guid: 427091580892d93469865f45ad23b9f0, type: 3}
+    legL: {fileID: 21300000, guid: e1ac21291d884534281c1a6beb9b171a, type: 3}
+    legR: {fileID: 21300000, guid: e2c894ae02553bc4fa8e0711d0656e73, type: 3}
+  - main: {fileID: 21300000, guid: 4c74bc631d8fb9a46a6d01b68dfd34d2, type: 3}
+    head: {fileID: 21300000, guid: ee899d2c2a1248841b86c2d1c9375525, type: 3}
+    armL: {fileID: 21300000, guid: 3a073f27c7bc624469b8529b3c4c899d, type: 3}
+    armR: {fileID: 21300000, guid: e06e713e13388ae45978b3bf5acc982c, type: 3}
+    legL: {fileID: 21300000, guid: 64e67bb886725b345ab4c7f4de72d5e3, type: 3}
+    legR: {fileID: 21300000, guid: 9d5f96dab5ab6d845bf3638c2f7d88a0, type: 3}
+  - main: {fileID: 21300000, guid: 585aa8cc7f7b6d44eb22efdafb896d58, type: 3}
+    head: {fileID: 21300000, guid: 76f4ebdabf1e63749bd8bb4eadb0da91, type: 3}
+    armL: {fileID: 21300000, guid: 02c4a95485622814da6fd81d04714a74, type: 3}
+    armR: {fileID: 21300000, guid: a7271ca54bee009469232643b55fc79d, type: 3}
+    legL: {fileID: 21300000, guid: 97473f395440e6342be639548965bc18, type: 3}
+    legR: {fileID: 21300000, guid: ec84569cc8f91904eab1eb07b98fc5be, type: 3}
+  - main: {fileID: 21300000, guid: 1e584da17a5961e41962a5b377b2820b, type: 3}
+    head: {fileID: 21300000, guid: 188e420b5a66c96449f7f9268aa1b2b4, type: 3}
+    armL: {fileID: 21300000, guid: b0eb1cb8e71409e448f79b9863bc5076, type: 3}
+    armR: {fileID: 21300000, guid: 85f660c4a50cb024dbc417cdf33181ae, type: 3}
+    legL: {fileID: 21300000, guid: 7bbf734a1eca4ac4fa55a19acb220527, type: 3}
+    legR: {fileID: 21300000, guid: a42b53c52bd49564bb65fe6f76bad249, type: 3}
+  - main: {fileID: 21300000, guid: eed6c9a95146a0948ac5bfaf577c37f1, type: 3}
+    head: {fileID: 21300000, guid: a8b65d4b86835da47aca6378022de801, type: 3}
+    armL: {fileID: 21300000, guid: a0b129d58aa53494c85afa225e685ad6, type: 3}
+    armR: {fileID: 21300000, guid: 0a7f00ea2fc119f4bb8033d678e4af37, type: 3}
+    legL: {fileID: 21300000, guid: eeda640d8f8fd3043a986f05b9908c36, type: 3}
+    legR: {fileID: 21300000, guid: 832b25fcd80fd9b4d996b79d781b7639, type: 3}
+  - main: {fileID: 21300000, guid: 19b238731239c094487801871d11dffd, type: 3}
+    head: {fileID: 21300000, guid: 4f0db44395acd164f81989968bcfeb40, type: 3}
+    armL: {fileID: 21300000, guid: a2c1db0d751f8b94d9afa2a57ac1f6ce, type: 3}
+    armR: {fileID: 21300000, guid: cbbdd74a8c78353409925f9ad0de3885, type: 3}
+    legL: {fileID: 21300000, guid: c93123db7080d5b439062192fd926d4d, type: 3}
+    legR: {fileID: 21300000, guid: b026426a0bb8bc74bbe995166551036a, type: 3}
+  - main: {fileID: 21300000, guid: df18c7e2833e2254e93f11ddb4dfcc71, type: 3}
+    head: {fileID: 21300000, guid: 8602281b58bea3f4e9a60b27f22c38f7, type: 3}
+    armL: {fileID: 21300000, guid: 6cd035e06f7d9b648988f828d7aac0eb, type: 3}
+    armR: {fileID: 21300000, guid: bb27ac8f60b7a2445a78424584f174e0, type: 3}
+    legL: {fileID: 21300000, guid: dc5bcb94e9bbbe246b96fb58ee3d95cc, type: 3}
+    legR: {fileID: 21300000, guid: 0b7ebfd942e291b4083872a7b1d67909, type: 3}
   changeInterval: 0.1
