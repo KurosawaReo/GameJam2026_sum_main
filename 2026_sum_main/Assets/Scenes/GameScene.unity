@@ -602,6 +602,98 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1553393e18490444a6ffc99e8ea895c, type: 3}
+--- !u!1 &321361046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 321361047}
+  - component: {fileID: 321361049}
+  - component: {fileID: 321361048}
+  - component: {fileID: 321361050}
+  m_Layer: 5
+  m_Name: EffectRainbow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &321361047
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321361046}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1751413258}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &321361048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321361046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &321361049
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321361046}
+  m_CullTransparentMesh: 1
+--- !u!114 &321361050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 321361046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 576339c7d5c519c4490b340f021eabc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RainbowImage
+  rainbowSpeed: 0.5
+  saturation: 0.6
+  brightness: 1
+  alpha: 0.05
 --- !u!1 &452653557
 GameObject:
   m_ObjectHideFlags: 0
@@ -816,6 +908,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   soundSetting: {fileID: 11400000, guid: 4d4a355f3d67f1940b57639e9f88bd60, type: 2}
   nextSceneName: ResultScene
+  gaugeMng: {fileID: 1106984090}
+  effectRainbow: {fileID: 321361046}
 --- !u!1001 &578511063
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1213,8 +1307,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GaugeManager
   maxGauge: 20
-  upGauge: 1
-  downGauge: 5
+  perfectGauge: 2
+  badGauge: 1
+  feverDuration: 5
   imageGauge: {fileID: 2027256753}
 --- !u!4 &1106984091
 Transform:
@@ -1514,6 +1609,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2097798440}
+  - {fileID: 321361047}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1840,6 +1936,6 @@ SceneRoots:
   - {fileID: 89023324}
   - {fileID: 2041709153}
   - {fileID: 1355377475}
-  - {fileID: 562633106}
   - {fileID: 280275518}
   - {fileID: 1106984091}
+  - {fileID: 562633106}

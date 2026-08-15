@@ -24,4 +24,4 @@ MonoBehaviour:
   destroyTime: 1
   badDist: 2
   goodDist: 1
-  perfectDist: 0.3
+  perfectDist: 0.5

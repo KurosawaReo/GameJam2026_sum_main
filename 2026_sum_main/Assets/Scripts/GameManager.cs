@@ -12,21 +12,31 @@ public class GameManager : MonoBehaviour
     [Header("- Scene -")]
     [SerializeField] string nextSceneName;      //遷移先シーン名.
 
+    [Header("- Script -")]
+    [SerializeField] GaugeManager gaugeMng;
+
+    [Header("- Effect -")]
+    [SerializeField] GameObject effectRainbow;  //虹色演出.
+
     float elapsed;          //現在の経過時間.
     bool  isBgmStarted;     //BGMを再生したか.
     bool  isBgmFinished;    //BGM終了を検知したか.
 
     private void Update()
     {
-        // BGM開始前なら開始処理.
+        //BGM開始前なら開始処理.
         if (!isBgmStarted)
         {
             StartBGM();
-            return;
         }
-
-        // BGM開始後なら終了判定.
-        JudgeEndBGM();
+        //BGM開始後なら終了判定.
+        else
+        {
+            JudgeEndBGM();
+        }
+         
+        //フィーバー演出.
+        effectRainbow.SetActive(gaugeMng.IsFever());
     }
 
     /// <summary>
@@ -45,11 +55,6 @@ public class GameManager : MonoBehaviour
 
         // BGMを再生.
         SoundManager.Inst.PlayBGM(soundSetting.bgmName, false);
-
-#if false
-        //【デバッグ用】再生位置を変更.
-        SoundManager.Inst.SetTimeBGM(130.0f);
-#endif
 
         // BGM再生済みにする.
         isBgmStarted = true;

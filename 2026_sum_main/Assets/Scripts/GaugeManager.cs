@@ -1,16 +1,16 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
 
 public class GaugeManager : MonoBehaviour
 {
-    [Header("- value -")]
-    [SerializeField] float maxGauge  = 20;
-    [SerializeField] float upGauge   = 1;
-    [SerializeField] float downGauge = 5;
+    [Header("- Gauge Setting -")]
+    [SerializeField] float maxGauge = 20f;          // ゲージ最大値.
+    [SerializeField] float perfectGauge = 1f;       // PERFECT時の増加量.
+    [SerializeField] float badGauge = 1f;           // BAD時の減少量.
+    [SerializeField] float feverDuration = 5f;      // フィーバー効果時間(秒).
 
-    [Header("- gauge -")]
-    [SerializeField] Image imageGauge;
+    [Header("- Gauge -")]
+    [SerializeField] Image imageGauge;              // ゲージ画像.
 
     bool isFever = false;
 
@@ -27,46 +27,58 @@ public class GaugeManager : MonoBehaviour
         imageGauge.fillAmount = 0;
     }
 
-    private void Update()
+    void Update()
     {
-        if (imageGauge.fillAmount >= 1)
+        // ゲージが最大まで溜まったらフィーバー開始.
+        if (!isFever && imageGauge.fillAmount >= 1f)
         {
             isFever = true;
         }
 
         if (isFever)
         {
-            imageGauge.fillAmount += (-downGauge / maxGauge) * Time.deltaTime; //0になるまでゲージを減らす.
+            // 指定した効果時間でゲージが0になるように減少させる.
+            float downSpeed = 1f / feverDuration;
+            imageGauge.fillAmount -= downSpeed * Time.deltaTime;
 
-            if (imageGauge.fillAmount <= 0)
+            // ゲージが0になったらフィーバー終了.
+            if (imageGauge.fillAmount <= 0f)
             {
-                imageGauge.fillAmount = 0;
+                imageGauge.fillAmount = 0f;
                 isFever = false;
             }
         }
     }
 
-    //PERFECT判定だったら.
+    /// <summary>
+    /// PERFECT判定時.
+    /// </summary>
     public void OnPerfect()
     {
         if (!isFever)
         {
-            imageGauge.fillAmount += upGauge / maxGauge; //ゲージを増加する.
+            // 指定した増加量を最大値で正規化.
+            imageGauge.fillAmount += perfectGauge / maxGauge;
         }
     }
 
-    //GOOD判定だったら.
+    /// <summary>
+    /// GOOD判定時.
+    /// </summary>
     public void OnGood()
     {
-        //変動なし.
+        // 変動なし.
     }
 
-    //BAD判定だったら.
+    /// <summary>
+    /// BAD判定時.
+    /// </summary>
     public void OnBad()
     {
         if (!isFever)
         {
-            imageGauge.fillAmount -= upGauge / maxGauge; //ゲージを減らす.
+            // 指定した減少量を最大値で正規化.
+            imageGauge.fillAmount -= badGauge / maxGauge;
         }
     }
 }
