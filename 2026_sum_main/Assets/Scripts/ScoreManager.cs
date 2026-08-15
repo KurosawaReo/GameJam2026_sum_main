@@ -59,6 +59,8 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
+        if (!gaugeMng) { return; }
+
         if (!gaugeMng.IsFever())
         {
             isYariraFever = false;

@@ -4,13 +4,17 @@ using UnityEngine.UI;
 public class GaugeManager : MonoBehaviour
 {
     [Header("- Gauge Setting -")]
-    [SerializeField] float maxGauge = 20f;          // ゲージ最大値.
-    [SerializeField] float perfectGauge = 1f;       // PERFECT時の増加量.
-    [SerializeField] float badGauge = 1f;           // BAD時の減少量.
-    [SerializeField] float feverDuration = 5f;      // フィーバー効果時間(秒).
+    [SerializeField] float maxGauge = 20f;          //ゲージ最大値.
+    [SerializeField] float perfectGauge = 1f;       //PERFECT時の増加量.
+    [SerializeField] float badGauge = 1f;           //BAD時の減少量.
+    [SerializeField] float feverDuration = 5f;      //フィーバー効果時間(秒).
+
+    [Header("- effect -")]
+    [SerializeField] GameObject prfbEffFever;       //エフェクト用prefab.
+    [SerializeField] GameObject inPrfbEffFever;     //prefabを入れる所.
 
     [Header("- Gauge -")]
-    [SerializeField] Image imageGauge;              // ゲージ画像.
+    [SerializeField] Image imageGauge;              //ゲージ画像.
 
     bool isFever = false;
 
@@ -33,6 +37,8 @@ public class GaugeManager : MonoBehaviour
         if (!isFever && imageGauge.fillAmount >= 1f)
         {
             isFever = true;
+            //演出召喚.
+            Instantiate(prfbEffFever, inPrfbEffFever.transform);
         }
 
         if (isFever)
