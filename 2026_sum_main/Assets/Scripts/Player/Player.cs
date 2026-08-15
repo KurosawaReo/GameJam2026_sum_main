@@ -96,11 +96,29 @@ public class Player : MonoBehaviour
         //左クリックした瞬間.
         if (Input.GetMouseButtonDown(0))
         {
-            //レーンごとに判定.
-            for (int i = 0; i < laneSetting.laneAngle.Length; i++) { 
-                //最寄りのノーツ判定を行う.
-                noteManager.JudgeNearestNote(i, transform.position);
-            }
+            OnClickR();
+        }
+    }
+
+    /// <summary>
+    /// 右クリックした瞬間.
+    /// </summary>
+    void OnClickR()
+    {
+#if true
+        //現在のBGM再生時間を取得.
+        float time = SoundManager.Inst.GetTimeBGM();
+        //現在の拍数を計算.
+        float beat = time / soundSetting.GetBeatTime();
+        //クリックした瞬間の拍数を表示.
+        Debug.Log($"現在の拍数: {beat:F3}");
+#endif
+        
+        //レーンごとに判定.
+        for (int i = 0; i < laneSetting.laneAngle.Length; i++)
+        {
+            //最寄りのノーツ判定を行う.
+            noteManager.JudgeNearestNote(i, transform.position);
         }
     }
 }
