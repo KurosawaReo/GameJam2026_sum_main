@@ -1,6 +1,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// タイトルシーン管理クラス.
+/// </summary>
 public class TitleManager : MonoBehaviour
 {
     [Header("- scene -")]

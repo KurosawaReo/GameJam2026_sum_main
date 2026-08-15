@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// プレイヤーデータ.
+/// プレイヤーの設定.
 /// </summary>
 [CreateAssetMenu(fileName = "New File", menuName = "Game/Player Setting")]
 public class PlayerSetting : ScriptableObject

@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// レーン関係のデータ.
+/// レーン関係の設定.
 /// </summary>
 [CreateAssetMenu(fileName = "New File", menuName = "Game/Lane Setting")]
 public class LaneSetting : ScriptableObject

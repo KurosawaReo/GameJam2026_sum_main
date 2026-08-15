@@ -1,7 +1,7 @@
 using UnityEngine;
 
 /// <summary>
-/// ノーツ譜面データ.
+/// ノーツ譜面の設定.
 /// </summary>
 [CreateAssetMenu(fileName = "New File", menuName = "Game/Note Chart Setting")]
 public class NoteChartSetting : ScriptableObject
