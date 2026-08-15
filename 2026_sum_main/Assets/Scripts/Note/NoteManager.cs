@@ -25,6 +25,25 @@ public class NoteManager : MonoBehaviour
 
     int noteIndex; //次に生成するノーツの番号.
 
+    /// <summary>
+    /// レーンのスタート座標を取得.
+    /// </summary>
+    private Vector3 GetLaneStartPos(int laneNo)
+    {
+        // レーンの角度を取得.
+        float angle = laneSetting.laneAngle[laneNo] * Mathf.Deg2Rad;
+
+        // 角度から方向ベクトルを作成.
+        Vector3 vec = new Vector3(
+            Mathf.Cos(angle),
+            Mathf.Sin(angle),
+            0
+        );
+
+        // ゴール地点から距離分離れた位置を返す.
+        return laneSetting.goalPos + vec * laneSetting.dist;
+    }
+
     void Start()
     {
         noteIndex = 0;
@@ -108,29 +127,41 @@ public class NoteManager : MonoBehaviour
         //ノーツをタップしたら(BAD判定になる距離以内なら)
         if (nearestNote != null && nearestDist < laneSetting.badDist)
         {
-            //ノーツ判定.
-            Result ret = JudgeNote(nearestDist);
-
-
-            //リザルト別処理.
-            switch (ret)
-            {
-                case Result.Perfect:
-                    Instantiate(prfbEffPerfect, inPrfbEff.transform); //演出.
-                    break;
-                case Result.Good:
-                    Instantiate(prfbEffGood,    inPrfbEff.transform); //演出.
-                    break;
-                case Result.Bad:
-                    Instantiate(prfbEffBad,     inPrfbEff.transform); //演出.
-                    break;
-
-                default: Debug.Log("不正な値です"); break;
-            }
+            ResultNote(nearestDist);
 
             //ノーツ消滅.
             nearestNote.GetComponent<Note>().Destroy();
         }
+    }
+
+    /// <summary>
+    /// ノーツの結果処理.
+    /// </summary>
+    private void ResultNote(float nearestDist)
+    {
+        //ノーツ判定.
+        Result ret = JudgeNote(nearestDist);
+
+        //リザルト別演出.
+        switch (ret)
+        {
+            case Result.Perfect:
+                Instantiate(prfbEffPerfect, inPrfbEff.transform);
+                break;
+
+            case Result.Good:
+                Instantiate(prfbEffGood, inPrfbEff.transform);
+                break;
+
+            case Result.Bad:
+                Instantiate(prfbEffBad, inPrfbEff.transform);
+                break;
+
+            default: Debug.Log("不正な値です"); break;
+        }
+
+        //リザルトを送信.
+        //TODO: ScoreManager.instance.SendResult(ret);
     }
 
     /// <summary>
@@ -149,25 +180,6 @@ public class NoteManager : MonoBehaviour
         }
         //ミスもBad判定.
         return Result.Bad;
-    }
-
-    /// <summary>
-    /// レーンのスタート座標を取得.
-    /// </summary>
-    private Vector3 GetLaneStartPos(int laneNo)
-    {
-        // レーンの角度を取得.
-        float angle = laneSetting.laneAngle[laneNo] * Mathf.Deg2Rad;
-
-        // 角度から方向ベクトルを作成.
-        Vector3 vec = new Vector3(
-            Mathf.Cos(angle),
-            Mathf.Sin(angle),
-            0
-        );
-
-        // ゴール地点から距離分離れた位置を返す.
-        return laneSetting.goalPos + vec * laneSetting.dist;
     }
 
     /// <summary>
