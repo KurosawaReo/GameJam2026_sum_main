@@ -13,15 +13,36 @@ MonoBehaviour:
   m_Name: NoteChartSetting
   m_EditorClassIdentifier: Assembly-CSharp::NoteChart
   noteDatas:
-  - time: 1
+  - time: 4
+    laneNo: 0
+    parts: 5
+  - time: 4.5
+    laneNo: 1
+    parts: 3
+  - time: 5
+    laneNo: 2
+    parts: 1
+  - time: 5.5
+    laneNo: 3
+    parts: 2
+  - time: 6
+    laneNo: 4
+    parts: 4
+  - time: 6.5
     laneNo: 0
     parts: 1
-  - time: 2
+  - time: 7
     laneNo: 1
     parts: 2
-  - time: 3
+  - time: 7.5
     laneNo: 2
     parts: 3
-  - time: 3.5
-    laneNo: 2
+  - time: 8
+    laneNo: 3
     parts: 4
+  - time: 8.5
+    laneNo: 4
+    parts: 5
+  - time: 9
+    laneNo: 2
+    parts: 0
