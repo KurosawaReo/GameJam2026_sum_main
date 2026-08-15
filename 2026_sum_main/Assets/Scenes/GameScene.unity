@@ -1435,11 +1435,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GaugeManager
   maxGauge: 20
   perfectGauge: 2
-  badGauge: 1
+  goodGauge: 0.2
+  badGauge: -1
   feverDuration: 10
+  gaugeUpSpeed: 2
+  imageGauge: {fileID: 1704703188}
   prfbEffFever: {fileID: 8976438000973096233, guid: 31a09f124fb0bba448970e52bf5078a9, type: 3}
   inPrfbEffFever: {fileID: 1751413254}
-  imageGauge: {fileID: 1704703188}
 --- !u!4 &1106984091
 Transform:
   m_ObjectHideFlags: 0
@@ -2295,7 +2297,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 464748441331514530, guid: b544f8746e680ca4ea72d018d789d20a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.32
       objectReference: {fileID: 0}
     - target: {fileID: 464748441331514530, guid: b544f8746e680ca4ea72d018d789d20a, type: 3}
       propertyPath: m_LocalPosition.y

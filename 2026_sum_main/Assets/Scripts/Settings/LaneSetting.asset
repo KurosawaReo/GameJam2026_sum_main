@@ -18,7 +18,7 @@ MonoBehaviour:
   - 90
   - 10
   - -10
-  goalPos: {x: 0, y: 0, z: 0}
+  goalPos: {x: 0.32, y: 0, z: 0}
   dist: 13
   moveTime: 3
   destroyTime: 1
