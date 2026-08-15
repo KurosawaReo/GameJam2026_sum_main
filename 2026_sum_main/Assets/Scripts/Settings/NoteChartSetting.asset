@@ -15,9 +15,13 @@ MonoBehaviour:
   noteDatas:
   - time: 1
     laneNo: 0
+    parts: 0
   - time: 2
     laneNo: 1
+    parts: 0
   - time: 3
     laneNo: 2
+    parts: 0
   - time: 3.5
     laneNo: 2
+    parts: 0

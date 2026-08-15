@@ -12,13 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d42113b6388ecc64fa9971c49ae60f1c, type: 3}
   m_Name: PlayerSetting
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSetting
-  imgPlayer:
-  - {fileID: 8658599788432980269, guid: 1bd4a8d8678d8334dafe341bc5d9217c, type: 3}
-  - {fileID: 6284257540616290834, guid: ca9c40f465db146438cfec750e2e9911, type: 3}
-  - {fileID: 2400304314184171933, guid: f2ae11c2144087248be986250e823034, type: 3}
-  - {fileID: -2295848609328909343, guid: 444a0f111046bfd40af38a550a9139a4, type: 3}
-  - {fileID: -6533831588060834322, guid: ba8734aef739aad4897d6b7998b68300, type: 3}
-  - {fileID: 1965789992116790985, guid: 2daa3b3c8086d82438433c235fa43b4f, type: 3}
-  - {fileID: -6954895842769506295, guid: fcb73aea47760de40920aa894c980efa, type: 3}
-  - {fileID: 8764992619737691424, guid: 772660f039bde8549af319c27a960fc7, type: 3}
+  image:
+  - main: {fileID: -4398183398628465896, guid: 0723029938b2e234f8e871232e975497, type: 3}
+    head: {fileID: 9157000438496025734, guid: 0f7dccf8c9c0b1744831a0708b60c577, type: 3}
+    armL: {fileID: -8504672638265069445, guid: ce973d6de74de7742a6e0f6a721497f6, type: 3}
+    armR: {fileID: -4250172545864899585, guid: 1c10ebe1d062cc94e87a1fdf1100084d, type: 3}
+    legL: {fileID: 4388910519460670134, guid: 13bc7dd7cc4fb8a459ea7bcba80dd208, type: 3}
+    legR: {fileID: 3567320336925725210, guid: a5d491a7c1bb2b343820e69d4228868a, type: 3}
   changeInterval: 0.1
