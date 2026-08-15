@@ -1,7 +1,7 @@
 using UnityEngine;
 using TMPro;
 
-public class ScoreText : MonoBehaviour
+public class TextYariraScore : MonoBehaviour
 {
     TextMeshProUGUI textScore;
 
@@ -14,8 +14,8 @@ public class ScoreText : MonoBehaviour
     {
         if (ScoreManager.instance != null && textScore != null)
         {
-            textScore.text = "ヤリラスコア : " + ScoreManager.instance.YariraScore;
+            // 5桁になるように0埋めして表示.
+            textScore.text = "ヤリラスコア : " + ScoreManager.instance.YariraScore.ToString("D5");
         }
     }
-    
 }
