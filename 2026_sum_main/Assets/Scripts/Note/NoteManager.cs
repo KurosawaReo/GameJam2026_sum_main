@@ -15,6 +15,7 @@ public class NoteManager : MonoBehaviour
 
     [Header("- script -")]
     [SerializeField] GameObject         objPlayer; //プレイヤー.
+    [SerializeField] GaugeManager       gaugeMng;
 
     [Header("- setting -")]
     [SerializeField] LaneSetting        laneSetting;
@@ -158,26 +159,29 @@ public class NoteManager : MonoBehaviour
         //ノーツ判定.
         Result ret = JudgeNote(nearestDist);
 
-        //リザルト別演出.
+        //リザルト別処理.
         switch (ret)
         {
             case Result.Perfect:
                 Instantiate(prfbEffPerfect, inPrfbEff.transform);
+                gaugeMng.OnPerfect();
                 break;
 
             case Result.Good:
                 Instantiate(prfbEffGood, inPrfbEff.transform);
+                gaugeMng.OnGood();
                 break;
 
             case Result.Bad:
                 Instantiate(prfbEffBad, inPrfbEff.transform);
+                gaugeMng.OnBad();
                 break;
 
             default: Debug.Log("不正な値です"); break;
         }
 
         //リザルトを送信.
-        //TODO: ScoreManager.instance.SendResult(ret);
+        ScoreManager.instance.SendResult(ret);
     }
 
     /// <summary>
