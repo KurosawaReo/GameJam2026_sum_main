@@ -11,12 +11,15 @@ public class NoteManager : MonoBehaviour
     [SerializeField] GameObject         prfbEffPerfect; //演出prefab.
     [SerializeField] GameObject         prfbEffGood;
     [SerializeField] GameObject         prfbEffBad;
+    [SerializeField] GameObject         prfbEffPlayerPerfect; //パーフェクト演出.
     [SerializeField] GameObject         inPrfbEff;
 
     [Header("- script -")]
-    [SerializeField] GameObject         objPlayer; //プレイヤー.
     [SerializeField] GaugeManager       gaugeMng;
     [SerializeField] ScoreManager       scoreMng;
+
+    [Header("- object -")]
+    [SerializeField] GameObject         objPlayer; //プレイヤー.
 
     [Header("- setting -")]
     [SerializeField] LaneSetting        laneSetting;
@@ -262,19 +265,35 @@ public class NoteManager : MonoBehaviour
         switch (bestResult)
         {
             case Result.Perfect:
+            {
+                //PERFECT文字演出.
                 Instantiate(prfbEffPerfect, inPrfbEff.transform);
+                
+                //プレイヤー残像演出.
+                var obj = Instantiate(prfbEffPlayerPerfect, inPrfbEff.transform);
+                //初期化.
+                obj.GetComponent<EffectPlayerPefect>().Init(
+                    objPlayer.transform.position,
+                    objPlayer.GetComponent<Player>().GetNowImage()
+                );
+
                 gaugeMng.OnPerfect();
-                break;
+            }
+            break;
 
             case Result.Good:
+            {
                 Instantiate(prfbEffGood, inPrfbEff.transform);
                 gaugeMng.OnGood();
-                break;
+            }
+            break;
 
             case Result.Bad:
+            {
                 Instantiate(prfbEffBad, inPrfbEff.transform);
                 gaugeMng.OnBad();
-                break;
+            }
+            break;
 
             default:
                 Debug.Log("不正な値です");

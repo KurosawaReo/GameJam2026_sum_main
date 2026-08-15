@@ -51,6 +51,15 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// Œ»İ‚Ì‰æ‘œ‚ğæ“¾.
+    /// </summary>
+    /// <returns></returns>
+    public Sprite GetNowImage()
+    {
+        return spriteRenderer.sprite;
+    }
+
+    /// <summary>
     /// BGMÄ¶ŠÔ‚©‚çŒ»İ‚Ì‰æ‘œ”Ô†‚ğæ“¾.
     /// </summary>
     private int GetImageIndex(float time)
