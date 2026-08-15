@@ -211,13 +211,23 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     private void ResultNote(List<GameObject> judgeNotes)
     {
+        // 判定済みノーツを先にリストから削除.
+        // Destroy()はフレーム終了時までGameObjectが残るため、
+        // 同じフレーム内で再判定されるのを防ぐ.
+        foreach (GameObject objNote in judgeNotes)
+        {
+            if (objNote != null)
+            {
+                noteList.Remove(objNote);
+            }
+        }
+
         // グループ内で最も良い判定を保存.
         Result bestResult = Result.Bad;
 
         // 判定対象のノーツを1つずつ処理.
         foreach (GameObject objNote in judgeNotes)
         {
-            // ノーツが消えていたら無視.
             if (objNote == null)
             {
                 continue;
@@ -242,6 +252,8 @@ public class NoteManager : MonoBehaviour
 
             // スコアはノーツごとに送信.
             ScoreManager.instance.SendResult(result);
+
+            Debug.Log("result:" + result);
 
             // 判定したノーツを消滅.
             note.Destroy();

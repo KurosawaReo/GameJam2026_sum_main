@@ -14,8 +14,6 @@ public class ScoreManager : MonoBehaviour
 
     public int YariraScore { get; set; }
 
-    bool isYariraFever = false;
-
     int upScore; //スコア上昇量.
     
     int firstScore = 0;
@@ -33,7 +31,6 @@ public class ScoreManager : MonoBehaviour
         countPerfect = 0;
         countGood = 0;
         countBad = 0;
-        isYariraFever = false;
     }
 
     void Awake()
@@ -59,12 +56,6 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        if (!gaugeMng) { return; }
-
-        if (!gaugeMng.IsFever())
-        {
-            isYariraFever = false;
-        }
     }
 
     /// <summary>
@@ -72,7 +63,15 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     public void SendResult(Result result)
     {
-        YariraFever();
+        //スコア加算量.
+        if (gaugeMng.IsFever())
+        {
+            upScore = 1000;
+        }
+        else
+        {
+            upScore = 100;
+        }
 
         //Resultの結果でスコアを変動させる.
         switch (result)
@@ -88,23 +87,6 @@ public class ScoreManager : MonoBehaviour
            case Result.Bad:
                 countBad++;
                 break;
-        }
-    }
-   
-    void YariraFever()
-    {
-        if (gaugeMng.IsFever())
-        {
-            isYariraFever = true;
-        }
-
-        if (isYariraFever)
-        {
-            upScore = 1000;
-        }
-        else
-        {
-            upScore = 100;
         }
     }
 

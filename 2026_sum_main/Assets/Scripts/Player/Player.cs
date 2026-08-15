@@ -105,7 +105,7 @@ public class Player : MonoBehaviour
     /// </summary>
     void OnClickR()
     {
-#if true
+#if false
         //Œ»İ‚ÌBGMÄ¶ŠÔ‚ğæ“¾.
         float time = SoundManager.Inst.GetTimeBGM();
         //Œ»İ‚Ì””‚ğŒvZ.
