@@ -6,20 +6,30 @@ using Common;
 /// </summary>
 public class Note : MonoBehaviour
 {
-    float   moveTime;     // 目標位置までの移動時間.
-    float   destroyTime;  // 目標位置到達後、消滅するまでの時間.
-    float   elapsed;      // 経過時間.
-    Vector3 startPos;     // スタート座標.
-    Vector3 goalPos;      // ゴール座標.
-    Vector3 moveDir;      // 移動方向.
+    int     laneNo;       //どのレーンにいるか.
+    float   moveTime;     //目標位置までの移動時間.
+    float   destroyTime;  //目標位置到達後、消滅するまでの時間.
+    float   elapsed;      //経過時間.
+    Vector3 startPos;     //スタート座標.
+    Vector3 goalPos;      //ゴール座標.
+    Vector3 moveDir;      //移動方向.
 
-    bool initialized = false; // 初期化済みか.
+    bool initialized = false; //初期化済みか.
+
+    /// <summary>
+    /// レーン番号.
+    /// </summary>
+    public int GetLaneNo()
+    {
+        return laneNo;
+    }
 
     /// <summary>
     /// 初期化.
     /// </summary>
-    public void Init(Sprite _sprite, float _moveTime, float _destroyTime, Vector3 _startPos, Vector3 _goalPos)
+    public void Init(Sprite _sprite, int _laneNo, float _moveTime, float _destroyTime, Vector3 _startPos, Vector3 _goalPos)
     {
+        laneNo      = _laneNo;
         moveTime    = _moveTime;
         destroyTime = _destroyTime;
         elapsed     = 0.0f;

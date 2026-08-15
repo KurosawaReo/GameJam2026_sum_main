@@ -96,33 +96,43 @@ public class NoteManager : MonoBehaviour
 
         //初期設定.
         scptNote.Init(
-            imgPlayer, laneSetting.moveTime, laneSetting.destroyTime, startPos, laneSetting.goalPos
+            imgPlayer, data.laneNo, laneSetting.moveTime, laneSetting.destroyTime, startPos, laneSetting.goalPos
         );
-    } 
+    }
 
     /// <summary>
-    /// 最寄りのノーツを判定.
+    /// 指定レーンの最寄りノーツを判定.
     /// </summary>
-    public void JudgeNearestNote(Vector3 playerPos)
+    public void JudgeNearestNote(int laneNo, Vector3 playerPos)
     {
-        //最寄りのノーツobject.
+        // 最寄りのノーツobject.
         GameObject nearestNote = null;
-        //距離計測用.
+
+        // 距離計測用.
         float nearestDist = float.MaxValue;
 
-        //全てのノーツループ.
+        // 全てのノーツをループ.
         foreach (GameObject objNote in noteList)
         {
-            //nullになったノーツは無視.
+            // nullになったノーツは無視.
             if (objNote == null)
             {
                 continue;
             }
 
-            //プレイヤーとの距離を計算.
+            // ノーツのレーンを取得.
+            Note note = objNote.GetComponent<Note>();
+
+            // 指定したレーン以外は無視.
+            if (note.GetLaneNo() != laneNo)
+            {
+                continue;
+            }
+
+            // プレイヤーとの距離を計算.
             float dist = Vector3.Distance(playerPos, objNote.transform.position);
 
-            //現在の最短距離より近ければ更新.
+            // 現在の最短距離より近ければ更新.
             if (dist < nearestDist)
             {
                 nearestDist = dist;
@@ -130,12 +140,12 @@ public class NoteManager : MonoBehaviour
             }
         }
 
-        //ノーツをタップしたら(BAD判定になる距離以内なら)
+        // 判定範囲内にノーツがあれば判定.
         if (nearestNote != null && nearestDist < laneSetting.badDist)
         {
             ResultNote(nearestDist);
 
-            //ノーツ消滅.
+            // 判定したノーツを消滅.
             nearestNote.GetComponent<Note>().Destroy();
         }
     }

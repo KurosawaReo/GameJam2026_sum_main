@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     [SerializeField] NoteManager   noteManager;
 
     [Header("- setting -")]
+    [SerializeField] LaneSetting   laneSetting;
     [SerializeField] PlayerSetting playerSetting;
     [SerializeField] SoundSetting  soundSetting;
 
@@ -75,28 +76,31 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        // 開始待ち時間を計測.
+        //開始待ち時間を計測.
         if (elapsed < playerSetting.startDelay)
         {
             elapsed += Time.deltaTime;
             return;
         }
 
-        // BGMの再生時間から現在の画像番号を計算.
+        //BGMの再生時間から現在の画像番号を計算.
         float time  = SoundManager.Inst.GetTimeBGM();
         int   index = GetImageIndex(time);
 
-        // 画像枚数を超えたらループ.
+        //画像枚数を超えたらループ.
         index %= playerSetting.image.Length;
 
-        // 現在の画像を設定.
+        //現在の画像を設定.
         spriteRenderer.sprite = playerSetting.image[index].main;
 
-        // 左クリックした瞬間.
+        //左クリックした瞬間.
         if (Input.GetMouseButtonDown(0))
         {
-            // 最寄りのノーツ判定を行う.
-            noteManager.JudgeNearestNote(transform.position);
+            //レーンごとに判定.
+            for (int i = 0; i < laneSetting.laneAngle.Length; i++) { 
+                //最寄りのノーツ判定を行う.
+                noteManager.JudgeNearestNote(i, transform.position);
+            }
         }
     }
 }

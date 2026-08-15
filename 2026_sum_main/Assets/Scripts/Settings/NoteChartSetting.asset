@@ -15,28 +15,31 @@ MonoBehaviour:
   noteDatas:
   - beatCount: 9
     laneNo: 0
-    parts: 0
+    parts: 2
   - beatCount: 10
     laneNo: 1
     parts: 0
-  - beatCount: 12
-    laneNo: 2
-    parts: 0
-  - beatCount: 14
+  - beatCount: 9
     laneNo: 3
-    parts: 0
-  - beatCount: 16
-    laneNo: 4
-    parts: 0
-  - beatCount: 18
-    laneNo: 0
-    parts: 0
+    parts: 3
   - beatCount: 20
-    laneNo: 1
-    parts: 0
-  - beatCount: 22
-    laneNo: 2
-    parts: 0
-  - beatCount: 24
     laneNo: 3
-    parts: 0
+    parts: 4
+  - beatCount: 20
+    laneNo: 4
+    parts: 5
+  - beatCount: 30
+    laneNo: 0
+    parts: 5
+  - beatCount: 30
+    laneNo: 1
+    parts: 3
+  - beatCount: 30
+    laneNo: 2
+    parts: 1
+  - beatCount: 30
+    laneNo: 3
+    parts: 2
+  - beatCount: 30
+    laneNo: 4
+    parts: 4

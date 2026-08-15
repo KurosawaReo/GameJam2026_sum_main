@@ -248,14 +248,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: -1843028302627794106, guid: 2e481f66bdf91134dabc3145392a2beb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -981,7 +981,7 @@ MonoBehaviour:
   audioSourceSe: {fileID: 238124440}
   bgmData:
   - name: yarira_rhythm
-    audio: {fileID: 8300000, guid: b3ddc1fd87ced33419336cb0ce99f3a3, type: 3}
+    audio: {fileID: 8300000, guid: 59cafd803c2e3ef4c905bbd2688bdf30, type: 3}
   seData: []
 --- !u!4 &1355377475
 Transform:
@@ -1481,6 +1481,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5646150451006508206, guid: b544f8746e680ca4ea72d018d789d20a, type: 3}
+      propertyPath: laneSetting
+      value: 
+      objectReference: {fileID: 11400000, guid: d91e5ee08a89c7542bafb63e0c149c7d, type: 2}
     - target: {fileID: 5646150451006508206, guid: b544f8746e680ca4ea72d018d789d20a, type: 3}
       propertyPath: noteManager
       value: 
