@@ -84,8 +84,10 @@ public class NoteManager : MonoBehaviour
         //プレイヤーと重なる瞬間の画像が何になるかを計算.
         Sprite imgPlayer;
         {
-            float time = Time.time + laneSetting.moveTime;                      //未来の時間.
-            imgPlayer = objPlayer.GetComponent<Player>().GetAfterImage(time);   //未来の画像を求める.
+            //未来の時間.
+            float time = Time.time + laneSetting.moveTime;
+            //ノーツに設定する画像を取得.
+            imgPlayer = objPlayer.GetComponent<Player>().GetAfterImage(data.parts, time);
         }
 
         //初期設定.

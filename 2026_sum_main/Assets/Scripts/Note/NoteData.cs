@@ -1,4 +1,6 @@
+using Common;
 using System;
+using UnityEditor;
 
 /// <summary>
 /// ノーツデータ.
@@ -6,6 +8,7 @@ using System;
 [Serializable]
 public class NoteData
 {
-    public float time;   //曲開始から何秒後に判定地点へ到達するか.
-    public int   laneNo; //ノーツのレーン番号.
+    public float     time;   //曲開始から何秒後に判定地点へ到達するか.
+    public int       laneNo; //ノーツのレーン番号.
+    public BodyParts parts;  //どの部位を流すか.
 }

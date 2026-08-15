@@ -10,7 +10,7 @@ public class PlayerSetting : ScriptableObject
         "- 画像 -\n\n" +
         "ここでセットした画像を使って順番に切り替わる。\n"
     )]
-    public Sprite[] imgPlayer;
+    public ImgPlayerData[] image;
 
     [Header("- 切り替え間隔(秒) -")]
     public float changeInterval = 1.0f;

@@ -10,6 +10,18 @@ namespace Common
     {
         Perfect,
         Good,
-        Bad, //ミスも含む.
+        Bad,    //ミスも含む.
+    }
+
+    /// <summary>
+    /// 体の部位.
+    /// </summary>
+    public enum BodyParts
+    {
+        Head,   //頭.
+        ArmL,   //左腕.
+        ArmR,   //右腕.
+        LegL,   //左脚.
+        LegR    //右脚.
     }
 }
