@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: LaneSetting
   m_EditorClassIdentifier: Assembly-CSharp::LaneSetting
   laneAngle:
-  - 99.2
-  - 168.6
-  - 7.8
+  - 108.5
+  - 169.1
+  - 10.76
   goalPos: {x: 0, y: 0, z: 0}
-  dist: 10.75
+  dist: 11.44
   moveTime: 2
   destroyTime: 1
   badDist: 5

@@ -338,7 +338,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: 8658599788432980269, guid: 1bd4a8d8678d8334dafe341bc5d9217c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -379,6 +379,37 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player
   noteManager: {fileID: 2041709152}
   setting: {fileID: 11400000, guid: ada8b0c7206708e4f97575f9495391b3, type: 2}
+--- !u!1 &452653557
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 452653558}
+  m_Layer: 0
+  m_Name: EffectObjects
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &452653558
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 452653557}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1198414880}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -631,6 +662,7 @@ Transform:
   m_Children:
   - {fileID: 113457794}
   - {fileID: 1753634568}
+  - {fileID: 452653558}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1615086961
@@ -713,7 +745,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -9
   m_TargetDisplay: 0
 --- !u!224 &1615086965
 RectTransform:
@@ -796,7 +828,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteManager
   prfbNote: {fileID: 4349878079928790561, guid: b95001261e12c9544aa6b919385fa0a9, type: 3}
-  InPrefab: {fileID: 1753634567}
+  inPrfbNote: {fileID: 1753634567}
+  prfbEffPerfect: {fileID: 7999496798782010450, guid: 63860a863733be446ab2d9359b6bb96f, type: 3}
+  prfbEffGood: {fileID: 7999496798782010450, guid: 18f45bb59731338448ddcce3e9683be4, type: 3}
+  prfbEffBad: {fileID: 7999496798782010450, guid: a045c479e4f377e48a4380c3fb7bd5ea, type: 3}
+  inPrfbEff: {fileID: 452653557}
   objPlayer: {fileID: 113457792}
   laneSetting: {fileID: 11400000, guid: d91e5ee08a89c7542bafb63e0c149c7d, type: 2}
   noteChartSetting: {fileID: 11400000, guid: fdc2c46226528e94aaeb5b4793bf3ae3, type: 2}
@@ -823,5 +859,5 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1615086965}
   - {fileID: 1198414880}
-  - {fileID: 2041709153}
   - {fileID: 89023324}
+  - {fileID: 2041709153}

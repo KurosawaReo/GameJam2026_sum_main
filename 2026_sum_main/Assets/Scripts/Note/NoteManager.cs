@@ -5,8 +5,13 @@ using Common;
 public class NoteManager : MonoBehaviour
 {
     [Header("- prefab -")]
-    [SerializeField] GameObject         prfbNote;  //ノーツprefab.
-    [SerializeField] GameObject         InPrefab;
+    [SerializeField] GameObject         prfbNote;       //ノーツprefab.
+    [SerializeField] GameObject         inPrfbNote;
+    [Space]
+    [SerializeField] GameObject         prfbEffPerfect; //演出prefab.
+    [SerializeField] GameObject         prfbEffGood;
+    [SerializeField] GameObject         prfbEffBad;
+    [SerializeField] GameObject         inPrfbEff;
 
     [Header("- script -")]
     [SerializeField] GameObject         objPlayer; //プレイヤー.
@@ -50,7 +55,7 @@ public class NoteManager : MonoBehaviour
     private void SpawnNote(NoteData data)
     {
         //ノーツ生成.
-        var objNote  = Instantiate(prfbNote, InPrefab.transform);
+        var objNote  = Instantiate(prfbNote, inPrfbNote.transform);
         var scptNote = objNote.GetComponent<Note>();
         //ノーツをリストに登録.
         noteList.Add(objNote);
@@ -106,17 +111,18 @@ public class NoteManager : MonoBehaviour
             //ノーツ判定.
             Result ret = JudgeNote(nearestDist);
 
+
             //リザルト別処理.
             switch (ret)
             {
                 case Result.Perfect:
-                    //TODO
+                    Instantiate(prfbEffPerfect, inPrfbEff.transform); //演出.
                     break;
                 case Result.Good:
-                    //TODO
+                    Instantiate(prfbEffGood,    inPrfbEff.transform); //演出.
                     break;
                 case Result.Bad:
-                    //TODO
+                    Instantiate(prfbEffBad,     inPrfbEff.transform); //演出.
                     break;
 
                 default: Debug.Log("不正な値です"); break;
