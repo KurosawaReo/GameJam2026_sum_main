@@ -22,24 +22,6 @@ public class ResultManager : MonoBehaviour
     int secondScore;
     int thirdScore;
 
-    /*
-    [Header("#は入れるべきTextやImageの名前")]
-    [Header("#PlayerScore")]
-    [SerializeField]private TextMeshProUGUI playerResultText;
-    [Header("#RankingText")]
-    [SerializeField]private TextMeshProUGUI RankingText;
-    [Header("#RankingFirst|RankingSecond|RankingThird")]
-    [SerializeField]private TextMeshProUGUI[] TopRankingText;
-    [Header("#titleText(titleボタンのText)")]
-    [SerializeField] private TextMeshProUGUI titleText;
-    [Header("#playText(playボタンのText)")]
-    [SerializeField] private TextMeshProUGUI playText;
-    [Header("#title(titleボタンのImage)")]
-    [SerializeField] private Image titleButton;
-    [Header("#playButton(playボタンのImage)")]
-    [SerializeField] private Image playButton;
-    */
-
     [Header("- object -")]
     [SerializeField] GameObject objectsRanking;
     [SerializeField] GameObject objectsResultCount;
@@ -83,6 +65,12 @@ public class ResultManager : MonoBehaviour
         StartCoroutine(StartResult());
     }
 
+    void Update()
+    {
+        // 開発者コマンド.
+        CheckDeveloperCommand();
+    }
+
     public void PushBackTitle()
     {
         SceneManager.LoadScene("TitleScene");
@@ -118,5 +106,22 @@ public class ResultManager : MonoBehaviour
         objectsResultCount.SetActive(true);
         buttonBackTitle.SetActive(true);
         buttonReplay.SetActive(true);
+    }
+
+    /// <summary>
+    /// 開発者コマンドを確認.
+    /// </summary>
+    void CheckDeveloperCommand()
+    {
+        // ESC + Dを同時に押したらランキングをリセット.
+        if (Input.GetKey(KeyCode.Escape) && Input.GetKey(KeyCode.D))
+        {
+            PlayerPrefs.DeleteKey("First");
+            PlayerPrefs.DeleteKey("Second");
+            PlayerPrefs.DeleteKey("Third");
+            PlayerPrefs.Save();
+
+            Debug.Log("ランキングをリセットしました.");
+        }
     }
 }

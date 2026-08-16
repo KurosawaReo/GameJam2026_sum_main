@@ -29,9 +29,6 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        // 開発者コマンド.
-        CheckDeveloperCommand();
-
         //拍数の表示.
         if (debugBeatCount)
         {
@@ -114,22 +111,5 @@ public class GameManager : MonoBehaviour
         scoreMng.RegisterRanking();
         //次のシーンへ.
         SceneManager.LoadScene(nextSceneName);
-    }
-
-    /// <summary>
-    /// 開発者コマンドを確認.
-    /// </summary>
-    void CheckDeveloperCommand()
-    {
-        // ESC + Dを同時に押したらランキングをリセット.
-        if (Input.GetKey(KeyCode.Escape) && Input.GetKey(KeyCode.D))
-        {
-            PlayerPrefs.DeleteKey("First");
-            PlayerPrefs.DeleteKey("Second");
-            PlayerPrefs.DeleteKey("Third");
-            PlayerPrefs.Save();
-
-            Debug.Log("ランキングをリセットしました.");
-        }
     }
 }
