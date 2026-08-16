@@ -14,209 +14,164 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NoteChart
   noteDatas:
   - beatCount: 4
-    laneNo: 2
-    parts: 0
-  - beatCount: 8
     laneNo: 1
-    parts: 3
+    parts: 0
   - beatCount: 12
     laneNo: 3
-    parts: 1
-  - beatCount: 16
-    laneNo: 3
-    parts: 4
+    parts: 0
   - beatCount: 20
-    laneNo: 4
-    parts: 2
-  - beatCount: 24
     laneNo: 0
-    parts: 5
+    parts: 0
   - beatCount: 28
-    laneNo: 1
-    parts: 3
+    laneNo: 4
+    parts: 0
   - beatCount: 32
-    laneNo: 1
-    parts: 4
-  - beatCount: 34
-    laneNo: 3
-    parts: 2
-  - beatCount: 38
     laneNo: 2
     parts: 0
-  - beatCount: 42
-    laneNo: 0
-    parts: 4
-  - beatCount: 46
+  - beatCount: 40
+    laneNo: 1
+    parts: 3
+  - beatCount: 44
+    laneNo: 3
+    parts: 2
+  - beatCount: 48
     laneNo: 0
     parts: 5
-  - beatCount: 50
-    laneNo: 1
-    parts: 1
-  - beatCount: 54
+  - beatCount: 52
+    laneNo: 4
+    parts: 4
+  - beatCount: 56
     laneNo: 3
     parts: 1
-  - beatCount: 58
-    laneNo: 1
-    parts: 2
   - beatCount: 62
+    laneNo: 1
+    parts: 0
+  - beatCount: 64
     laneNo: 3
-    parts: 3
-  - beatCount: 66
-    laneNo: 2
     parts: 0
   - beatCount: 68
-    laneNo: 2
-    parts: 0
+    laneNo: 3
+    parts: 2
   - beatCount: 70
     laneNo: 1
-    parts: 2
-  - beatCount: 74
-    laneNo: 3
     parts: 3
-  - beatCount: 76
-    laneNo: 1
-    parts: 1
-  - beatCount: 82
+  - beatCount: 72
     laneNo: 3
-    parts: 1
+    parts: 2
+  - beatCount: 76
+    laneNo: 0
+    parts: 5
+  - beatCount: 78
+    laneNo: 4
+    parts: 4
+  - beatCount: 80
+    laneNo: 4
+    parts: 4
   - beatCount: 84
     laneNo: 1
-    parts: 1
+    parts: 2
   - beatCount: 86
+    laneNo: 4
+    parts: 5
+  - beatCount: 88
     laneNo: 3
     parts: 1
-  - beatCount: 90
-    laneNo: 2
-    parts: 0
   - beatCount: 92
-    laneNo: 4
-    parts: 4
-  - beatCount: 94
     laneNo: 3
-    parts: 5
-  - beatCount: 98
-    laneNo: 4
+    parts: 1
+  - beatCount: 94
+    laneNo: 1
+    parts: 1
+  - beatCount: 96
+    laneNo: 2
     parts: 1
   - beatCount: 100
-    laneNo: 2
-    parts: 1
-  - beatCount: 102
-    laneNo: 3
-    parts: 2
-  - beatCount: 104
-    laneNo: 3
-    parts: 2
-  - beatCount: 106
     laneNo: 1
-    parts: 3
-  - beatCount: 108
+    parts: 0
+  - beatCount: 101
     laneNo: 1
-    parts: 5
-  - beatCount: 110
-    laneNo: 3
-    parts: 1
-  - beatCount: 112
+    parts: 0
+  - beatCount: 103
     laneNo: 1
-    parts: 2
-  - beatCount: 114
-    laneNo: 1
-    parts: 2
-  - beatCount: 116
+    parts: 0
+  - beatCount: 105
     laneNo: 4
-    parts: 5
-  - beatCount: 118
-    laneNo: 4
-    parts: 5
-  - beatCount: 120
+    parts: 0
+  - beatCount: 107
     laneNo: 0
-    parts: 1
-  - beatCount: 122
+    parts: 0
+  - beatCount: 108
     laneNo: 4
-    parts: 1
-  - beatCount: 124
+    parts: 0
+  - beatCount: 109
     laneNo: 3
-    parts: 1
-  - beatCount: 126
+    parts: 0
+  - beatCount: 111
+    laneNo: 3
+    parts: 0
+  - beatCount: 113
+    laneNo: 3
+    parts: 0
+  - beatCount: 115
     laneNo: 1
-    parts: 1
+    parts: 0
+  - beatCount: 116
+    laneNo: 1
+    parts: 0
+  - beatCount: 124
+    laneNo: 2
+    parts: 0
   - beatCount: 128
-    laneNo: 3
+    laneNo: 4
     parts: 4
+  - beatCount: 128
+    laneNo: 0
+    parts: 5
   - beatCount: 130
     laneNo: 3
-    parts: 4
+    parts: 2
+  - beatCount: 130
+    laneNo: 1
+    parts: 5
   - beatCount: 132
     laneNo: 3
-    parts: 4
-  - beatCount: 133
+    parts: 1
+  - beatCount: 140
     laneNo: 1
-    parts: 5
-  - beatCount: 135
-    laneNo: 1
-    parts: 5
-  - beatCount: 137
-    laneNo: 1
+    parts: 1
+  - beatCount: 148
+    laneNo: 2
     parts: 5
   - beatCount: 149
     laneNo: 2
-    parts: 2
+    parts: 5
+  - beatCount: 150
+    laneNo: 2
+    parts: 0
   - beatCount: 151
     laneNo: 2
-    parts: 2
+    parts: 0
+  - beatCount: 152
+    laneNo: 2
+    parts: 0
   - beatCount: 153
-    laneNo: 2
-    parts: 2
-  - beatCount: 155
     laneNo: 1
     parts: 4
+  - beatCount: 154
+    laneNo: 1
+    parts: 4
+  - beatCount: 156
+    laneNo: 4
+    parts: 5
+  - beatCount: 157
+    laneNo: 4
+    parts: 5
   - beatCount: 158
-    laneNo: 1
-    parts: 4
-  - beatCount: 161
-    laneNo: 1
-    parts: 4
-  - beatCount: 163
     laneNo: 4
-    parts: 5
-  - beatCount: 165
-    laneNo: 4
-    parts: 5
-  - beatCount: 167
-    laneNo: 4
-    parts: 5
-  - beatCount: 169
-    laneNo: 3
-    parts: 1
-  - beatCount: 171
-    laneNo: 1
-    parts: 1
-  - beatCount: 173
-    laneNo: 2
-    parts: 5
-  - beatCount: 175
-    laneNo: 2
-    parts: 5
-  - beatCount: 177
-    laneNo: 2
     parts: 0
-  - beatCount: 179
-    laneNo: 2
-    parts: 0
-  - beatCount: 181
-    laneNo: 2
-    parts: 0
-  - beatCount: 183
-    laneNo: 1
-    parts: 4
-  - beatCount: 185
-    laneNo: 1
-    parts: 4
-  - beatCount: 187
+  - beatCount: 159
     laneNo: 4
-    parts: 5
-  - beatCount: 189
-    laneNo: 4
-    parts: 5
+    parts: 0
   - beatCount: 191
     laneNo: 3
     parts: 3

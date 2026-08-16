@@ -472,7 +472,9 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     private void OnMiss()
     {
-        OnBad(); //スルーした時もBAD判定.
+        //スルーした時もBAD判定.
+        OnBad();
+        OnBadEffect();
     }
 
     /// <summary>
