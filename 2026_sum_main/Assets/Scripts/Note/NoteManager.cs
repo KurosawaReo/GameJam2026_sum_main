@@ -13,6 +13,9 @@ public class NoteManager : MonoBehaviour
     [SerializeField] GameObject         prfbEffBad;
     [SerializeField] GameObject         prfbEffPlayerPerfect; //パーフェクト演出.
     [SerializeField] GameObject         inPrfbEff;
+    [Space]
+    [SerializeField] GameObject         prfbEffCircleFlame;   //タイミング補助円.
+    [SerializeField] GameObject         inPrfbEffCircleFlame;
 
     [Header("- script -")]
     [SerializeField] GaugeManager       gaugeMng;
@@ -103,6 +106,11 @@ public class NoteManager : MonoBehaviour
         scptNote.Init(
             imgPlayer, data.laneNo, noteTime, laneSetting.moveTime, laneSetting.destroyTime, startPos, laneSetting.goalPos
         );
+
+        //タイミング補助用の円を生成.
+        var objCircle = Instantiate(prfbEffCircleFlame, inPrfbEffCircleFlame.transform);
+        //ノーツと同じ拍数を設定.
+        objCircle.GetComponent<EffectCircleFlame>().Init(data.beatCount);
     }
 
     /// <summary>

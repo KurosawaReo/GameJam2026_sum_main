@@ -3,8 +3,8 @@ guid: efc64cea80caaa446b35efb0868d5443
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2810355825187645598
-    second: tutorial_circle_main_0
+      213: -3028628251740131383
+    second: circle_main_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -46,9 +46,9 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
-  spriteMeshType: 1
+  spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 1200
@@ -126,7 +126,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: tutorial_circle_main_0
+      name: circle_main_0
       rect:
         serializedVersion: 2
         x: 25
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 2679d33544c9ff8d0800000000000000
-      internalID: -2810355825187645598
+      spriteID: 9cf2152c6a628f5d0800000000000000
+      internalID: -3028628251740131383
       vertices: []
       indices: 
       edges: []
@@ -151,7 +151,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      tutorial_circle_main_0: -2810355825187645598
+      circle_main_0: -3028628251740131383
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
