@@ -65,12 +65,6 @@ public class ResultManager : MonoBehaviour
         StartCoroutine(StartResult());
     }
 
-    void Update()
-    {
-        // 開発者コマンド.
-        CheckDeveloperCommand();
-    }
-
     public void PushBackTitle()
     {
         SceneManager.LoadScene("TitleScene");
@@ -106,22 +100,5 @@ public class ResultManager : MonoBehaviour
         objectsResultCount.SetActive(true);
         buttonBackTitle.SetActive(true);
         buttonReplay.SetActive(true);
-    }
-
-    /// <summary>
-    /// 開発者コマンドを確認.
-    /// </summary>
-    void CheckDeveloperCommand()
-    {
-        // ESC + Dを同時に押したらランキングをリセット.
-        if (Input.GetKey(KeyCode.Escape) && Input.GetKey(KeyCode.D))
-        {
-            PlayerPrefs.DeleteKey("First");
-            PlayerPrefs.DeleteKey("Second");
-            PlayerPrefs.DeleteKey("Third");
-            PlayerPrefs.Save();
-
-            Debug.Log("ランキングをリセットしました.");
-        }
     }
 }
