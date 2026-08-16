@@ -147,7 +147,10 @@ public class Player : MonoBehaviour
     /// </summary>
     void OnClickR()
     {
-        //レーンごとに判定.
+        //今回のクリックでの判定を開始.
+        noteManager.BeginJudge();
+
+        //全レーンを確認.
         for (int i = 0; i < laneSetting.laneAngle.Length; i++)
         {
             //最寄りのノーツ判定を行う.

@@ -34,6 +34,19 @@ public class NoteManager : MonoBehaviour
 
     int noteIndex; //次に生成するノーツの番号.
 
+    //今回の入力ですでにノーツを判定したか.
+    bool isJudgedThisInput = false;
+
+    /// <summary>
+    /// 1回の入力での判定開始.
+    /// Playerからクリックされた時に呼ぶ.
+    /// </summary>
+    public void BeginJudge()
+    {
+        //今回の入力ではまだ判定していない状態にする.
+        isJudgedThisInput = false;
+    }
+
     /// <summary>
     /// レーンのスタート座標を取得.
     /// </summary>
@@ -119,26 +132,35 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     public void JudgeNearestNote(int laneNo, Vector3 playerPos)
     {
-        // 指定されたレーンの最寄りノーツを取得.
+        //今回の入力ですでに判定済みなら、別レーンを判定しない.
+        if (isJudgedThisInput)
+        {
+            return;
+        }
+
+        //指定されたレーンの最寄りノーツを取得.
         GameObject baseNote = GetNearestNote(laneNo, playerPos, out float baseDist);
 
-        // ノーツがない、または判定範囲外なら終了.
+        //ノーツがない、または判定範囲外なら終了.
         if (baseNote == null || baseDist >= laneSetting.badDist)
         {
             return;
         }
 
-        // 最初に押されたノーツの判定時間を取得.
+        //この入力では判定済みにする.
+        isJudgedThisInput = true;
+
+        //最初に押されたノーツの判定時間を取得.
         Note baseNoteComponent = baseNote.GetComponent<Note>();
         float baseTime = baseNoteComponent.GetNoteTime();
 
-        // 最初のノーツだけを通常通り判定.
+        //最初のノーツを距離から通常通り判定.
         Result result = JudgeNote(baseDist);
 
-        // 同じタイミングのノーツを取得.
+        //同じタイミングのノーツだけ取得.
         List<GameObject> judgeNotes = GetSameTimeNotes(baseTime);
 
-        // 判定済みノーツをリストから削除.
+        //判定対象をリストから削除.
         foreach (GameObject objNote in judgeNotes)
         {
             if (objNote != null)
@@ -147,7 +169,7 @@ public class NoteManager : MonoBehaviour
             }
         }
 
-        // 同じタイミングのノーツを処理.
+        //同じタイミングのノーツをまとめて処理.
         foreach (GameObject objNote in judgeNotes)
         {
             if (objNote == null)
@@ -157,14 +179,14 @@ public class NoteManager : MonoBehaviour
 
             Note note = objNote.GetComponent<Note>();
 
-            // 最初のノーツと同じ判定結果を適用.
+            //最初のノーツと同じ判定結果を送る.
             scoreMng.SendResult(result);
 
-            // ノーツを消滅.
+            //判定済みなので通常のDestroy.
             note.Destroy();
         }
 
-        // 判定結果に応じた演出・ゲージ処理.
+        //判定結果に応じた演出.
         switch (result)
         {
             case Result.Perfect:
@@ -228,17 +250,17 @@ public class NoteManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 指定した拍数と同じタイミングのノーツを取得.
+    /// 指定した時間と同じタイミングのノーツを取得.
     /// </summary>
-    private List<GameObject> GetSameTimeNotes(float baseBeat)
+    private List<GameObject> GetSameTimeNotes(float baseTime)
     {
-        // 同時押し対象のノーツ.
+        //同時押し対象のノーツ.
         List<GameObject> sameTimeNotes = new();
 
-        // 全ノーツを確認.
+        //全ノーツを確認.
         foreach (GameObject objNote in noteList)
         {
-            // 既に削除されたノーツは無視.
+            //既に削除されたノーツは無視.
             if (objNote == null)
             {
                 continue;
@@ -246,11 +268,11 @@ public class NoteManager : MonoBehaviour
 
             Note note = objNote.GetComponent<Note>();
 
-            // ノーツの拍数を取得.
-            float noteBeat = note.GetNoteTime();
+            //ノーツの判定時間を取得.
+            float noteTime = note.GetNoteTime();
 
-            // 全く同じ拍なら同時押し対象に追加.
-            if (Mathf.Approximately(noteBeat, baseBeat))
+            //同じ時間なら同時押し対象に追加.
+            if (Mathf.Approximately(noteTime, baseTime))
             {
                 sameTimeNotes.Add(objNote);
             }
