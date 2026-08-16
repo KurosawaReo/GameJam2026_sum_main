@@ -1632,7 +1632,7 @@ MonoBehaviour:
   feverDuration: 10
   gaugeUpSpeed: 2
   imageGauge: {fileID: 1704703188}
-  prfbEffFever: {fileID: 8976438000973096233, guid: 31a09f124fb0bba448970e52bf5078a9, type: 3}
+  prfbEffFever: {fileID: 8334927573907593784, guid: f3903a9a3b179014495270b14a1de256, type: 3}
   inPrfbEffFever: {fileID: 1751413254}
 --- !u!4 &1106984091
 Transform:
