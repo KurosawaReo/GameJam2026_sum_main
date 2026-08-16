@@ -105,6 +105,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player
   noteManager: {fileID: 0}
+  gaugeMng: {fileID: 0}
   laneSetting: {fileID: 0}
   playerSetting: {fileID: 11400000, guid: ada8b0c7206708e4f97575f9495391b3, type: 2}
   soundSetting: {fileID: 11400000, guid: 4d4a355f3d67f1940b57639e9f88bd60, type: 2}
+  rainbowSpeed: 0.5
+  saturation: 0.5
+  brightness: 1

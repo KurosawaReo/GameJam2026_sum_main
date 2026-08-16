@@ -8,15 +8,22 @@ public class Player : MonoBehaviour
 {
     [Header("- script -")]
     [SerializeField] NoteManager   noteManager;
+    [SerializeField] GaugeManager  gaugeMng;
 
     [Header("- setting -")]
     [SerializeField] LaneSetting   laneSetting;
     [SerializeField] PlayerSetting playerSetting;
     [SerializeField] SoundSetting  soundSetting;
 
+    [Header("- fever effect -")]
+    [SerializeField] float rainbowSpeed = 0.5f; // 虹色が変化する速度.
+    [SerializeField][Range(0f, 1f)] float saturation = 0.8f; // 彩度.
+    [SerializeField][Range(0f, 1f)] float brightness = 1f; // 明るさ.
+
     SpriteRenderer spriteRenderer;
 
-    float elapsed; //開始までの経過時間.
+    float elapsed;  //開始までの経過時間.
+    float hue = 0f; //現在の色相.
 
     /// <summary>
     /// 指定秒数後の画像を取得.
@@ -101,6 +108,9 @@ public class Player : MonoBehaviour
         //現在の画像を設定.
         spriteRenderer.sprite = playerSetting.image[index].main;
 
+        //フィーバー中のみ虹色にする.
+        UpdateFeverColor();
+
         //左クリックした瞬間.
         if (Input.GetMouseButtonDown(0))
         {
@@ -109,19 +119,34 @@ public class Player : MonoBehaviour
     }
 
     /// <summary>
+    /// フィーバー中のプレイヤー色を更新.
+    /// </summary>
+    void UpdateFeverColor()
+    {
+        // フィーバー中でなければ白に戻す.
+        if (!gaugeMng.IsFever())
+        {
+            spriteRenderer.color = Color.white;
+            return;
+        }
+
+        // 色相を0～1の範囲で循環させる.
+        hue += Time.deltaTime * rainbowSpeed;
+        hue %= 1f;
+
+        // HSVからRGBへ変換.
+        spriteRenderer.color = Color.HSVToRGB(
+            hue,
+            saturation,
+            brightness
+        );
+    }
+
+    /// <summary>
     /// 右クリックした瞬間.
     /// </summary>
     void OnClickR()
     {
-#if false
-        //現在のBGM再生時間を取得.
-        float time = SoundManager.Inst.GetTimeBGM();
-        //現在の拍数を計算.
-        float beat = time / soundSetting.GetBeatTime();
-        //クリックした瞬間の拍数を表示.
-        Debug.Log($"現在の拍数: {beat:F3}");
-#endif
-        
         //レーンごとに判定.
         for (int i = 0; i < laneSetting.laneAngle.Length; i++)
         {

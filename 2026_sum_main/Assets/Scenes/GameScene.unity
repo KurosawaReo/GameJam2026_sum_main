@@ -1637,7 +1637,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1419469733
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2368,6 +2368,18 @@ PrefabInstance:
     - target: {fileID: 464748441331514530, guid: b544f8746e680ca4ea72d018d789d20a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646150451006508206, guid: b544f8746e680ca4ea72d018d789d20a, type: 3}
+      propertyPath: gaugeMng
+      value: 
+      objectReference: {fileID: 1106984090}
+    - target: {fileID: 5646150451006508206, guid: b544f8746e680ca4ea72d018d789d20a, type: 3}
+      propertyPath: brightness
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 5646150451006508206, guid: b544f8746e680ca4ea72d018d789d20a, type: 3}
+      propertyPath: saturation
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 5646150451006508206, guid: b544f8746e680ca4ea72d018d789d20a, type: 3}
       propertyPath: laneSetting
