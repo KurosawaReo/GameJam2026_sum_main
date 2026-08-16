@@ -1,6 +1,5 @@
-using Common;
 using UnityEngine;
-using static Unity.VisualScripting.Member;
+using Common;
 
 /// <summary>
 /// プレイヤークラス.
@@ -65,7 +64,7 @@ public class Player : MonoBehaviour
     private int GetImageIndex(float time)
     {
         // 現在何拍目かを計算.
-        float beat = time / soundSetting.GetBeatTime();
+        float beat = time / soundSetting.GetBeatSec();
 
         // 画像番号を計算.
         int index = Mathf.FloorToInt(beat / playerSetting.changeBeat);

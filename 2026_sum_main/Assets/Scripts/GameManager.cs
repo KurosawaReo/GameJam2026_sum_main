@@ -1,23 +1,27 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 /// <summary>
 /// ゲーム管理クラス.
 /// </summary>
 public class GameManager : MonoBehaviour
 {
-    [Header("- setting -")]
-    [SerializeField] SoundSetting soundSetting; //サウンド設定.
+    [Header("- Setting -")]
+    [SerializeField] SoundSetting soundSetting;     //サウンド設定.
 
     [Header("- Scene -")]
-    [SerializeField] string nextSceneName;      //遷移先シーン名.
+    [SerializeField] string       nextSceneName;    //遷移先シーン名.
 
     [Header("- Script -")]
     [SerializeField] GaugeManager gaugeMng;
     [SerializeField] ScoreManager scoreMng;
 
     [Header("- Effect -")]
-    [SerializeField] GameObject effectRainbow;  //虹色演出.
+    [SerializeField] GameObject   effectRainbow;    //虹色演出.
+
+    [Header("- Debug -")]
+    [SerializeField] Text         debugBeatCount;
 
     float elapsed;          //現在の経過時間.
     bool  isBgmStarted;     //BGMを再生したか.
@@ -25,6 +29,17 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+        // 開発者コマンド.
+        CheckDeveloperCommand();
+
+        //拍数の表示.
+        if (debugBeatCount)
+        {
+            float currentTime = SoundManager.Inst.GetTimeBGM();
+            float currentBeat = soundSetting.GetBeat(currentTime);
+            debugBeatCount.text = "拍数:" + currentBeat.ToString("F1");
+        }
+
         //BGM開始前なら開始処理.
         if (!isBgmStarted)
         {
@@ -99,5 +114,22 @@ public class GameManager : MonoBehaviour
         scoreMng.RegisterRanking();
         //次のシーンへ.
         SceneManager.LoadScene(nextSceneName);
+    }
+
+    /// <summary>
+    /// 開発者コマンドを確認.
+    /// </summary>
+    void CheckDeveloperCommand()
+    {
+        // ESC + Dを同時に押したらランキングをリセット.
+        if (Input.GetKey(KeyCode.Escape) && Input.GetKey(KeyCode.D))
+        {
+            PlayerPrefs.DeleteKey("First");
+            PlayerPrefs.DeleteKey("Second");
+            PlayerPrefs.DeleteKey("Third");
+            PlayerPrefs.Save();
+
+            Debug.Log("ランキングをリセットしました.");
+        }
     }
 }

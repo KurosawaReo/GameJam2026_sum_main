@@ -16,3 +16,4 @@ MonoBehaviour:
   bpm: 160
   bgmStartDelay: 1
   bgmEndDelay: 1
+  beatStartTime: 0.9

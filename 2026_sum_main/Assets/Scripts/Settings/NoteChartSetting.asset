@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: NoteChartSetting
   m_EditorClassIdentifier: Assembly-CSharp::NoteChart
   noteDatas:
-  - beatCount: 8
+  - beatCount: 3
     laneNo: 0
     parts: 2
-  - beatCount: 8
+  - beatCount: 7.5
     laneNo: 1
     parts: 3
   - beatCount: 16
