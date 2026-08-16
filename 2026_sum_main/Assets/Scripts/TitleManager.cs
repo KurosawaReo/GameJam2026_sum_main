@@ -32,7 +32,9 @@ public class TitleManager : MonoBehaviour
             return;
         }
 
-        // 遷移開始.
+        //SE再生.
+        SoundManager.Inst.PlaySE("title_button");
+        //遷移開始.
         StartCoroutine(TransitionScene());
     }
 

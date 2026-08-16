@@ -276,9 +276,11 @@ public class NoteManager : MonoBehaviour
             {
                 //PERFECT文字演出.
                 Instantiate(prfbEffPerfect, inPrfbEff.transform);
-                
-                //プレイヤー残像演出.
-                var obj = Instantiate(prfbEffPlayerPerfect, inPrfbEff.transform);
+                //SE再生.
+                SoundManager.Inst.PlaySE("perfect");
+
+                    //プレイヤー残像演出.
+                    var obj = Instantiate(prfbEffPlayerPerfect, inPrfbEff.transform);
                 //初期化.
                 obj.GetComponent<EffectPlayerPefect>().Init(
                     objPlayer.transform.position,
@@ -291,6 +293,9 @@ public class NoteManager : MonoBehaviour
 
             case Result.Good:
             {
+                //SE再生.
+                SoundManager.Inst.PlaySE("good");
+
                 Instantiate(prfbEffGood, inPrfbEff.transform);
                 gaugeMng.OnGood();
             }
@@ -298,6 +303,9 @@ public class NoteManager : MonoBehaviour
 
             case Result.Bad:
             {
+                //SE再生.
+                SoundManager.Inst.PlaySE("bad");
+
                 Instantiate(prfbEffBad, inPrfbEff.transform);
                 gaugeMng.OnBad();
             }

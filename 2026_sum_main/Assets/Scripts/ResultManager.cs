@@ -67,10 +67,16 @@ public class ResultManager : MonoBehaviour
 
     public void PushBackTitle()
     {
+        //SEÄ¶.
+        SoundManager.Inst.PlaySE("result_button");
+
         SceneManager.LoadScene("TitleScene");
     }
     public void PushReplay()
     {
+        //SEÄ¶.
+        SoundManager.Inst.PlaySE("result_button");
+
         SceneManager.LoadScene("GameScene");
     }
 
@@ -82,6 +88,10 @@ public class ResultManager : MonoBehaviour
         playerResultText.enabled = true;
 
         yield return new WaitForSeconds(1.15f);
+
+        //SEÄ¶.
+        SoundManager.Inst.PlaySE("result");
+
         playerResultText.text = "‚ ‚È‚½‚Ìƒ„ƒŠƒ‰ƒXƒRƒA\n" + score;
 
         yield return new WaitForSeconds(1.0f);
