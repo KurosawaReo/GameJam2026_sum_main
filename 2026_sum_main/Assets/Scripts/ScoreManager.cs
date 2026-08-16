@@ -26,7 +26,10 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     public void OnPerfect()
     {
-        AllSceneData.instance.YariraScore += scoreSetting.perfectScore;
+        //‰ÁŽZ—Ê.
+        int add = scoreSetting.perfectScore * (gaugeMng.IsFever() ? scoreSetting.feverRate : 1);
+
+        AllSceneData.instance.YariraScore += add;
         AllSceneData.instance.CountPerfect++;
     }
 
@@ -35,7 +38,10 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     public void OnGood()
     {
-        AllSceneData.instance.YariraScore += scoreSetting.goodScore;
+        //‰ÁŽZ—Ê.
+        int add = scoreSetting.goodScore * (gaugeMng.IsFever() ? scoreSetting.feverRate : 1);
+
+        AllSceneData.instance.YariraScore += add;
         AllSceneData.instance.CountGood++;
     }
 
@@ -44,7 +50,10 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     public void OnBad()
     {
-        AllSceneData.instance.YariraScore += scoreSetting.badScore;
+        //‰ÁŽZ—Ê.
+        int add = scoreSetting.badScore * (gaugeMng.IsFever() ? scoreSetting.feverRate : 1);
+
+        AllSceneData.instance.YariraScore += add;
         AllSceneData.instance.CountBad++;
     }
 

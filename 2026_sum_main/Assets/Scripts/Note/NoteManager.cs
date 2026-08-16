@@ -5,16 +5,16 @@ using Common;
 public class NoteManager : MonoBehaviour
 {
     [Header("- prefab -")]
-    [SerializeField] GameObject         prfbNote;       //ノーツprefab.
+    [SerializeField] GameObject         prfbNote;               //ノーツprefab.
     [SerializeField] GameObject         inPrfbNote;
     [Space]
-    [SerializeField] GameObject         prfbEffPerfect; //演出prefab.
+    [SerializeField] GameObject         prfbEffPerfect;         //演出prefab.
     [SerializeField] GameObject         prfbEffGood;
     [SerializeField] GameObject         prfbEffBad;
-    [SerializeField] GameObject         prfbEffPlayerPerfect; //パーフェクト演出.
+    [SerializeField] GameObject         prfbEffPlayerPerfect;   //パーフェクト演出.
     [SerializeField] GameObject         inPrfbEff;
     [Space]
-    [SerializeField] GameObject         prfbEffCircleFlame;   //タイミング補助円.
+    [SerializeField] GameObject         prfbEffCircleFlame;     //タイミング補助円.
     [SerializeField] GameObject         inPrfbEffCircleFlame;
 
     [Header("- script -")]
@@ -22,7 +22,7 @@ public class NoteManager : MonoBehaviour
     [SerializeField] ScoreManager       scoreMng;
 
     [Header("- object -")]
-    [SerializeField] GameObject         objPlayer; //プレイヤー.
+    [SerializeField] GameObject         objPlayer;              //プレイヤー.
 
     [Header("- setting -")]
     [SerializeField] LaneSetting        laneSetting;
