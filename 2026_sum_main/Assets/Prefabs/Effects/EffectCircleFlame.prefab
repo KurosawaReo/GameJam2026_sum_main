@@ -93,4 +93,4 @@ MonoBehaviour:
   endScale: 12.1
   startBeat: 4
   startAlpha: 0
-  endAlpha: 1
+  endAlpha: 0.8
