@@ -104,7 +104,7 @@ public class NoteManager : MonoBehaviour
 
         //初期設定.
         scptNote.Init(
-            imgPlayer, data.laneNo, noteTime, laneSetting.moveTime, laneSetting.destroyTime, startPos, laneSetting.goalPos
+            this, imgPlayer, data.laneNo, noteTime, laneSetting.moveTime, laneSetting.destroyTime, startPos, laneSetting.goalPos
         );
 
         //タイミング補助用の円を生成.
@@ -114,7 +114,8 @@ public class NoteManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 指定レーンを基準に、同時押しのノーツをまとめて判定.
+    /// 指定レーンの最寄りノーツを判定.
+    /// 同じタイミングのノーツは最初のノーツの判定結果を共有する.
     /// </summary>
     public void JudgeNearestNote(int laneNo, Vector3 playerPos)
     {
@@ -127,15 +128,61 @@ public class NoteManager : MonoBehaviour
             return;
         }
 
-        // 基準ノーツの判定時間を取得.
+        // 最初に押されたノーツの判定時間を取得.
         Note baseNoteComponent = baseNote.GetComponent<Note>();
         float baseTime = baseNoteComponent.GetNoteTime();
 
-        // 同時押しとして判定するノーツを取得.
+        // 最初のノーツだけを通常通り判定.
+        Result result = JudgeNote(baseDist);
+
+        // 同じタイミングのノーツを取得.
         List<GameObject> judgeNotes = GetSameTimeNotes(baseTime);
 
-        // 判定結果をまとめて処理.
-        ResultNote(judgeNotes);
+        // 判定済みノーツをリストから削除.
+        foreach (GameObject objNote in judgeNotes)
+        {
+            if (objNote != null)
+            {
+                noteList.Remove(objNote);
+            }
+        }
+
+        // 同じタイミングのノーツを処理.
+        foreach (GameObject objNote in judgeNotes)
+        {
+            if (objNote == null)
+            {
+                continue;
+            }
+
+            Note note = objNote.GetComponent<Note>();
+
+            // 最初のノーツと同じ判定結果を適用.
+            scoreMng.SendResult(result);
+
+            // ノーツを消滅.
+            note.Destroy();
+        }
+
+        // 判定結果に応じた演出・ゲージ処理.
+        switch (result)
+        {
+            case Result.Perfect:
+                OnPerfect();
+                break;
+
+            case Result.Good:
+                OnGood();
+                break;
+
+            case Result.Bad:
+                OnBad();
+                break;
+
+            default:
+                Debug.Log("不正な値です");
+                break;
+        }
     }
 
     /// <summary>
@@ -181,15 +228,12 @@ public class NoteManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 指定した時間と同時押し扱いにするノーツを取得.
+    /// 指定した拍数と同じタイミングのノーツを取得.
     /// </summary>
-    private List<GameObject> GetSameTimeNotes(float baseTime)
+    private List<GameObject> GetSameTimeNotes(float baseBeat)
     {
         // 同時押し対象のノーツ.
         List<GameObject> sameTimeNotes = new();
-
-        // 同時押しとみなす時間差.
-        const float sameTimeRange = 0.01f;
 
         // 全ノーツを確認.
         foreach (GameObject objNote in noteList)
@@ -202,119 +246,17 @@ public class NoteManager : MonoBehaviour
 
             Note note = objNote.GetComponent<Note>();
 
-            // ノーツの判定時間を取得.
-            float noteTime = note.GetNoteTime();
+            // ノーツの拍数を取得.
+            float noteBeat = note.GetNoteTime();
 
-            // 基準ノーツとの時間差を計算.
-            float timeDiff = Mathf.Abs(noteTime - baseTime);
-
-            // 同じタイミングなら同時押し対象に追加.
-            if (timeDiff <= sameTimeRange)
+            // 全く同じ拍なら同時押し対象に追加.
+            if (Mathf.Approximately(noteBeat, baseBeat))
             {
                 sameTimeNotes.Add(objNote);
             }
         }
 
         return sameTimeNotes;
-    }
-
-    /// <summary>
-    /// 同時押しノーツの結果処理.
-    /// </summary>
-    private void ResultNote(List<GameObject> judgeNotes)
-    {
-        // 判定済みノーツを先にリストから削除.
-        // Destroy()はフレーム終了時までGameObjectが残るため、
-        // 同じフレーム内で再判定されるのを防ぐ.
-        foreach (GameObject objNote in judgeNotes)
-        {
-            if (objNote != null)
-            {
-                noteList.Remove(objNote);
-            }
-        }
-
-        // グループ内で最も良い判定を保存.
-        Result bestResult = Result.Bad;
-
-        // 判定対象のノーツを1つずつ処理.
-        foreach (GameObject objNote in judgeNotes)
-        {
-            if (objNote == null)
-            {
-                continue;
-            }
-
-            Note note = objNote.GetComponent<Note>();
-
-            // プレイヤーとの距離を取得.
-            float dist = Vector3.Distance(
-                objPlayer.transform.position,
-                objNote.transform.position
-            );
-
-            // ノーツ単体の判定を取得.
-            Result result = JudgeNote(dist);
-
-            // より良い判定なら更新.
-            if (result < bestResult)
-            {
-                bestResult = result;
-            }
-
-            // スコアはノーツごとに送信.
-            scoreMng.SendResult(result);
-
-            // 判定したノーツを消滅.
-            note.Destroy();
-        }
-
-        // グループ内で最も良い判定の演出だけ出す.
-        switch (bestResult)
-        {
-            case Result.Perfect:
-            {
-                //PERFECT文字演出.
-                Instantiate(prfbEffPerfect, inPrfbEff.transform);
-                //SE再生.
-                SoundManager.Inst.PlaySE("perfect");
-
-                    //プレイヤー残像演出.
-                    var obj = Instantiate(prfbEffPlayerPerfect, inPrfbEff.transform);
-                //初期化.
-                obj.GetComponent<EffectPlayerPefect>().Init(
-                    objPlayer.transform.position,
-                    objPlayer.GetComponent<Player>().GetNowImage()
-                );
-
-                gaugeMng.OnPerfect();
-            }
-            break;
-
-            case Result.Good:
-            {
-                //SE再生.
-                SoundManager.Inst.PlaySE("good");
-
-                Instantiate(prfbEffGood, inPrfbEff.transform);
-                gaugeMng.OnGood();
-            }
-            break;
-
-            case Result.Bad:
-            {
-                //SE再生.
-                SoundManager.Inst.PlaySE("bad");
-
-                Instantiate(prfbEffBad, inPrfbEff.transform);
-                gaugeMng.OnBad();
-            }
-            break;
-
-            default:
-                Debug.Log("不正な値です");
-                break;
-        }
     }
 
     /// <summary>
@@ -333,6 +275,57 @@ public class NoteManager : MonoBehaviour
         }
         //ミスもBad判定.
         return Result.Bad;
+    }
+
+    /// <summary>
+    /// パーフェクト判定の処理.
+    /// </summary>
+    public void OnPerfect()
+    {
+        // PERFECT文字演出.
+        Instantiate(prfbEffPerfect, inPrfbEff.transform);
+
+        // SE再生.
+        SoundManager.Inst.PlaySE("perfect");
+
+        // プレイヤー残像演出.
+        var obj = Instantiate(prfbEffPlayerPerfect, inPrfbEff.transform);
+
+        // 初期化.
+        obj.GetComponent<EffectPlayerPefect>().Init(
+            objPlayer.transform.position,
+            objPlayer.GetComponent<Player>().GetNowImage()
+        );
+
+        gaugeMng.OnPerfect();
+    }
+
+    /// <summary>
+    /// グッド判定の処理.
+    /// </summary>
+    public void OnGood()
+    {
+        // GOOD演出.
+        Instantiate(prfbEffGood, inPrfbEff.transform);
+
+        // SE再生.
+        SoundManager.Inst.PlaySE("good");
+
+        gaugeMng.OnGood();
+    }
+
+    /// <summary>
+    /// バッド判定の処理.
+    /// </summary>
+    public void OnBad()
+    {
+        // BAD演出.
+        Instantiate(prfbEffBad, inPrfbEff.transform);
+
+        // SE再生.
+        SoundManager.Inst.PlaySE("bad");
+
+        gaugeMng.OnBad();
     }
 
     /// <summary>

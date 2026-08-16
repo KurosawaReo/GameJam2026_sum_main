@@ -5,6 +5,8 @@ using UnityEngine;
 /// </summary>
 public class Note : MonoBehaviour
 {
+    NoteManager noteManager; // ノーツ管理.
+
     int laneNo;       // どのレーンにいるか.
     float noteTime;     // 判定位置に到達するBGM時間.
     float moveTime;     // 目標位置までの移動時間.
@@ -35,8 +37,11 @@ public class Note : MonoBehaviour
     /// <summary>
     /// 初期化.
     /// </summary>
-    public void Init(Sprite _sprite, int _laneNo, float _noteTime, float _moveTime, float _destroyTime, Vector3 _startPos, Vector3 _goalPos)
+    public void Init(NoteManager _noteManager, Sprite _sprite, int _laneNo, float _noteTime, float _moveTime, float _destroyTime, Vector3 _startPos, Vector3 _goalPos)
     {
+        // NoteManagerを保存.
+        noteManager = _noteManager;
+
         laneNo = _laneNo;
         noteTime = _noteTime;
         moveTime = _moveTime;
@@ -91,6 +96,7 @@ public class Note : MonoBehaviour
         // 指定時間通過したら消滅.
         if (overTime >= destroyTime)
         {
+            noteManager.OnBad(); //スルーした時もBAD判定.
             Destroy();
         }
     }

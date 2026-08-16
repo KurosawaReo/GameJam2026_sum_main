@@ -95,7 +95,7 @@ MonoBehaviour:
     laneNo: 3
     parts: 5
   - beatCount: 98
-    laneNo: 2
+    laneNo: 4
     parts: 1
   - beatCount: 100
     laneNo: 2
@@ -149,13 +149,13 @@ MonoBehaviour:
     laneNo: 3
     parts: 4
   - beatCount: 133
-    laneNo: 4
+    laneNo: 1
     parts: 5
   - beatCount: 135
-    laneNo: 4
+    laneNo: 1
     parts: 5
   - beatCount: 137
-    laneNo: 4
+    laneNo: 1
     parts: 5
   - beatCount: 149
     laneNo: 2
@@ -271,9 +271,9 @@ MonoBehaviour:
   - beatCount: 225
     laneNo: 0
     parts: 0
-  - beatCount: 227
+  - beatCount: 226
     laneNo: 2
     parts: 0
-  - beatCount: 227.5
+  - beatCount: 227
     laneNo: 4
     parts: 0

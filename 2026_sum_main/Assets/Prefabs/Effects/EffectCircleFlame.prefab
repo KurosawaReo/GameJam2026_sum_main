@@ -90,7 +90,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EffectTutorialCircleFlame
   soundSetting: {fileID: 11400000, guid: 4d4a355f3d67f1940b57639e9f88bd60, type: 2}
   startScale: 24
-  endScale: 12
+  endScale: 12.1
   startBeat: 4
   startAlpha: 0
   endAlpha: 1

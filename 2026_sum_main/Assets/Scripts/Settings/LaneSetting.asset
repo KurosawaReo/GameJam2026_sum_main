@@ -21,7 +21,7 @@ MonoBehaviour:
   goalPos: {x: 0.32, y: 0, z: 0}
   dist: 13
   moveTime: 3
-  destroyTime: 1
+  destroyTime: 0.5
   badDist: 2.5
   goodDist: 1.5
   perfectDist: 0.5
