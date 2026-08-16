@@ -92,13 +92,6 @@ public class Note : MonoBehaviour
         float overTime = elapsed - moveTime;
         float speed = Vector3.Distance(startPos, goalPos) / moveTime;
         transform.position = goalPos + moveDir * speed * overTime;
-
-        // w’èŠÔ’Ê‰ß‚µ‚½‚çÁ–Å.
-        if (overTime >= destroyTime)
-        {
-            noteManager.OnBad(); //ƒXƒ‹[‚µ‚½‚àBAD”»’è.
-            Destroy();
-        }
     }
 
     /// <summary>

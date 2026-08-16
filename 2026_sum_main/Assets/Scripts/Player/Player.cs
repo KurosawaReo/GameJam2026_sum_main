@@ -154,7 +154,7 @@ public class Player : MonoBehaviour
         for (int i = 0; i < laneSetting.laneAngle.Length; i++)
         {
             //ÅŠñ‚è‚Ìƒm[ƒc”»’è‚ðs‚¤.
-            noteManager.JudgeNearestNote(i, transform.position);
+            noteManager.JudgeNearestNote();
         }
     }
 }

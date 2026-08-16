@@ -1,6 +1,6 @@
 /*
    - KR.Sound - (Unity)
-   ver.2026/08/15
+   ver.2026/08/16
 */
 using System;
 using System.Collections.Generic;
@@ -181,16 +181,15 @@ namespace KR.Unity.Sound
             {
                 return false;
             }
+
             //ループ中なら終了しない.
             if (audioSourceBgm.loop)
             {
                 return false;
             }
 
-            //再生が終了しているか確認.
-            return 
-                !audioSourceBgm.isPlaying &&
-                audioSourceBgm.time >= audioSourceBgm.clip.length;
+            //再生が停止していれば、BGM終了と判断.
+            return !audioSourceBgm.isPlaying;
         }
     }
 }

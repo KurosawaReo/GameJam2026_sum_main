@@ -22,6 +22,6 @@ MonoBehaviour:
   dist: 13
   moveTime: 3
   destroyTime: 0.5
-  badDist: 2.5
-  goodDist: 1.5
-  perfectDist: 0.5
+  badBeat: 2
+  goodBeat: 1
+  perfectBeat: 0.3

@@ -16,8 +16,8 @@ public class LaneSetting : ScriptableObject
     public float   moveTime = 1;       //何秒で中心に移動するか.
     public float   destroyTime = 1;    //中心到達後、何秒で消滅するか.
 
-    [Header("- 判定設定 -")]
-    public float   badDist = 1;        //BAD判定になる距離.
-    public float   goodDist = 1;       //GOOD判定になる距離.
-    public float   perfectDist = 1;    //PERFECT判定になる距離.
+    [Header("- リズム判定設定 -")]
+    public float badBeat = 0.25f;        //BAD判定になる最大の拍ズレ.
+    public float goodBeat = 0.15f;       //GOOD判定になる最大の拍ズレ.
+    public float perfectBeat = 0.05f;    //PERFECT判定になる最大の拍ズレ.
 }
