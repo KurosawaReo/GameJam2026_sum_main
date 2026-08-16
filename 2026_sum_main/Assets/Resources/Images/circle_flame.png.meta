@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 5ef871078e44156449a861403cb0a695
+guid: 0a12c6bca55055543ac86ce455b5d62e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2319982564131204624
-    second: circle_flame_0
+      213: -7992758796064420895
+    second: circle_flame 1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -126,11 +126,11 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: circle_flame_0
+      name: circle_flame 1_0
       rect:
         serializedVersion: 2
         x: 139
-        y: 139
+        y: 142
         width: 922
         height: 922
       alignment: 0
@@ -141,8 +141,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0f11cd35624cdcfd0800000000000000
-      internalID: -2319982564131204624
+      spriteID: 1eb8331f834041190800000000000000
+      internalID: -7992758796064420895
       vertices: []
       indices: 
       edges: []
@@ -161,7 +161,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      circle_flame_0: -2319982564131204624
+      circle_flame 1_0: -7992758796064420895
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
