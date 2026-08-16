@@ -32,9 +32,12 @@ public class GameManager : MonoBehaviour
         //拍数の表示.
         if (debugBeatCount)
         {
-            float currentTime = SoundManager.Inst.GetTimeBGM();
-            float currentBeat = soundSetting.GetBeat(currentTime);
-            debugBeatCount.text = "拍数:" + currentBeat.ToString("F1");
+            if (SoundManager.Inst)
+            {
+                float currentTime = SoundManager.Inst.GetTimeBGM();
+                float currentBeat = soundSetting.GetBeat(currentTime);
+                debugBeatCount.text = "拍数:" + currentBeat.ToString("F1");
+            }
         }
 
         //BGM開始前なら開始処理.

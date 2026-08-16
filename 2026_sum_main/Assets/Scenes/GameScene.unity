@@ -2111,6 +2111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: '::'
   gaugeMng: {fileID: 1106984090}
+  scoreSetting: {fileID: 11400000, guid: 5bb88f3cf549ac546832027038c489b7, type: 2}
 --- !u!4 &2099107461
 Transform:
   m_ObjectHideFlags: 0

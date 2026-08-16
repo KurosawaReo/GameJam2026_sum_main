@@ -6,7 +6,8 @@ public class ScoreManager : MonoBehaviour
     [Header("- script -")]
     [SerializeField] GaugeManager gaugeMng;
 
-    int upScore; // スコア上昇量.
+    [Header("- setting -")]
+    [SerializeField] ScoreSetting scoreSetting;
 
     int firstScore = 0;
     int secondScore = 0;
@@ -21,37 +22,30 @@ public class ScoreManager : MonoBehaviour
     }
 
     /// <summary>
-    /// 結果を送る.
+    /// パーフェクト判定の処理.
     /// </summary>
-    public void SendResult(Result result)
+    public void OnPerfect()
     {
-        // フィーバー中ならスコア倍率を上げる.
-        if (gaugeMng.IsFever())
-        {
-            upScore = 1000;
-        }
-        else
-        {
-            upScore = 100;
-        }
+        AllSceneData.instance.YariraScore += scoreSetting.perfectScore;
+        AllSceneData.instance.CountPerfect++;
+    }
 
-        // Resultの結果でデータを更新.
-        switch (result)
-        {
-            case Result.Perfect:
-                AllSceneData.instance.YariraScore += upScore;
-                AllSceneData.instance.CountPerfect++;
-                break;
+    /// <summary>
+    /// グッド判定の処理.
+    /// </summary>
+    public void OnGood()
+    {
+        AllSceneData.instance.YariraScore += scoreSetting.goodScore;
+        AllSceneData.instance.CountGood++;
+    }
 
-            case Result.Good:
-                AllSceneData.instance.YariraScore += upScore / 2;
-                AllSceneData.instance.CountGood++;
-                break;
-
-            case Result.Bad:
-                AllSceneData.instance.CountBad++;
-                break;
-        }
+    /// <summary>
+    /// バッド判定の処理.
+    /// </summary>
+    public void OnBad()
+    {
+        AllSceneData.instance.YariraScore += scoreSetting.badScore;
+        AllSceneData.instance.CountBad++;
     }
 
     /// <summary>

@@ -73,6 +73,8 @@ public class NoteManager : MonoBehaviour
 
     void Update()
     {
+        if (!SoundManager.Inst) { return; }
+
         //まだノーツが残っていれば.
         if (noteIndex < noteChartSetting.noteDatas.Length)
         {
@@ -178,9 +180,6 @@ public class NoteManager : MonoBehaviour
             }
 
             Note note = objNote.GetComponent<Note>();
-
-            //最初のノーツと同じ判定結果を送る.
-            scoreMng.SendResult(result);
 
             //判定済みなので通常のDestroy.
             note.Destroy();
@@ -304,22 +303,22 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     public void OnPerfect()
     {
-        // PERFECT文字演出.
+        //PERFECT文字演出.
         Instantiate(prfbEffPerfect, inPrfbEff.transform);
-
-        // SE再生.
+        //SE再生.
         SoundManager.Inst.PlaySE("perfect");
 
-        // プレイヤー残像演出.
+        //プレイヤー残像演出.
         var obj = Instantiate(prfbEffPlayerPerfect, inPrfbEff.transform);
-
-        // 初期化.
+        //初期化.
         obj.GetComponent<EffectPlayerPefect>().Init(
             objPlayer.transform.position,
             objPlayer.GetComponent<Player>().GetNowImage()
         );
 
+        //他クラスの処理.
         gaugeMng.OnPerfect();
+        scoreMng.OnPerfect();
     }
 
     /// <summary>
@@ -327,13 +326,14 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     public void OnGood()
     {
-        // GOOD演出.
+        //GOOD演出.
         Instantiate(prfbEffGood, inPrfbEff.transform);
-
-        // SE再生.
+        //SE再生.
         SoundManager.Inst.PlaySE("good");
 
+        //他クラスの処理.
         gaugeMng.OnGood();
+        scoreMng.OnGood();
     }
 
     /// <summary>
@@ -341,13 +341,14 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     public void OnBad()
     {
-        // BAD演出.
+        //BAD演出.
         Instantiate(prfbEffBad, inPrfbEff.transform);
-
-        // SE再生.
+        //SE再生.
         SoundManager.Inst.PlaySE("bad");
 
+        //他クラスの処理.
         gaugeMng.OnBad();
+        scoreMng.OnBad();
     }
 
     /// <summary>
