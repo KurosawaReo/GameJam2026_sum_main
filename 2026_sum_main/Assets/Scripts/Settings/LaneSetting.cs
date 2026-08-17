@@ -14,7 +14,6 @@ public class LaneSetting : ScriptableObject
     public Vector3 goalPos;            //目標地点.
     public float   dist = 1;           //距離.
     public float   moveTime = 1;       //何秒で中心に移動するか.
-    public float   destroyTime = 1;    //中心到達後、何秒で消滅するか.
 
     [Header("- リズム判定設定 -")]
     public float badBeat = 0.25f;        //BAD判定になる最大の拍ズレ.

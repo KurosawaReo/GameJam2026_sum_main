@@ -1,6 +1,6 @@
 /*
    - KR.Sound - (Unity)
-   ver.2026/08/16
+   ver.2026/08/17
 */
 using System;
 using System.Collections.Generic;
@@ -40,6 +40,10 @@ namespace KR.Unity.Sound
 
         protected Dictionary<string, AudioClip> bgmClips = new Dictionary<string, AudioClip>(); //BGM保存用.
         protected Dictionary<string, AudioClip> seClips  = new Dictionary<string, AudioClip>(); //SE 保存用.
+
+        //BGMの開始位置をDSP時刻で管理.
+        double bgmStartDspTime;
+        bool   isBgmScheduled;
 
         /// <summary>
         /// SoundMngKRの初期化.
@@ -83,12 +87,26 @@ namespace KR.Unity.Sound
         public void PlayBGM(string name, bool isLoop)
         {
             //Dictionaryから値を取得.
-            if (bgmClips.TryGetValue(name, out var bgm)) {
-                audioSourceBgm.clip = bgm;    //取得したサウンドを入れる.
-                audioSourceBgm.loop = isLoop; //ループ設定.
-                audioSourceBgm.Play();        //再生.
+            if (!bgmClips.TryGetValue(name, out var bgm))
+            {
+                return;
             }
+
+            //BGMを設定.
+            audioSourceBgm.clip = bgm;
+            audioSourceBgm.loop = isLoop;
+
+            //現在のDSP時刻から少し先をBGM開始時刻にする.
+            //少し先に予約することで、フレームタイミングに左右されにくくする.
+            bgmStartDspTime = AudioSettings.dspTime + 0.1;
+
+            //BGM開始済みフラグ.
+            isBgmScheduled = true;
+
+            //指定したDSP時刻にBGMを再生.
+            audioSourceBgm.PlayScheduled(bgmStartDspTime);
         }
+
         /// <summary>
         /// SE再生.
         /// </summary>
@@ -106,8 +124,13 @@ namespace KR.Unity.Sound
         /// </summary>
         public void StopBGM()
         {
+            //BGMを停止.
             audioSourceBgm.Stop();
+
+            //予約状態を解除.
+            isBgmScheduled = false;
         }
+
         /// <summary>
         /// SEを停止.
         /// </summary>
@@ -146,14 +169,30 @@ namespace KR.Unity.Sound
         /// <param name="time">再生位置(秒)</param>
         public void SetTimeBGM(float time)
         {
-            //0～曲の長さの範囲にする.
+            //BGMが設定されていなければ終了.
+            if (audioSourceBgm.clip == null)
+            {
+                return;
+            }
+
+            //指定時間を曲の長さの範囲に制限.
             float clampTime = Mathf.Clamp(
                 time,
                 0.0f,
                 audioSourceBgm.clip.length
             );
-            //再生位置を設定.
+
+            //DSP上の新しい開始時刻を計算.
+            bgmStartDspTime = AudioSettings.dspTime - clampTime;
+
+            //実際の再生位置も指定位置へ移動.
             audioSourceBgm.time = clampTime;
+
+            //再生中なら、以降の時間基準をDSPに合わせる.
+            if (audioSourceBgm.isPlaying)
+            {
+                isBgmScheduled = true;
+            }
         }
 
         /// <summary>
@@ -166,13 +205,25 @@ namespace KR.Unity.Sound
             {
                 return 0.0f;
             }
+            //BGM未開始なら0秒.
+            if (!isBgmScheduled)
+            {
+                return 0.0f;
+            }
 
-            //現在の再生位置を返す.
-            return audioSourceBgm.time;
+            //DSP時刻からBGM開始時刻を引いて再生時間を取得.
+            double time = AudioSettings.dspTime - bgmStartDspTime;
+
+            //曲の範囲に収める.
+            return Mathf.Clamp(
+                (float)time,
+                0.0f,
+                audioSourceBgm.clip.length
+            );
         }
 
         /// <summary>
-        /// BGMが最後まで再生されたか取得.
+        /// BGMの最後まで再生されたか取得.
         /// </summary>
         public bool IsBGMFinished()
         {
@@ -188,8 +239,10 @@ namespace KR.Unity.Sound
                 return false;
             }
 
-            //再生が停止していれば、BGM終了と判断.
-            return !audioSourceBgm.isPlaying;
+            //DSP基準で曲の長さまで到達したか確認.
+            return
+                isBgmScheduled &&
+                AudioSettings.dspTime - bgmStartDspTime >= audioSourceBgm.clip.length;
         }
     }
 }

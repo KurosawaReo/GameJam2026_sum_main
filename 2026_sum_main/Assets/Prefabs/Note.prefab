@@ -105,6 +105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9f5c205171ca374cb9ae72f3f89fc54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Note
+  soundSetting: {fileID: 11400000, guid: 4d4a355f3d67f1940b57639e9f88bd60, type: 2}
 --- !u!331 &2903593024903476272
 SpriteMask:
   m_ObjectHideFlags: 0

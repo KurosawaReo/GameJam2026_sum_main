@@ -146,7 +146,7 @@ public class NoteManager : MonoBehaviour
 
         //初期設定.
         scptNote.Init(
-            this, imgPlayer, data.laneNo, noteTime, laneSetting.moveTime, laneSetting.destroyTime, startPos, laneSetting.goalPos
+            imgPlayer, data.laneNo, noteTime, laneSetting.moveTime, startPos, laneSetting.goalPos
         );
 
         //タイミング補助用の円を生成.
@@ -203,8 +203,19 @@ public class NoteManager : MonoBehaviour
         Note baseNoteComponent = baseNote.GetComponent<Note>();
         float baseBeat = soundSetting.GetBeat(baseNoteComponent.GetNoteTime());
 
+        //判定用の現在拍を取得.
+        float currentBeat = soundSetting.GetBeat(
+            SoundManager.Inst.GetTimeBGM()
+        );
+
         //拍のズレから判定結果を1回だけ決定.
         Result result = JudgeNote(baseDiffBeat);
+#if true
+        //判定時の詳細を表示.
+        Debug.Log(
+            $"Judge / Current:{currentBeat:F3} / Target:{baseBeat:F3} / Diff:{currentBeat - baseBeat:F3} / Result:{result}"
+        );
+#endif
 
         //基準ノーツと同じタイミングのノーツを全レーンから取得.
         List<GameObject> judgeNotes = GetSameTimeNotes(baseBeat);

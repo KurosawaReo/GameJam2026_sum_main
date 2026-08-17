@@ -94,3 +94,4 @@ MonoBehaviour:
   startBeat: 4
   startAlpha: 0
   endAlpha: 0.8
+  timeOffset: -0.05

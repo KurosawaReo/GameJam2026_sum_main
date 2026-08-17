@@ -15,6 +15,9 @@ public class EffectCircleFlame : MonoBehaviour
     [SerializeField][Range(0f, 1f)] float startAlpha = 0.1f; // 開始時の透明度.
     [SerializeField][Range(0f, 1f)] float endAlpha = 1f;     // 終了時の透明度.
 
+    [Header("- visual timing -")]
+    [SerializeField] float timeOffset = 0f; // 視覚的な時間補正[秒].
+
     float targetBeat; // Scaleが終了値になる拍数.
     bool isInitialized = false;
 
@@ -46,8 +49,8 @@ public class EffectCircleFlame : MonoBehaviour
             return;
         }
 
-        // 現在の拍数を取得.
-        float currentTime = SoundManager.Inst.GetTimeBGM();
+        // 現在のBGM時間を取得して視覚補正を適用.
+        float currentTime = SoundManager.Inst.GetTimeBGM() + timeOffset;
         float currentBeat = soundSetting.GetBeat(currentTime);
 
         // 目標拍を過ぎたら削除.
