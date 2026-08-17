@@ -33,18 +33,21 @@ public class NoteManager : MonoBehaviour
     [SerializeField] LaneSetting        laneSetting;
     [SerializeField] SoundSetting       soundSetting;
 
-    //ノーツ配列.
-    List<GameObject> noteList = new();
+    //配列.
+    List<GameObject> noteList = new();   //生成したノーツ保存用.
+    List<GameObject> judgeNotes = new();
+    List<GameObject> sameTimeNotes = new();
+    List<GameObject> missNotes = new();
+
     //次に生成するノーツの番号.
     int noteIndex;
-
     //最後に生成した円の拍.
     float lastCircleBeat = -1f;
-
     //今回の入力ですでにノーツを判定したか.
     bool isJudgedThisInput = false;
-    //ゲーム開始時の初期化が完了したか.
-    bool isInitialized = false;
+
+    Player scptPlayer;
+
 
     /// <summary>
     /// 使用する譜面を取得.
@@ -90,10 +93,11 @@ public class NoteManager : MonoBehaviour
 
     void Start()
     {
-        // ノーツ生成位置を初期化.
+        //ノーツ生成位置を初期化.
         noteIndex = 0;
-        // 初期化待ち.
-        isInitialized = false;
+
+        //script取得.
+        scptPlayer = objPlayer.GetComponent<Player>();
     }
 
     void Update()
@@ -155,7 +159,7 @@ public class NoteManager : MonoBehaviour
         //ノーツが判定位置に到達するBGM時間を取得.
         float noteTime = soundSetting.GetTime(data.beatCount);
         //到達時のプレイヤー画像を取得.
-        Sprite imgPlayer = objPlayer.GetComponent<Player>().GetAfterImage(
+        Sprite imgPlayer = scptPlayer.GetAfterImage(
             data.parts,
             noteTime
         );
@@ -240,7 +244,7 @@ public class NoteManager : MonoBehaviour
 #endif
 
         //基準ノーツと同じタイミングのノーツを全レーンから取得.
-        List<GameObject> judgeNotes = GetSameTimeNotes(baseBeat);
+        judgeNotes = GetSameTimeNotes(baseBeat);
 
         //判定対象をリストから削除.
         foreach (GameObject objNote in judgeNotes)
@@ -349,8 +353,8 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     private List<GameObject> GetSameTimeNotes(float baseBeat)
     {
-        //同時押し対象のノーツ.
-        List<GameObject> sameTimeNotes = new();
+        //リセット.
+        sameTimeNotes.Clear();
 
         //全ノーツを確認.
         foreach (GameObject objNote in noteList)
@@ -384,12 +388,12 @@ public class NoteManager : MonoBehaviour
     /// </summary>
     private void JudgeMissNotes()
     {
+        //リセット.
+        missNotes.Clear();
+
         //現在のBGM時間を現在の拍に変換.
         float currentTime = SoundManager.Inst.GetTimeBGM();
         float currentBeat = soundSetting.GetBeat(currentTime);
-
-        //削除対象のノーツ.
-        List<GameObject> missNotes = new();
 
         //全ノーツを確認.
         foreach (GameObject objNote in noteList)
@@ -454,7 +458,7 @@ public class NoteManager : MonoBehaviour
         //初期化.
         obj.GetComponent<EffectPlayerPefect>().Init(
             objPlayer.transform.position,
-            objPlayer.GetComponent<Player>().GetNowImage()
+            scptPlayer.GetNowImage()
         );
     }
 
