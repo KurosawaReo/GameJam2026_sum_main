@@ -23,4 +23,4 @@ MonoBehaviour:
   moveTime: 3
   badBeat: 0.8
   goodBeat: 0.4
-  perfectBeat: 0.12
+  perfectBeat: 0.15

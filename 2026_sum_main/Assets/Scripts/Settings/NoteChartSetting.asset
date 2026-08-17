@@ -243,7 +243,7 @@ MonoBehaviour:
     parts: 2
   - beatCount: 159
     laneNo: 1
-    parts: 1
+    parts: 4
   - beatCount: 160
     laneNo: 4
     parts: 4
@@ -254,173 +254,233 @@ MonoBehaviour:
     laneNo: 1
     parts: 1
   - beatCount: 162
-    laneNo: 4
+    laneNo: 0
     parts: 2
   - beatCount: 164
-    laneNo: 4
-    parts: 0
+    laneNo: 1
+    parts: 3
   - beatCount: 164.5
-    laneNo: 4
-    parts: 0
+    laneNo: 1
+    parts: 3
   - beatCount: 165
-    laneNo: 0
+    laneNo: 1
     parts: 0
   - beatCount: 166
-    laneNo: 0
-    parts: 0
+    laneNo: 1
+    parts: 3
   - beatCount: 166.5
-    laneNo: 0
-    parts: 0
+    laneNo: 1
+    parts: 3
   - beatCount: 167
-    laneNo: 2
+    laneNo: 1
     parts: 0
   - beatCount: 168
-    laneNo: 2
-    parts: 0
-  - beatCount: 169
     laneNo: 0
-    parts: 0
+    parts: 5
+  - beatCount: 169
+    laneNo: 1
+    parts: 3
   - beatCount: 169.5
-    laneNo: 2
-    parts: 0
+    laneNo: 0
+    parts: 5
   - beatCount: 170
-    laneNo: 4
-    parts: 0
+    laneNo: 1
+    parts: 3
   - beatCount: 170.5
-    laneNo: 4
-    parts: 0
+    laneNo: 0
+    parts: 5
   - beatCount: 171
-    laneNo: 4
+    laneNo: 1
     parts: 0
   - beatCount: 172
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 2
   - beatCount: 172.5
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 2
   - beatCount: 173
-    laneNo: 4
+    laneNo: 3
     parts: 0
   - beatCount: 174
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 2
   - beatCount: 174.5
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 2
   - beatCount: 175
-    laneNo: 4
+    laneNo: 3
     parts: 0
   - beatCount: 176
     laneNo: 4
-    parts: 0
+    parts: 4
   - beatCount: 177
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 2
   - beatCount: 177.5
     laneNo: 4
-    parts: 0
+    parts: 4
   - beatCount: 178
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 2
   - beatCount: 178.5
     laneNo: 4
-    parts: 0
+    parts: 4
   - beatCount: 179
-    laneNo: 4
+    laneNo: 3
     parts: 0
   - beatCount: 180
-    laneNo: 4
-    parts: 0
+    laneNo: 0
+    parts: 4
   - beatCount: 180.5
-    laneNo: 4
-    parts: 0
+    laneNo: 0
+    parts: 5
   - beatCount: 181.5
-    laneNo: 4
-    parts: 0
+    laneNo: 0
+    parts: 4
   - beatCount: 182
-    laneNo: 4
-    parts: 0
+    laneNo: 0
+    parts: 5
   - beatCount: 183
-    laneNo: 4
-    parts: 0
+    laneNo: 0
+    parts: 4
   - beatCount: 183.5
-    laneNo: 4
-    parts: 0
+    laneNo: 0
+    parts: 5
   - beatCount: 184
-    laneNo: 4
-    parts: 0
+    laneNo: 1
+    parts: 3
+  - beatCount: 184
+    laneNo: 3
+    parts: 2
   - beatCount: 185
-    laneNo: 4
-    parts: 0
+    laneNo: 1
+    parts: 5
+  - beatCount: 185
+    laneNo: 3
+    parts: 4
+  - beatCount: 186
+    laneNo: 0
+    parts: 3
   - beatCount: 186
     laneNo: 4
-    parts: 0
+    parts: 2
+  - beatCount: 187
+    laneNo: 0
+    parts: 5
   - beatCount: 187
     laneNo: 4
-    parts: 0
+    parts: 4
   - beatCount: 188
-    laneNo: 4
-    parts: 0
+    laneNo: 1
+    parts: 3
   - beatCount: 188.5
-    laneNo: 4
-    parts: 0
+    laneNo: 1
+    parts: 3
   - beatCount: 189
-    laneNo: 4
+    laneNo: 1
     parts: 0
   - beatCount: 190
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 2
   - beatCount: 190.5
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 2
   - beatCount: 191
-    laneNo: 4
+    laneNo: 3
     parts: 0
   - beatCount: 192
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 1
   - beatCount: 193
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 1
   - beatCount: 193.5
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 1
   - beatCount: 194
-    laneNo: 4
+    laneNo: 1
     parts: 0
   - beatCount: 194.5
-    laneNo: 4
+    laneNo: 3
     parts: 0
   - beatCount: 195.5
-    laneNo: 4
+    laneNo: 2
     parts: 0
   - beatCount: 213
-    laneNo: 4
-    parts: 0
+    laneNo: 1
+    parts: 3
+  - beatCount: 213
+    laneNo: 0
+    parts: 5
+  - beatCount: 215
+    laneNo: 3
+    parts: 2
   - beatCount: 215
     laneNo: 4
-    parts: 0
+    parts: 4
+  - beatCount: 217
+    laneNo: 1
+    parts: 3
   - beatCount: 217
     laneNo: 4
-    parts: 0
+    parts: 4
   - beatCount: 219
-    laneNo: 4
-    parts: 0
+    laneNo: 3
+    parts: 2
+  - beatCount: 219
+    laneNo: 0
+    parts: 5
   - beatCount: 221
-    laneNo: 4
-    parts: 0
+    laneNo: 2
+    parts: 1
+  - beatCount: 221
+    laneNo: 0
+    parts: 5
+  - beatCount: 223
+    laneNo: 2
+    parts: 1
   - beatCount: 223
     laneNo: 4
-    parts: 0
+    parts: 4
+  - beatCount: 225
+    laneNo: 0
+    parts: 5
   - beatCount: 225
     laneNo: 4
-    parts: 0
+    parts: 4
   - beatCount: 226
-    laneNo: 4
-    parts: 0
+    laneNo: 1
+    parts: 3
+  - beatCount: 226
+    laneNo: 3
+    parts: 2
+  - beatCount: 227
+    laneNo: 0
+    parts: 5
+  - beatCount: 227
+    laneNo: 1
+    parts: 3
+  - beatCount: 227
+    laneNo: 2
+    parts: 1
+  - beatCount: 227
+    laneNo: 3
+    parts: 2
   - beatCount: 227
     laneNo: 4
-    parts: 0
+    parts: 4
+  - beatCount: 227.5
+    laneNo: 0
+    parts: 5
+  - beatCount: 227.5
+    laneNo: 1
+    parts: 3
+  - beatCount: 227.5
+    laneNo: 2
+    parts: 1
+  - beatCount: 227.5
+    laneNo: 3
+    parts: 2
   - beatCount: 227.5
     laneNo: 4
-    parts: 0
+    parts: 4

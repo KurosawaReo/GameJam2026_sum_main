@@ -1254,15 +1254,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a389f3206ab32ce418f59832ffa8cdc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GaugeManager
-  maxGauge: 20
-  perfectGauge: 2
-  goodGauge: 0.2
-  badGauge: -1
-  feverDuration: 10
-  gaugeUpSpeed: 2
   imageGauge: {fileID: 1704703188}
   prfbEffFever: {fileID: 8334927573907593784, guid: f3903a9a3b179014495270b14a1de256, type: 3}
   inPrfbEffFever: {fileID: 1751413254}
+  gaugeSetting: {fileID: 11400000, guid: 626ab74c4d7020349a010d7779d201ab, type: 2}
 --- !u!4 &1106984091
 Transform:
   m_ObjectHideFlags: 0

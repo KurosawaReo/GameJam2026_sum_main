@@ -3,20 +3,15 @@ using UnityEngine.UI;
 
 public class GaugeManager : MonoBehaviour
 {
-    [Header("- Gauge Setting -")]
-    [SerializeField] float maxGauge = 20f;          // ゲージ最大値.
-    [SerializeField] float perfectGauge = 1f;       // PERFECT時の変動量.
-    [SerializeField] float goodGauge = 0f;          // GOOD時の変動量.
-    [SerializeField] float badGauge = -1f;          // BAD時の変動量.
-    [SerializeField] float feverDuration = 5f;      // フィーバー効果時間(秒).
-    [SerializeField] float gaugeUpSpeed = 2f;       // ゲージ増加の表示速度.
-
-    [Header("- Gauge -")]
+    [Header("- gauge -")]
     [SerializeField] Image imageGauge;              // ゲージ画像.
 
     [Header("- effect -")]
     [SerializeField] GameObject prfbEffFever;       // エフェクト用prefab.
     [SerializeField] GameObject inPrfbEffFever;     // prefabを入れる所.
+
+    [Header("- setting -")]
+    [SerializeField] GaugeSetting gaugeSetting;
 
     float targetGauge = 0f; // ゲージの目標値.
     bool isFever = false;
@@ -44,7 +39,7 @@ public class GaugeManager : MonoBehaviour
             imageGauge.fillAmount = Mathf.MoveTowards(
                 imageGauge.fillAmount,
                 targetGauge,
-                gaugeUpSpeed * Time.deltaTime
+                gaugeSetting.gaugeUpSpeed * Time.deltaTime
             );
         }
 
@@ -58,7 +53,7 @@ public class GaugeManager : MonoBehaviour
         if (isFever)
         {
             // フィーバー中は滑らかにせず、時間経過で直接減らす.
-            float downSpeed = 1f / feverDuration;
+            float downSpeed = 1f / gaugeSetting.feverDuration;
             imageGauge.fillAmount -= downSpeed * Time.deltaTime;
 
             // ゲージが0になったらフィーバー終了.
@@ -101,7 +96,7 @@ public class GaugeManager : MonoBehaviour
         if (!isFever)
         {
             // 設定した値だけゲージを変動させる.
-            ChangeGauge(perfectGauge);
+            ChangeGauge(gaugeSetting.perfectGauge);
         }
     }
 
@@ -113,7 +108,7 @@ public class GaugeManager : MonoBehaviour
         if (!isFever)
         {
             // 設定した値だけゲージを変動させる.
-            ChangeGauge(goodGauge);
+            ChangeGauge(gaugeSetting.goodGauge);
         }
     }
 
@@ -125,7 +120,7 @@ public class GaugeManager : MonoBehaviour
         if (!isFever)
         {
             // 設定した値だけゲージを変動させる.
-            ChangeGauge(badGauge);
+            ChangeGauge(gaugeSetting.badGauge);
         }
     }
 
@@ -135,7 +130,7 @@ public class GaugeManager : MonoBehaviour
     private void ChangeGauge(float amount)
     {
         // 最大値を基準にしてゲージ量へ変換.
-        float change = amount / maxGauge;
+        float change = amount / gaugeSetting.maxGauge;
 
         // 目標値を変更.
         targetGauge += change;
