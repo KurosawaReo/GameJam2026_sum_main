@@ -18,6 +18,7 @@ public class NoteManager : MonoBehaviour
     [SerializeField] GameObject         inPrfbEffCircleFlame;
 
     [Header("- script -")]
+    [SerializeField] GameManager        gameMng;
     [SerializeField] GaugeManager       gaugeMng;
     [SerializeField] ScoreManager       scoreMng;
 
@@ -99,16 +100,8 @@ public class NoteManager : MonoBehaviour
     {
         if (!SoundManager.Inst) { return; }
 
-        //BGMが先頭に戻るまでノーツ処理を開始しない.
-        if (!isInitialized)
-        {
-            if (SoundManager.Inst.GetTimeBGM() <= 0.1f)
-            {
-                isInitialized = true;
-            }
-
-            return;
-        }
+        //BGMが開始されるまでノーツ処理を開始しない.
+        if (!gameMng.IsBgmStarted) { return; }
 
         //ノーツ生成処理.
         if (noteIndex < UseNoteChart.noteDatas.Length)

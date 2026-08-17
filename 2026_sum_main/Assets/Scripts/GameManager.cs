@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] ScoreManager scoreMng;
 
     [Header("- Effect -")]
-    [SerializeField] GameObject   effectRainbow;    //虹色演出.
+    [SerializeField] GameObject   effRainbow;       //虹色演出.
+    [SerializeField] GameObject   effFadeOut;       //開始時のフェードイン.
 
     [Header("- Debug -")]
     [SerializeField] Text         debugBeatCount;
@@ -27,6 +28,38 @@ public class GameManager : MonoBehaviour
     float elapsed;          //現在の経過時間.
     bool  isBgmStarted;     //BGMを再生したか.
     bool  isBgmFinished;    //BGM終了を検知したか.
+
+    /// <summary>
+    /// BGMが開始済みか.
+    /// </summary>
+    public bool IsBgmStarted => isBgmStarted;
+
+    private void Awake()
+    {
+        // シーン読み込み完了イベントを登録.
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDestroy()
+    {
+        // シーン読み込み完了イベントを解除.
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    /// <summary>
+    /// シーンの読み込みが完了した時.
+    /// </summary>
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // GameScene以外では処理しない.
+        if (scene.name != gameObject.scene.name)
+        {
+            return;
+        }
+
+        // Fade演出を有効化.
+        effFadeOut.GetComponent<Animator>().SetTrigger("FadeOut");
+    }
 
     void Update()
     {
@@ -53,7 +86,7 @@ public class GameManager : MonoBehaviour
         }
          
         //フィーバー演出.
-        effectRainbow.SetActive(gaugeMng.IsFever());
+        effRainbow.SetActive(gaugeMng.IsFever());
     }
 
     /// <summary>

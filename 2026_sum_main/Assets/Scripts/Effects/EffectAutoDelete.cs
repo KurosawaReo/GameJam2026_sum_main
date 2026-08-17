@@ -1,5 +1,8 @@
 using UnityEngine;
 
+/// <summary>
+/// アニメーション終了時に自身を削除する.
+/// </summary>
 public class EffectAutoDelete : MonoBehaviour
 {
     Animator animator; // Animatorコンポーネント.
@@ -22,8 +25,8 @@ public class EffectAutoDelete : MonoBehaviour
         // 現在のアニメーション情報を取得.
         AnimatorStateInfo stateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
-        // アニメーションが1回でも再生されたことを確認.
-        if (stateInfo.normalizedTime > 0f)
+        // アニメーションが再生中になったことを確認.
+        if (!animationStarted && stateInfo.normalizedTime > 0f)
         {
             animationStarted = true;
         }
