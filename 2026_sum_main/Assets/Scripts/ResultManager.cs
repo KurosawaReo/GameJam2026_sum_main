@@ -1,11 +1,8 @@
-using JetBrains.Annotations;
 using System.Collections;
-using System.Drawing;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Common;
 
 /// <summary>
 /// リザルトシーン管理クラス.
@@ -58,7 +55,17 @@ public class ResultManager : MonoBehaviour
         thirdScore  = PlayerPrefs.GetInt($"Ranking_{AllSceneData.Inst.ChartType}_3", 0);
 
         //譜面名変更.
-        textNoteChartName.text = AllSceneData.Inst.ChartType.ToString();
+        switch (AllSceneData.Inst.ChartType) 
+        {
+            case NoteChartType.Normal:
+                textNoteChartName.text = "ノーマル";
+                break;
+            case NoteChartType.Extra:
+                textNoteChartName.text = "エクストラ";
+                break;
+
+            default: Debug.Log("不正な値です"); break;
+        }
 
         StartCoroutine(StartResult());
     }
