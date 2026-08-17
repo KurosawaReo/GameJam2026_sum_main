@@ -24,32 +24,48 @@ public class NoteManager : MonoBehaviour
     [Header("- object -")]
     [SerializeField] GameObject         objPlayer;              //プレイヤー.
 
+    [Header("- note chart -")]
+    [SerializeField] NoteChartSetting   noteChartNormal;
+    [SerializeField] NoteChartSetting   noteChartExtra;
+
     [Header("- setting -")]
     [SerializeField] LaneSetting        laneSetting;
-    [SerializeField] NoteChartSetting   noteChartSetting;
     [SerializeField] SoundSetting       soundSetting;
 
     //ノーツ配列.
     List<GameObject> noteList = new();
-
-    //今回の入力ですでにノーツを判定したか.
-    bool isJudgedThisInput = false;
-    // 最後に生成した円の拍.
-    float lastCircleBeat = -1f;
     //次に生成するノーツの番号.
     int noteIndex;
 
-    // ゲーム開始時の初期化が完了したか.
+    //最後に生成した円の拍.
+    float lastCircleBeat = -1f;
+
+    //今回の入力ですでにノーツを判定したか.
+    bool isJudgedThisInput = false;
+    //ゲーム開始時の初期化が完了したか.
     bool isInitialized = false;
 
     /// <summary>
-    /// 1回の入力での判定開始.
-    /// Playerからクリックされた時に呼ぶ.
+    /// 使用する譜面を取得.
     /// </summary>
-    public void BeginJudge()
+    private NoteChartSetting UseNoteChart
     {
-        //今回の入力ではまだ判定していない状態にする.
-        isJudgedThisInput = false;
+        get
+        {
+            //譜面を返す.
+            switch (AllSceneData.Inst.ChartType)
+            {
+                case NoteChartType.Normal:
+                    return noteChartNormal;
+
+                case NoteChartType.Extra:
+                    return noteChartExtra;
+
+                default: 
+                    Debug.Log("不正な値です。");
+                    return noteChartNormal;
+            }
+        }
     }
 
     /// <summary>
@@ -75,7 +91,6 @@ public class NoteManager : MonoBehaviour
     {
         // ノーツ生成位置を初期化.
         noteIndex = 0;
-
         // 初期化待ち.
         isInitialized = false;
     }
@@ -84,7 +99,7 @@ public class NoteManager : MonoBehaviour
     {
         if (!SoundManager.Inst) { return; }
 
-        // BGMが先頭に戻るまでノーツ処理を開始しない.
+        //BGMが先頭に戻るまでノーツ処理を開始しない.
         if (!isInitialized)
         {
             if (SoundManager.Inst.GetTimeBGM() <= 0.1f)
@@ -96,9 +111,9 @@ public class NoteManager : MonoBehaviour
         }
 
         //ノーツ生成処理.
-        if (noteIndex < noteChartSetting.noteDatas.Length)
+        if (noteIndex < UseNoteChart.noteDatas.Length)
         {
-            NoteData noteData = noteChartSetting.noteDatas[noteIndex];
+            NoteData noteData = UseNoteChart.noteDatas[noteIndex];
 
             //ノーツの判定時間を取得.
             float noteTime = soundSetting.GetTime(noteData.beatCount);
@@ -119,6 +134,16 @@ public class NoteManager : MonoBehaviour
 
         //判定時間を過ぎたノーツをMiss処理.
         JudgeMissNotes();
+    }
+
+    /// <summary>
+    /// 1回の入力での判定開始.
+    /// Playerからクリックされた時に呼ぶ.
+    /// </summary>
+    public void BeginJudge()
+    {
+        //今回の入力ではまだ判定していない状態にする.
+        isJudgedThisInput = false;
     }
 
     /// <summary>

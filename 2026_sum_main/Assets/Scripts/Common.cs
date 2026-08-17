@@ -25,4 +25,13 @@ namespace Common
         LegL,   //¶‹r.
         LegR    //‰E‹r.
     }
+
+    /// <summary>
+    /// g—p‚·‚é•ˆ–Ê‚Ìí—Ş.
+    /// </summary>
+    public enum NoteChartType
+    {
+        Normal, //’Êí•ˆ–Ê.
+        Extra   //— •ˆ–Ê.
+    }
 }

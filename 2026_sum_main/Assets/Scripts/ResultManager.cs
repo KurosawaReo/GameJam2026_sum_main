@@ -23,10 +23,7 @@ public class ResultManager : MonoBehaviour
     int thirdScore;
 
     [Header("- object -")]
-    [SerializeField] GameObject objectsRanking;
-    [SerializeField] GameObject objectsResultCount;
-    [SerializeField] GameObject buttonBackTitle;
-    [SerializeField] GameObject buttonReplay;
+    [SerializeField] GameObject objectsResult;
 
     [Header("- script -")]
     [SerializeField] private TextResultScore scptTextResultScore;
@@ -39,28 +36,29 @@ public class ResultManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI topRankingText1;
     [SerializeField] private TextMeshProUGUI topRankingText2;
     [SerializeField] private TextMeshProUGUI topRankingText3;
+    [SerializeField] private TextMeshProUGUI textNoteChartName; //譜面名.
 
     void Start()
     {
         //最初は無効.
-        objectsRanking.SetActive(false);
-        objectsResultCount.SetActive(false);
-        buttonBackTitle.SetActive(false);
-        buttonReplay.SetActive(false);
+        objectsResult.SetActive(false);
 
         //AllSceneDataからゲーム結果を取得.
-        if (AllSceneData.instance != null)
+        if (AllSceneData.Inst != null)
         {
-            score = AllSceneData.instance.YariraScore;
-            countPerfect = AllSceneData.instance.CountPerfect;
-            countGood = AllSceneData.instance.CountGood;
-            countBad = AllSceneData.instance.CountBad;
+            score = AllSceneData.Inst.YariraScore;
+            countPerfect = AllSceneData.Inst.CountPerfect;
+            countGood = AllSceneData.Inst.CountGood;
+            countBad = AllSceneData.Inst.CountBad;
         }
 
-        // 保存されているランキングを取得.
-        firstScore = PlayerPrefs.GetInt("First", 0);
-        secondScore = PlayerPrefs.GetInt("Second", 0);
-        thirdScore = PlayerPrefs.GetInt("Third", 0);
+        //現在の譜面のランキングを取得.
+        firstScore  = PlayerPrefs.GetInt($"Ranking_{AllSceneData.Inst.ChartType}_1", 0);
+        secondScore = PlayerPrefs.GetInt($"Ranking_{AllSceneData.Inst.ChartType}_2", 0);
+        thirdScore  = PlayerPrefs.GetInt($"Ranking_{AllSceneData.Inst.ChartType}_3", 0);
+
+        //譜面名変更.
+        textNoteChartName.text = AllSceneData.Inst.ChartType.ToString();
 
         StartCoroutine(StartResult());
     }
@@ -68,14 +66,14 @@ public class ResultManager : MonoBehaviour
     public void PushBackTitle()
     {
         //SE再生.
-        SoundManager.Inst.PlaySE("result_button");
+        SoundManager.Inst.PlaySE("push_button");
 
         SceneManager.LoadScene("TitleScene");
     }
     public void PushReplay()
     {
         //SE再生.
-        SoundManager.Inst.PlaySE("result_button");
+        SoundManager.Inst.PlaySE("push_button");
 
         SceneManager.LoadScene("GameScene");
     }
@@ -103,12 +101,9 @@ public class ResultManager : MonoBehaviour
 
         topRankingText1.text = "1位 : " + firstScore.ToString("D5");
         topRankingText2.text = "2位 : " + secondScore.ToString("D5");
-        topRankingText3.text = "3位 : " + thirdScore.ToString("D5");   
-        
+        topRankingText3.text = "3位 : " + thirdScore.ToString("D5");
+
         //有効にする.
-        objectsRanking.SetActive(true);
-        objectsResultCount.SetActive(true);
-        buttonBackTitle.SetActive(true);
-        buttonReplay.SetActive(true);
+        objectsResult.SetActive(true);
     }
 }

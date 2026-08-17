@@ -11,7 +11,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] SoundSetting soundSetting;     //サウンド設定.
 
     [Header("- Scene -")]
-    [SerializeField] string       nextSceneName;    //遷移先シーン名.
+    [SerializeField] string       titleSceneName;   //遷移先シーン名.
+    [SerializeField] string       resultSceneName;  //遷移先シーン名.
 
     [Header("- Script -")]
     [SerializeField] GaugeManager gaugeMng;
@@ -106,6 +107,15 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// タイトルへ戻る.
+    /// </summary>
+    public void PushBackTitle()
+    {
+        SoundManager.Inst.StopBGM(); //BGM停止.
+        SceneManager.LoadScene(titleSceneName);
+    }
+
+    /// <summary>
     /// ゲーム終了処理.
     /// </summary>
     void GameEnd()
@@ -113,6 +123,6 @@ public class GameManager : MonoBehaviour
         //現在のスコアをランキングに登録.
         scoreMng.RegisterRanking();
         //次のシーンへ.
-        SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene(resultSceneName);
     }
 }

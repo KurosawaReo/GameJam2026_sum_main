@@ -29,8 +29,8 @@ public class ScoreManager : MonoBehaviour
         //加算量.
         int add = scoreSetting.perfectScore * (gaugeMng.IsFever() ? scoreSetting.feverRate : 1);
 
-        AllSceneData.instance.YariraScore += add;
-        AllSceneData.instance.CountPerfect++;
+        AllSceneData.Inst.YariraScore += add;
+        AllSceneData.Inst.CountPerfect++;
     }
 
     /// <summary>
@@ -41,8 +41,8 @@ public class ScoreManager : MonoBehaviour
         //加算量.
         int add = scoreSetting.goodScore * (gaugeMng.IsFever() ? scoreSetting.feverRate : 1);
 
-        AllSceneData.instance.YariraScore += add;
-        AllSceneData.instance.CountGood++;
+        AllSceneData.Inst.YariraScore += add;
+        AllSceneData.Inst.CountGood++;
     }
 
     /// <summary>
@@ -53,8 +53,8 @@ public class ScoreManager : MonoBehaviour
         //加算量.
         int add = scoreSetting.badScore * (gaugeMng.IsFever() ? scoreSetting.feverRate : 1);
 
-        AllSceneData.instance.YariraScore += add;
-        AllSceneData.instance.CountBad++;
+        AllSceneData.Inst.YariraScore += add;
+        AllSceneData.Inst.CountBad++;
     }
 
     /// <summary>
@@ -62,7 +62,7 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     public void ResetScore()
     {
-        AllSceneData.instance.ResetData();
+        AllSceneData.Inst.ResetData();
     }
 
     /// <summary>
@@ -74,7 +74,7 @@ public class ScoreManager : MonoBehaviour
         RegisterTopScore();
 
         // 今回のスコアを取得.
-        int score = AllSceneData.instance.YariraScore;
+        int score = AllSceneData.Inst.YariraScore;
 
         // 1位に入る場合.
         if (score > firstScore)
@@ -95,10 +95,10 @@ public class ScoreManager : MonoBehaviour
             thirdScore = score;
         }
 
-        // ランキングを保存.
-        PlayerPrefs.SetInt("First", firstScore);
-        PlayerPrefs.SetInt("Second", secondScore);
-        PlayerPrefs.SetInt("Third", thirdScore);
+        // 現在の譜面用のランキングとして保存.
+        PlayerPrefs.SetInt(GetRankingKey(1), firstScore);
+        PlayerPrefs.SetInt(GetRankingKey(2), secondScore);
+        PlayerPrefs.SetInt(GetRankingKey(3), thirdScore);
         PlayerPrefs.Save();
     }
 
@@ -107,9 +107,18 @@ public class ScoreManager : MonoBehaviour
     /// </summary>
     private void RegisterTopScore()
     {
-        // 保存されていない場合は0.
-        firstScore = PlayerPrefs.GetInt("First", 0);
-        secondScore = PlayerPrefs.GetInt("Second", 0);
-        thirdScore = PlayerPrefs.GetInt("Third", 0);
+        //現在の譜面用のランキングを取得.
+        firstScore = PlayerPrefs.GetInt(GetRankingKey(1), 0);
+        secondScore = PlayerPrefs.GetInt(GetRankingKey(2), 0);
+        thirdScore = PlayerPrefs.GetInt(GetRankingKey(3), 0);
+    }
+
+    /// <summary>
+    /// ランキング保存用のキーを取得.
+    /// </summary>
+    private string GetRankingKey(int rank)
+    {
+        //譜面の種類をキーに含める.
+        return $"Ranking_{AllSceneData.Inst.ChartType}_{rank}";
     }
 }

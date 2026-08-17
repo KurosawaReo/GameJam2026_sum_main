@@ -1,4 +1,5 @@
 using UnityEngine;
+using Common;
 
 /// <summary>
 /// 全シーンで共有するデータ管理クラス.
@@ -6,7 +7,7 @@ using UnityEngine;
 public class AllSceneData : MonoBehaviour
 {
     // シングルトン用.
-    public static AllSceneData instance;
+    public static AllSceneData Inst;
 
     // 現在のスコア.
     public int YariraScore { get; set; }
@@ -16,17 +17,20 @@ public class AllSceneData : MonoBehaviour
     public int CountGood { get; set; }
     public int CountBad { get; set; }
 
+    // 使用する譜面.
+    public NoteChartType ChartType { get; set; }
+
     void Awake()
     {
         // 既に存在する場合は自身を削除.
-        if (instance != null)
+        if (Inst != null)
         {
             Destroy(gameObject);
             return;
         }
 
         // 自身をシングルトンとして登録.
-        instance = this;
+        Inst = this;
 
         // シーン遷移後も残す.
         DontDestroyOnLoad(gameObject);
