@@ -32,10 +32,15 @@ public class NoteManager : MonoBehaviour
     //ノーツ配列.
     List<GameObject> noteList = new();
 
-    int noteIndex; //次に生成するノーツの番号.
-
     //今回の入力ですでにノーツを判定したか.
     bool isJudgedThisInput = false;
+    // 最後に生成した円の拍.
+    float lastCircleBeat = -1f;
+    //次に生成するノーツの番号.
+    int noteIndex;
+
+    // ゲーム開始時の初期化が完了したか.
+    bool isInitialized = false;
 
     /// <summary>
     /// 1回の入力での判定開始.
@@ -66,36 +71,29 @@ public class NoteManager : MonoBehaviour
         return laneSetting.goalPos + vec * laneSetting.dist;
     }
 
-    /// <summary>
-    /// 現在のBGM時間を「拍」に変換.
-    /// </summary>
-    private float GetCurrentBeat()
-    {
-        //現在の曲の再生時間を取得.
-        float currentTime = SoundManager.Inst.GetTimeBGM();
-
-        //1拍にかかる時間を取得.
-        //GetTime(1) - GetTime(0) なので、SoundSetting側のBPMを直接参照しない.
-        float beatTime = soundSetting.GetTime(1.0f) - soundSetting.GetTime(0.0f);
-
-        //0除算対策.
-        if (beatTime <= 0.0f)
-        {
-            return 0.0f;
-        }
-
-        //現在時間を拍に変換.
-        return currentTime / beatTime;
-    }
-
     void Start()
     {
+        // ノーツ生成位置を初期化.
         noteIndex = 0;
+
+        // 初期化待ち.
+        isInitialized = false;
     }
 
     void Update()
     {
         if (!SoundManager.Inst) { return; }
+
+        // BGMが先頭に戻るまでノーツ処理を開始しない.
+        if (!isInitialized)
+        {
+            if (SoundManager.Inst.GetTimeBGM() <= 0.1f)
+            {
+                isInitialized = true;
+            }
+
+            return;
+        }
 
         //ノーツ生成処理.
         if (noteIndex < noteChartSetting.noteDatas.Length)
@@ -149,10 +147,16 @@ public class NoteManager : MonoBehaviour
             imgPlayer, data.laneNo, noteTime, laneSetting.moveTime, startPos, laneSetting.goalPos
         );
 
-        //タイミング補助用の円を生成.
-        var objCircle = Instantiate(prfbEffCircleFlame, inPrfbEffCircleFlame.transform);
-        //ノーツと同じ拍数を設定.
-        objCircle.GetComponent<EffectCircleFlame>().Init(data.beatCount);
+        // 同じ拍の円がまだ生成されていない場合だけ生成.
+        if (!Mathf.Approximately(lastCircleBeat, data.beatCount))
+        {
+            var objCircle = Instantiate(prfbEffCircleFlame, inPrfbEffCircleFlame.transform);
+
+            // ノーツと同じ拍数を設定.
+            objCircle.GetComponent<EffectCircleFlame>().Init(data.beatCount);
+            // 生成した円の拍を記録.
+            lastCircleBeat = data.beatCount;
+        }
     }
 
     /// <summary>
@@ -210,7 +214,7 @@ public class NoteManager : MonoBehaviour
 
         //拍のズレから判定結果を1回だけ決定.
         Result result = JudgeNote(baseDiffBeat);
-#if true
+#if false
         //判定時の詳細を表示.
         Debug.Log(
             $"Judge / Current:{currentBeat:F3} / Target:{baseBeat:F3} / Diff:{currentBeat - baseBeat:F3} / Result:{result}"

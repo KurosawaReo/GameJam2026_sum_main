@@ -10,7 +10,8 @@ public class NoteChartSetting : ScriptableObject
         "- ノーツの配置 -\n\n" + 
         "Beat Count : 1で1拍分。ここで設定した時間でちょうど重なるように調整してくれる。\n" +
         "Lane No : どのレーンで流すか。LaneSetting の Lane Angle の番号を使う。\n" +
-        "Parts : 体のどの部位を流すか。\n"
+        "Parts : 体のどの部位を流すか。\n\n" +
+        "必ず出現順(Beat Countが少ない順)で並べる。\n"
     )]
     public NoteData[] noteDatas; //ノーツデータ.   
 }
