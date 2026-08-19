@@ -32,7 +32,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: "\u30E4\u30EA\u30E9_0000_0 1"
+  m_Name: yarira
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:

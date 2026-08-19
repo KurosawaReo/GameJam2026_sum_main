@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using Common;
+using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// タイトルシーン管理クラス.
@@ -21,12 +23,41 @@ public class TitleManager : MonoBehaviour
     [Header("- scene -")]
     [SerializeField] string     nextSceneName;
 
+    [Header("- UI -")]
+    [SerializeField] Slider          timingSlider;
+    [SerializeField] TextMeshProUGUI textValue;
+
     bool isTransitioning = false; //シーン遷移中か.
+
+    void Start()
+    {
+        // 保存されている補正値を取得.
+        float value = PlayerPrefs.GetFloat("TimingOffset", 0.0f);
+        // Sliderに現在の設定値を反映.
+        timingSlider.value = value;
+        // 表示を更新.
+        UpdateValue(value);
+        // Slider変更時の処理を登録.
+        timingSlider.onValueChanged.AddListener(UpdateValue);
+    }
 
     void Update()
     {
         // 開発者コマンド.
         CheckDeveloperCommand();
+    }
+
+    /// <summary>
+    /// Sliderの値が変更された時.
+    /// </summary>
+    void UpdateValue(float value)
+    {
+        // 補正値を保存.
+        PlayerPrefs.SetFloat("TimingOffset", value);
+        PlayerPrefs.Save();
+
+        // 現在の補正値を表示.
+        textValue.text = $"{value:+0.00;-0.00;0.00} 秒";
     }
 
     /// <summary>

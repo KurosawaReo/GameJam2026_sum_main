@@ -116,7 +116,7 @@ public class NoteManager : MonoBehaviour
             float noteTime = soundSetting.GetTime(noteData.beatCount);
 
             //現在の曲の再生位置を取得.
-            float currentTime = SoundManager.Inst.GetTimeBGM();
+            float currentTime = soundSetting.GetGameTime();
 
             //到達時間から移動時間を引いて、ノーツの出現時間を計算.
             float spawnTime = noteTime - laneSetting.moveTime;
@@ -231,7 +231,7 @@ public class NoteManager : MonoBehaviour
 
         //判定用の現在拍を取得.
         float currentBeat = soundSetting.GetBeat(
-            SoundManager.Inst.GetTimeBGM()
+            soundSetting.GetGameTime()
         );
 
         //拍のズレから判定結果を1回だけ決定.
@@ -314,7 +314,7 @@ public class NoteManager : MonoBehaviour
         nearestDiffBeat = float.MaxValue;
 
         //現在のBGM時間を現在の拍に変換.
-        float currentTime = SoundManager.Inst.GetTimeBGM();
+        float currentTime = soundSetting.GetGameTime();
         float currentBeat = soundSetting.GetBeat(currentTime);
 
         //全ノーツを確認.
@@ -392,7 +392,7 @@ public class NoteManager : MonoBehaviour
         missNotes.Clear();
 
         //現在のBGM時間を現在の拍に変換.
-        float currentTime = SoundManager.Inst.GetTimeBGM();
+        float currentTime = soundSetting.GetGameTime();
         float currentBeat = soundSetting.GetBeat(currentTime);
 
         //全ノーツを確認.

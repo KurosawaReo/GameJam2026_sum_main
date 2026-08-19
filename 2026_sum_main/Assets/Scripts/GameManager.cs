@@ -63,16 +63,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        //拍数の表示.
-        if (debugBeatCount)
-        {
-            if (SoundManager.Inst)
-            {
-                float currentTime = SoundManager.Inst.GetTimeBGM();
-                float currentBeat = soundSetting.GetBeat(currentTime);
-                debugBeatCount.text = "拍数:" + currentBeat.ToString("F1");
-            }
-        }
+        //デバッグ表示.
+        UpdateDebugText();
 
         //BGM開始前なら開始処理.
         if (!isBgmStarted)
@@ -87,6 +79,26 @@ public class GameManager : MonoBehaviour
          
         //フィーバー演出.
         effRainbow.SetActive(gaugeMng.IsFever());
+    }
+
+    // デバッグ用：BGM時間と拍数を表示.
+    void UpdateDebugText()
+    {
+        if (!debugBeatCount || !SoundManager.Inst)
+        {
+            return;
+        }
+
+        // 現在のBGM再生時間を取得.
+        float currentTime = soundSetting.GetGameTime();
+
+        // BGM時間から現在の拍数を計算.
+        float currentBeat = soundSetting.GetBeat(currentTime);
+
+        // 画面に表示.
+        debugBeatCount.text =
+            $"BGM Time : {currentTime:F3}\n" +
+            $"Beat     : {currentBeat:F3}";
     }
 
     /// <summary>
