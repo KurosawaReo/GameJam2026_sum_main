@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
 using Common;
+using TMPro;
+using UnityEngine.UI;
 
 /// <summary>
 /// タイトルシーン管理クラス.
@@ -9,24 +11,53 @@ using Common;
 public class TitleManager : MonoBehaviour
 {
     [Header("- effect -")]
-    [SerializeField] GameObject objEffFadeIn;     //フェードイン演出.
+    [SerializeField] GameObject objEffFadeIn;   //フェードイン演出.
 
     [Header("- panel -")]
-    [SerializeField] GameObject panelChartSelect; //譜面選択パネル.
+    [SerializeField] GameObject panelSelect;    //譜面選択パネル.
 
     [Header("- object -")]
-    [SerializeField] GameObject imgBack;          //背景画像.
+    [SerializeField] GameObject imgBack;        //背景画像.
     [SerializeField] GameObject objStartButton;
 
     [Header("- scene -")]
     [SerializeField] string     nextSceneName;
 
+    [Header("- UI -")]
+    [SerializeField] Slider          timingSlider;
+    [SerializeField] TextMeshProUGUI textValue;
+
     bool isTransitioning = false; //シーン遷移中か.
+
+    void Start()
+    {
+        // 保存されている補正値を取得.
+        float value = PlayerPrefs.GetFloat("TimingOffset", 0.0f);
+        // Sliderに現在の設定値を反映.
+        timingSlider.value = value;
+        // 表示を更新.
+        UpdateValue(value);
+        // Slider変更時の処理を登録.
+        timingSlider.onValueChanged.AddListener(UpdateValue);
+    }
 
     void Update()
     {
         // 開発者コマンド.
         CheckDeveloperCommand();
+    }
+
+    /// <summary>
+    /// Sliderの値が変更された時.
+    /// </summary>
+    void UpdateValue(float value)
+    {
+        // 補正値を保存.
+        PlayerPrefs.SetFloat("TimingOffset", value);
+        PlayerPrefs.Save();
+
+        // 現在の補正値を表示.
+        textValue.text = $"{value:+0.00;-0.00;0.00} 秒";
     }
 
     /// <summary>
@@ -44,7 +75,7 @@ public class TitleManager : MonoBehaviour
         SoundManager.Inst.PlaySE("push_button");
 
         //譜面選択UIを表示.
-        panelChartSelect.SetActive(true);
+        panelSelect.SetActive(true);
         //スタートボタン非表示.
         objStartButton.SetActive(false);
     }
@@ -87,7 +118,7 @@ public class TitleManager : MonoBehaviour
         isTransitioning = true;
 
         //譜面選択UIを非表示.
-        panelChartSelect.SetActive(false);
+        panelSelect.SetActive(false);
 
         //SE再生.
         SoundManager.Inst.PlaySE("title_button");

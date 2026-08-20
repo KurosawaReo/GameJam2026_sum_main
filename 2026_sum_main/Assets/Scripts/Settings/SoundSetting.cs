@@ -44,4 +44,16 @@ public class SoundSetting : ScriptableObject
         // 0拍目の位置を基準に拍数へ変換.
         return (time - beatStartTime) / GetBeatSec();
     }
+
+    /// <summary>
+    /// タイミング補正済みのゲーム時間を取得.
+    /// </summary>
+    public float GetGameTime()
+    {
+        // タイトルで設定した補正値を取得.
+        float timingOffset = PlayerPrefs.GetFloat("TimingOffset", 0.0f);
+
+        // 補正を反映したゲーム時間を返す.
+        return SoundManager.Inst.GetTimeBGM() - timingOffset;
+    }
 }

@@ -5,6 +5,9 @@ using UnityEngine;
 /// </summary>
 public class Note : MonoBehaviour
 {
+    [Header("- setting -")]
+    [SerializeField] SoundSetting soundSetting;
+
     int     laneNo;         // どのレーンにいるか.
     float   noteTime;       // 判定位置に到達するBGM時間.
     float   moveTime;       // 目標位置までの移動時間.
@@ -69,7 +72,7 @@ public class Note : MonoBehaviour
     private void Move()
     {
         // 現在のBGM時間を取得.
-        float currentTime = SoundManager.Inst.GetTimeBGM();
+        float currentTime = soundSetting.GetGameTime();
 
         // 出現してからの経過時間をBGM時間から計算.
         float elapsed = currentTime - spawnTime;

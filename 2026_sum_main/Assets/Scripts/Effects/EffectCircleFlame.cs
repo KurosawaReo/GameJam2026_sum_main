@@ -50,7 +50,7 @@ public class EffectCircleFlame : MonoBehaviour
         }
 
         // 現在のBGM時間を取得して視覚補正を適用.
-        float currentTime = SoundManager.Inst.GetTimeBGM() + timeOffset;
+        float currentTime = soundSetting.GetGameTime() + timeOffset;
         float currentBeat = soundSetting.GetBeat(currentTime);
 
         // 目標拍を過ぎたら削除.

@@ -70,6 +70,15 @@ public class Player : MonoBehaviour
     /// </summary>
     private int GetImageIndex(float time)
     {
+        // 画像が設定されていなければ終了.
+        if (playerSetting.image == null || playerSetting.image.Length == 0)
+        {
+            return 0;
+        }
+
+        // 補正によって時間がマイナスになった場合は0にする.
+        time = Mathf.Max(time, 0.0f);
+
         // 現在何拍目かを計算.
         float beat = time / soundSetting.GetBeatSec();
 
@@ -99,7 +108,7 @@ public class Player : MonoBehaviour
         }
 
         //BGMの再生時間から現在の画像番号を計算.
-        float time  = SoundManager.Inst.GetTimeBGM();
+        float time  = soundSetting.GetGameTime();
         int   index = GetImageIndex(time);
 
         //画像枚数を超えたらループ.
