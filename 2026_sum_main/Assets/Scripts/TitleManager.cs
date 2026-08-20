@@ -11,13 +11,13 @@ using UnityEngine.UI;
 public class TitleManager : MonoBehaviour
 {
     [Header("- effect -")]
-    [SerializeField] GameObject objEffFadeIn;     //フェードイン演出.
+    [SerializeField] GameObject objEffFadeIn;   //フェードイン演出.
 
     [Header("- panel -")]
-    [SerializeField] GameObject panelChartSelect; //譜面選択パネル.
+    [SerializeField] GameObject panelSelect;    //譜面選択パネル.
 
     [Header("- object -")]
-    [SerializeField] GameObject imgBack;          //背景画像.
+    [SerializeField] GameObject imgBack;        //背景画像.
     [SerializeField] GameObject objStartButton;
 
     [Header("- scene -")]
@@ -75,7 +75,7 @@ public class TitleManager : MonoBehaviour
         SoundManager.Inst.PlaySE("push_button");
 
         //譜面選択UIを表示.
-        panelChartSelect.SetActive(true);
+        panelSelect.SetActive(true);
         //スタートボタン非表示.
         objStartButton.SetActive(false);
     }
@@ -118,7 +118,7 @@ public class TitleManager : MonoBehaviour
         isTransitioning = true;
 
         //譜面選択UIを非表示.
-        panelChartSelect.SetActive(false);
+        panelSelect.SetActive(false);
 
         //SE再生.
         SoundManager.Inst.PlaySE("title_button");
